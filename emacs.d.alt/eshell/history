@@ -1,0 +1,32 @@
+(+ 2 5)
+echo "hi"
+insert-char
+(insert-char ?j)
+(mapcar insert-char "hi")
+(mapcar 'insert-char "hi")
+'(3 5)'
+(3 5)
+[3 6]
+(concat "hi" "15")
+echo (concat "hi" "15")
+()
+(())
+nil
+(nil)
++ 3 2
+fun
+(defun hi ()(println "hi"))
+hi()
+hi
+(hi)
+(write "hi"))
+write
+(write "hi")
+message
+(message "hi")
+(defun hi () (message "Hi"))
+(hi)
+(defun hi () "hi")
+hi
+(hi)
+echo (hi)
