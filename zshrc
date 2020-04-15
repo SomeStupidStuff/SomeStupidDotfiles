@@ -102,5 +102,5 @@ alias s='apt-cache search'
 alias d='cd ~/Downloads/'
 alias p="python3"
 alias co='cd ~/Downloads/Coding/'
-export EDITOR="/usr/bin/emacs -nw"
-export VISUAL="/usr/bin/emacs -nw"
+export EDITOR="/usr/bin/vim"
+export VISUAL="/usr/bin/vim"
