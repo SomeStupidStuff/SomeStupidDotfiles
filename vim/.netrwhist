@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/home/rushil/.config'
 let g:netrw_dirhist_2='/home/rushil/Downloads/Coding/python/haskell'
 let g:netrw_dirhist_3='/home/rushil/.config/nvim/colors'
+let g:netrw_dirhist_4='/home/rushil/.gvim'
+let g:netrw_dirhist_5='/home/rushil/.vim'
