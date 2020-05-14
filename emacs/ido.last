@@ -1,0 +1,121 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/rushil/Schedule/" . "May/")
+ ("/home/rushil/Projects/" . "curses/")
+ ("/" . "home/")
+ ("/home/rushil/Downloads/Coding/c++/" . "parser/")
+ ("/home/rushil/Downloads/Coding/c/" . "parserlib/")
+ ("/home/rushil/.emacs.d/elpa/" . "org-bullets-20200317.1740/")
+ ("/home/rushil/.emacs.d/" . "elpa/")
+ ("/home/rushil/Downloads/Coding/python/" . "polynomial/")
+ ("/home/" . "rushil/")
+ ("/home/rushil/Downloads/Coding/Haskell/testing/misc/" . "parser/")
+ ("/home/rushil/Downloads/Coding/Haskell/testing/" . "misc/")
+ ("/home/rushil/Downloads/Coding/Haskell/" . "testing/")
+ ("/home/rushil/Downloads/Coding/" . "python/")
+ ("/home/rushil/Downloads/" . "Coding/")
+ ("/home/rushil/" . "Projects/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/rushil/Projects/curses/"
+ "/home/rushil/Schedule/May/"
+ "/home/rushil/Projects/json_to_html/"
+ "/home/rushil/.emacs.d/"
+ "/home/rushil/Schedule/"
+ "/home/rushil/Downloads/Coding/c++/parser/"
+ "/home/rushil/School/"
+ "/home/rushil/Downloads/Coding/c/parserlib/"
+ "/home/rushil/Downloads/Coding/python/polynomial/"
+ "/home/rushil/Downloads/Coding/python/oneliners/"
+ "/home/rushil/Downloads/Coding/c/parser/"
+ "/home/rushil/"
+ "/home/rushil/Downloads/Coding/python/testing/"
+ "/home/rushil/.emacs.d/elpa/org-bullets-20200317.1740/"
+ "/home/rushil/Downloads/Coding/python/Language/"
+ "/home/rushil/Downloads/Coding/Haskell/testing/misc/"
+ "/home/rushil/Downloads/Coding/Haskell/testing/misc/parser/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "key_commands.py"
+ "ced.py"
+ "Wk2.org"
+ "test.txt"
+ "main.cpp"
+ "makefile"
+ "tag.cpp"
+ "tag.hpp"
+ "parser.hpp"
+ "init.el"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/rushil/Projects/curses/" (24252 17360 564674 818000) "./" "ced.py" "../" "__pycache__/" "test.txt" "key_commands.py")
+
+ ("/home/rushil/" (24253 20175 565194 14000) "School/" "swap_emacs.sh" ".emacs.d/" ".gtkrc-2.0" "./" "Public/" ".zcompdump-linux-5.4.2" "Swap_Folder/" "sketchbook/" ".ICEauthority" ".lein/" ".bashrc" ".icons/" ".cabal/" ".gvimrc" ".zsh_history" ".dir_colors/" ".cinnamon/" "Documents/" "Backups/" ".java/" ".bash_logout" ".spacemacs" ".sudo_as_admin_successful" "Music/" ".local/" "Templates/" ".zcompdump" ".emacs.d.bak/" ".lesshst" ".gnome/" ".vscode/" ".vim_mru_files" "todo" "Projects/" "Schedule/" "Desktop/" ".ghc/" ".AndroidStudio3.5/" ".viminfo" ".gnupg/" ".fonts.conf" ".epiphany" ".zshrc" ".android/" ".xpaint/" ".bash_history" "../" ".mono/" ".gradle/" ".python_history" ".surf/" ".xinitrc" ".themes/" "SomeStupidDotfiles/" ".wget-hsts" ".mozilla/" ".zprofile" "Pictures/" ".profile" ".pki/" ".m2/" ".vimrc" ".config/" "snap/" ".clojure_history" ".shell.pre-oh-my-zsh" "Downloads/" ".processing/" ".ssh/" ".spacemacs.env" ".pylint.d/" ".atom/" ".gitconfig" ".vim/" "rtl8821ce/" ".oh-my-zsh/" ".gtkrc.bak" ".fonts/" ".gconf/" ".cache/" "Videos/")
+
+ ("/home/rushil/Schedule/May/" (24253 19865 920015 651000) "./" "Wk2.org" "../" "Wk1.org")
+
+ ("/home/rushil/.emacs.d/" (24252 15473 576620 908000) "eshell/" "./" "transient/" "init.el" "auto-save-list/" "games/" "../" "elpa/" "ido.last" ".cache/")
+
+ ("/home/rushil/Projects/json_to_html/" (24252 15454 252620 355000) "parser.o" "tag.cpp" "./" "main.cpp" "main.o" ".gitignore" "main" ".git/" "parser.hpp" "../" "tag.o" "makefile" "tag.hpp" "parser.cpp")
+
+ ("/home/rushil/Schedule/" (24249 17757 357266 36000) "./" "March/" "May/" "../" "template.org" "April/")
+
+ ("/home/rushil/Projects/" (24245 24697 495701 900000) "./" "cparser/" "projc/" "lisplike/" "spacetotab/" "../" "curses/" "betterbf/" "low_level/" "dynamic_str/" "json_to_html/" "parser/" "cpu/")
+
+ ("/home/rushil/Downloads/Coding/c++/" (24227 3971 762375 83000) "test/" "./" "../" "Language/" "haskell/" "hrank/" "window/" "parser/")
+
+ ("/home/rushil/Downloads/Coding/python/testing/" (24215 7032 277689 403000) "./" "p.py" "../" "parsertest.py" "randomword.py")
+
+ ("/home/rushil/Downloads/Coding/c++/parser/" (24201 8922 939219 845000) "./" "main.cpp" "parser.hpp" "../" "a.out")
+
+ ("/home/rushil/Downloads/Coding/python/oneliners/" (24201 7440 268458 744000) "./" "tictactoe.py" "../")
+
+ ("/home/rushil/Downloads/Coding/python/polynomial/" (24222 348 747983 25000) "./" "../" "term.py" "__pycache__/")
+
+ ("/home/rushil/Downloads/Coding/c/parserlib/" (24245 24614 647866 462000) "./" ".vscode/" "exm.c" "parser.h" "str.h" "main" "../" "makefile" "a.out")
+
+ ("/home/rushil/School/" (24244 30343 571648 32000) "script.txt" "./" "prompt.txt" "../" "poem.txt" "persuasive.txt" "thing.html")
+
+ ("/home/rushil/Downloads/Coding/c/" (24245 23377 739070 927000) "temp/" "./" "Brainf/" "as/" "parserlib/" "../" "BaseConv/" "fun/")
+
+ ("/home/rushil/Downloads/Coding/" (24241 49337 250124 638000) "./" ".vscode/" "../" "vim/" "js/" "Processing/" "eda/" "Language/" "assembly/" "Github/" "Haskell/" "c/" "c++/" "java/" "python/")
+
+ ("/home/rushil/Downloads/" (24227 916 576143 839000) "idk/" "./" "Coding/" "Modules/" "Apps/" "../")
+
+ ("/home/rushil/Downloads/Coding/python/" (24203 13630 648315 316000) "tweak/" "./" "oneliners/" "polynomial/" "substring/" "../" "testing/" "Language/" "haskell/")
+
+ ("/home/rushil/Downloads/Coding/c++/Language/" (24070 7234 959373 133000) "tweak" "./" "Headers/" "Backups/" "tweak.cpp" "../" "makefile")
+
+ ("/home/rushil/Downloads/Coding/c/parser/" (24198 39734 855624 620000) "./" "main.c" "vector.h" "../" "a.out")
+
+ ("/home/rushil/.emacs.d/elpa/org-bullets-20200317.1740/" (24193 57177 828388 19000) "./" "org-bullets.el" "org-bullets-autoloads.el" "org-bullets.elc" "../" "org-bullets-pkg.el")
+
+ ("/home/rushil/.emacs.d/elpa/org-9.3.6/" (24189 22700 548460 334000) "org-habit.elc" "ob-sql.elc" "COPYING" "org-crypt.elc" "ob-calc.elc" "org-table.el" "ob-perl.el" "org-pcomplete.elc" "ob-ebnf.elc" "ob-latex.elc" "org-attach.el" "org-timer.el" "ob-lob.elc" "ol-bibtex.elc" "ox-beamer.el" "ob-io.elc" "ob-forth.elc" "ob-forth.el" "ob-J.elc" "ob-ledger.elc" "ox-ascii.el" "ob-tangle.elc" "ob-shell.elc" "ob-lua.elc" "ob-sass.elc" "ox-icalendar.elc" "ob-table.el" "org-feed.elc" "ob-ditaa.el" "ox.elc" "ob-abc.elc" "ob-ocaml.el" "ob-latex.el" "ob-python.elc" "ox-texinfo.elc" "ob-maxima.el" "org-faces.elc" "ob-C.el" "ob-eval.elc" "ol-eww.elc" "org-crypt.el" "org-ctags.el" "org-entities.elc" "org-list.el" "org.el" "ol-irc.elc" "ob-octave.el" "org-keys.el" "ob-abc.el" "org-macro.elc" "org-feed.el" "ol-bbdb.el" "org-protocol.elc" "ob-hledger.elc" "ob-exp.el" "org-entities.el" "org-colview.elc" "org-src.el" "org-lint.el" "ol-mhe.el" "ox-html.elc" "ob-picolisp.el" "ob-asymptote.elc" "ob-shen.elc" "ob-C.elc" "org-clock.el" "ob-org.elc" "ob-io.el" "org-agenda.elc" "org-colview.el" "org-pkg.el" "ob-screen.el" "org-duration.el" "org-macs.el" "ol-gnus.el" "ob-sed.elc" "ob-mscgen.elc" "ob-haskell.el" "org-version.el" "ol-eshell.elc" "org-archive.el" "ol-gnus.elc" "ob-coq.elc" "org-footnote.el" "ob-ref.el" "org-mobile.el" "ol-bbdb.elc" "ob-groovy.el" "ol-w3m.el" "ob-css.elc" "ol-info.elc" "ob-ebnf.el" "org-mouse.elc" "org-num.el" "ox-odt.elc" "ob-gnuplot.elc" "org-compat.elc" "ob-dot.elc" "org-faces.el" "org-goto.elc" "org-num.elc" "ob-makefile.el" "org-plot.elc" "org-attach.elc" "ob-fortran.elc" "ox-icalendar.el" "ox-publish.elc" "ob-scheme.elc" "org-agenda.el" "ob-vala.elc" "ol.el" "org-capture.elc" "ob-hledger.el" "ox.el" "ob-maxima.elc" "ob-groovy.elc" "ol-mhe.elc" "ob-mscgen.el" "ob-ocaml.elc" "ob-lilypond.el" "ob-sql.el" "ox-html.el" "ob-lisp.el" "ob-java.elc" "org-lint.elc" "ox-beamer.elc" "ob-processing.el" "ob-shell.el" "ob-clojure.el" "ob-exp.elc" "ob-picolisp.elc" "org.elc" "org-capture.el" "ob-calc.el" "ob-octave.elc" "ob-eval.el" "org-tempo.elc" "ox-org.el" "ob-sass.el" "ob-emacs-lisp.el" "org-attach-git.el" "ob-ledger.el" "ob-sed.el" "ob-perl.elc" "org-clock.elc" "ob-emacs-lisp.elc" "ob-ref.elc" "ob-coq.el" "ob-comint.el" "ol-bibtex.el" "ob-gnuplot.el" "orgcard.pdf" "ob-R.el" "ob-J.el" "ob-core.el" "ob-awk.el" "org-id.el" "org-timer.elc" "org-id.elc" "ob-asymptote.el" "org-duration.elc" "ox-md.elc" "ol-w3m.elc" "org-tempo.el" "ox-md.el" "org-macro.el" "ox-texinfo.el" "ol-eww.el" "etc/" "ob-org.el" "ob-processing.elc" "ob-makefile.elc" "ol-eshell.el" "ob-css.el" "org-macs.elc" "ob-scheme.el" "ob-R.elc" "ob-clojure.elc" "ob-shen.el" "ob-sqlite.el" "ob-js.elc" "ol-info.el" "org-install.el" "org-mobile.elc" "ob-eshell.el" "org-goto.el" "ob-python.el" "ob-plantuml.elc" "ox-latex.el" "org" "org-indent.elc" "org-plot.el" "ob-stan.elc" "ox-latex.elc" "ol-rmail.el" "ob-fortran.el" "ox-man.el" "org-ctags.elc" "ob-awk.elc" "ob-lob.el" "ox-ascii.elc" "ob-core.elc" "ob.el" "ob-dot.el" "ox-publish.el" "ob-sqlite.elc" "org-attach-git.elc" "ob-plantuml.el" "ox-org.elc" "org-inlinetask.elc" "org-mouse.el" "ol-docview.elc" "org-element.el" "ob-ditaa.elc" "dir" "org-footnote.elc" "org-datetree.elc" "ox-man.elc" "org-habit.el" "ol.elc" "ob-ruby.elc" "ob-table.elc" "ob-eshell.elc" "org-indent.el" "org-autoloads.el" "ob-matlab.elc" "org-list.elc" "ol-rmail.elc" "ob-lua.el" "ob-stan.el" "org-datetree.el" "org-compat.el" "org-element.elc" "org-table.elc" "org-loaddefs.el" "ox-odt.el" "ob-matlab.el" "ob-lilypond.elc" "ob-js.el" "org-keys.elc" "ol-irc.el" "org-inlinetask.el" "ob-lisp.elc" "org-pcomplete.el" "README_ELPA" "ob.elc" "ob-ruby.el" "ob-java.el" "org-protocol.el" "ob-comint.elc" "ob-tangle.el" "ob-vala.el" "ol-docview.el" "ob-haskell.elc" "org-src.elc" "org-archive.elc" "ob-screen.elc" "../" "./")
+
+ ("/home/rushil/.emacs.d/elpa/" (24189 22700 540461 114000) "haskell-mode-20200315.140/" "./" "archives/" "gnupg/" "../" "org-bullets-20200317.1740/" "gruber-darker-theme-0.6/" "org-9.3.6/" "org-9.3.6.signed")
+
+ ("/home/rushil/Downloads/Coding/Haskell/testing/misc/" (24190 33018 721089 157000) "./" "../" "monoid.hs" "parser/")
+
+ ("/home/rushil/Downloads/Coding/python/Language/" (24190 31886 366523 529000) "./" "main.py" "scope.py" "variable.py" "../" "stack.py" "token.py" "__pycache__/")
+
+ ("/home/" (23983 29900 660006 15000) "./" "rushil/" "../")
+
+ ("/home/rushil/Downloads/Coding/Haskell/testing/misc/parser/" (24189 22568 278979 1000) "./" "../" "parser.hs")
+
+ ("/home/rushil/Downloads/Coding/Haskell/testing/" (24185 9492 274063 499000) "./" "../" "misc/" "timing/" "io/")
+
+ ("/home/rushil/Downloads/Coding/Haskell/" (24174 57968 132691 469000) "./" "hcrank/" "../" "testing/")
+
+ ("/home/rushil/Documents/" (24166 54171 223138 581000) "./" "../" "Untitled document.pdf")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t
