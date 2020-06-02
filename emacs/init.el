@@ -61,7 +61,7 @@
 
 (evil-mode 1)
 (key-chord-mode 1)
-(setq key-chord-two-keys-delay 0.25)
+(setq key-chord-two-keys-delay 0.06)
 (key-chord-define evil-insert-state-map "fd" 'evil-normal-state)
 
 (require 'package)
