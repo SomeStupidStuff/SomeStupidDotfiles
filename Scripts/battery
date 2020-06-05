@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+ 
+upower -i /org/freedesktop/UPower/devices/battery_BAT0 | sed -n -e "s/percentage:          \([0-9]\+\)./\1/p" | sed -n -e "s/ *\(.*\)/\1%/p"
