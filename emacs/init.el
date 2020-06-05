@@ -13,6 +13,8 @@
 (setq default-tab-width 4)
 (setq indent-tabs-mode t)
 
+(setq shell-command-switch "-ic")
+
 (blink-cursor-mode 0)
 
 (require 'org-bullets)
@@ -59,9 +61,14 @@
 	  (lambda ()
 	    (setq compile-command "make main")))
 
+(add-hook 'text-mode-hook
+		  (lambda ()
+			(visual-line-mode)
+			(evil-better-visual-line-on)))
+
 (evil-mode 1)
 (key-chord-mode 1)
-(setq key-chord-two-keys-delay 0.06)
+(setq key-chord-two-keys-delay 0.08)
 (key-chord-define evil-insert-state-map "fd" 'evil-normal-state)
 
 (require 'package)
@@ -72,7 +79,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("0bff60fb779498e69ea705825a2ca1a5497a4fccef93bf3275705c2d27528f2f" "89336ca71dae5068c165d932418a368a394848c3b8881b2f96807405d8c6b5b6" default)))
+    ("36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" "0bff60fb779498e69ea705825a2ca1a5497a4fccef93bf3275705c2d27528f2f" "89336ca71dae5068c165d932418a368a394848c3b8881b2f96807405d8c6b5b6" default)))
  '(frame-brackground-mode (quote dark))
  '(package-archives
    (quote
@@ -80,7 +87,7 @@
      ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (ace-flyspell magit key-chord darkroom evil org-bullets org haskell-mode gruber-darker-theme))))
+    (evil-better-visual-line ample-theme ace-flyspell magit key-chord darkroom evil org-bullets org haskell-mode gruber-darker-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
