@@ -1,3 +1,24 @@
+# Font configuration (changes require restart)
+font:
+  # The normal (roman) font face to use.
+  normal:
+    family: Ubuntu Mono
+    # Style can be specified to pick a specific face.
+    style: Regular
+
+  # The bold font face
+  bold:
+    family: Ubuntu Mono
+    # Style can be specified to pick a specific face.
+    # style: Bold
+
+  # The italic font face
+  italic:
+    family: Ubuntu Mono
+    # Style can be specified to pick a specific face.
+    # style: Italic
+
+  size: 14.0
 
 # Colors (Gruvbox dark)
 colors:
@@ -17,7 +38,7 @@ colors:
     blue:    '#00B2EE'
     magenta: '#9400D3'
     cyan:    '#00CED1'
-    white:   '#a89984'
+    white:   '#FFFFFF'
 
   # Bright colors
   bright:
@@ -28,4 +49,6 @@ colors:
     blue:    '#00B2EE'
     magenta: '#9400D3'
     cyan:    '#00CED1'
-    white:   '#a89984'
+    white:   '#FFFFFF'
+
+tabspaces: 4
