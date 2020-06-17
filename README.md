@@ -1,17 +1,16 @@
 # SomeStupidDotfiles
 Dotfiles used for backup
 
-Emacs.d is just spacemacs with a few tweaks specifically for me
-Emacs.d.alt is an alternative if spacemacs gets too noisy
+Emacs.d is my main editor config for emacs
+Emacs.d.alt is just spacemacs with a few tweaks specifically for me
 
-Vimrc is just the basic version of [this repo](https://github.com/amix/vimrc)
-Nvim init.el is pretty basic and self explanatory
-Vim themes are a tweaked [simple-dark](https://github.com/zefei/simple-dark) and [desert](https://github.com/fugalh/desert.vim)
+Vimrc is kind of dirty but is readable
+Nvim looks beautiful but you may need to reinstall vim-plug to port to other systems
 
 Terminal is [alacritty](https://github.com/alacritty/alacritty)
-Alacritty config is just the gruvbox theme but slightly tweaked
+Alacritty config is based on gruvbox but is tweaked for more vibrant colors
 
 i3 window manager
-The config is almost untouched except the removal of i3bar and the window titles
+Config has some keybindings for applications (ex. rofi) and uses yabar as an i3bar
 
 Zshrc just has some quality of life aliases
