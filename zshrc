@@ -99,8 +99,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias c='clear'
 alias s='apt-cache search'
-alias d='cd ~/Downloads/'
 alias p="python3"
-alias co='cd ~/Downloads/Coding/'
-export EDITOR="/usr/bin/vim"
-export VISUAL="/usr/bin/vim"
+alias vim='nvim'
+alias fcd='. fast-cd'
+export EDITOR="/usr/bin/nvim"
+export VISUAL="/usr/bin/nvim"
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export PATH=$PATH:$HOME/Scripts/
