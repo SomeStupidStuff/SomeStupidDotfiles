@@ -12,6 +12,8 @@ Plug 'preservim/nerdtree'
 Plug 'davidhalter/jedi-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-python/python-syntax'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'pangloss/vim-javascript'
 
 call plug#end()
 
@@ -41,6 +43,9 @@ let g:AutoPairsShortcutToggle=''
 let g:python_highlight_all = 1
 let g:python_highlight_space_errors	= 0
 autocmd Filetype python setlocal tabstop=4 noexpandtab
+
+" c/c++ syntax
+let g:cpp_class_decl_highlight = 1
 
 " syntax
 if has("syntax")
