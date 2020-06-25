@@ -26,7 +26,7 @@ colors:
     # hard contrast: background = '#1d2021'
     background: '#002a2d'
     # soft contrast: background = '#32302f'
-    foreground: '#c9c9c9'
+    foreground: '#FFFFFF'
 
   # Normal colors
   normal:
@@ -35,10 +35,10 @@ colors:
     orange:  '#FF4200'
     green:   '#26af1a'
     yellow:  '#dada00'
-    blue:    '#c35aff'
+    blue:    '#00b2ee'
     magenta: '#ff00e9'
     cyan:    '#008c8f'
-    white:   '#c9c9c9'
+    white:   '#FFFFFF'
 
 # set amount of spaces a tab uses
 tabspaces: 4
