@@ -18,37 +18,27 @@ font:
     # Style can be specified to pick a specific face.
     # style: Italic
 
-  size: 14.0
+  size: 10.0
 
-# Colors (Gruvbox dark)
 colors:
   # Default colors
   primary:
     # hard contrast: background = '#1d2021'
-    background: '#282828'
+    background: '#002a2d'
     # soft contrast: background = '#32302f'
-    foreground: '#FFFFFF'
+    foreground: '#c9c9c9'
 
   # Normal colors
   normal:
-    black:   '#282828'
-    red:     '#cc241d'
-    green:   '#98971a'
-    yellow:  '#d79921'
-    blue:    '#00B2EE'
-    magenta: '#9400D3'
-    cyan:    '#00CED1'
-    white:   '#FFFFFF'
+    black:   '#212c28'
+    red:     '#d90000'
+    orange:  '#FF4200'
+    green:   '#26af1a'
+    yellow:  '#dada00'
+    blue:    '#c35aff'
+    magenta: '#ff00e9'
+    cyan:    '#008c8f'
+    white:   '#c9c9c9'
 
-  # Bright colors
-  bright:
-    black:   '#282828'
-    red:     '#cc241d'
-    green:   '#98971a'
-    yellow:  '#d79921'
-    blue:    '#00B2EE'
-    magenta: '#9400D3'
-    cyan:    '#00CED1'
-    white:   '#FFFFFF'
-
+# set amount of spaces a tab uses
 tabspaces: 4
