@@ -1,6 +1,12 @@
-" escape insert/visual mode by typing fd
-imap fd <Esc>
-vmap fd <Esc>
+" Setup
+if has("syntax")
+	syntax on
+endif
+
+filetype indent plugin on
+"
+" define leader as space
+let mapleader = ' '
 
 " plugged extension
 call plug#begin('~/.vim/plugged')
@@ -8,12 +14,19 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'preservim/nerdtree'
-Plug 'davidhalter/jedi-vim'
+
 Plug 'jiangmiao/auto-pairs'
+
+Plug 'easymotion/vim-easymotion'
+
+Plug 'davidhalter/jedi-vim'
 Plug 'vim-python/python-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'pangloss/vim-javascript'
+
+Plug 'preservim/nerdtree'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -27,7 +40,7 @@ let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 
 " nerdtree
-map <C-f> :NERDTreeToggle<Enter>
+map <C-f> :NERDTreeToggle<CR>
 
 " jedi-vim
 autocmd FileType python setlocal completeopt-=preview
@@ -38,7 +51,6 @@ let g:jedi#popup_on_dot = 1
 let g:AutoPairsShortcutJump='<M-j>'
 let g:AutoPairsShortcutToggle=''
 
-
 " python syntax
 let g:python_highlight_all = 1
 let g:python_highlight_space_errors	= 0
@@ -47,26 +59,28 @@ autocmd Filetype python setlocal tabstop=4 noexpandtab
 " c/c++ syntax
 let g:cpp_class_decl_highlight = 1
 
-" syntax
-if has("syntax")
-	syntax on
-endif
+" fzf config
+nnoremap <Leader>fe :FZF<CR>
+nnoremap <Leader>fr :FZF ~<CR>
+
+let g:fzf_preview_window = ''
+let g:fzf_layout = { 'left': '~100%' }
+
+augroup fzfstatus
+	autocmd!
+	autocmd FileType fzf set laststatus=0 noshowmode noruler
+	\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup end
 
 " Highlight line under cursor
 set cursorline
 
-" define leader as ','
-let mapleader = ','
+" changes scroll
+set scrolloff=5
 
 " relative line numbers
 set relativenumber
 set number
-
-" make split navigation easier
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
 
 " tab config
 set autoindent
@@ -79,31 +93,71 @@ set shiftwidth=4
 " changes style of searches
 set ignorecase
 set smartcase
+set nohlsearch
 
-" makes width of line numbers smaller
+" changles style of splits
+set splitright
+
+" makes width of line numbers 4
 set nuw=4
-
-" creates a shortcut for :noh
-nmap <C-]> :noh<Enter>
-
-" maps tab to toggle folds
-nmap <Tab> za
-
-" buffer movement
-nmap <M-h> :bp<Enter>
-nmap <M-l> :bn<Enter>
-nmap <M-k> :bd<Enter>
-
-" tab management
-nmap <M-t> :tabnew<Enter>
-nmap <M-d> :tabclose<Enter>
-nmap <M-n> :tabnext<Enter>
-nmap <M-p> :tabprev<Enter>
 
 " set background
 set background=dark
 
-" Popup menu highlighting
+" bind H and L to begin and end (ignoring whitespace)
+nnoremap H ^
+nnoremap L g_
+
+" escape insert/visual mode by typing fd
+inoremap fd <Esc>
+vnoremap fd <Esc>
+
+" maps tab to toggle folds
+nnoremap <Tab> za
+
+" mapping for focusing current buffer
+noremap <M-Space> :on<CR>
+
+" buffer movement
+nnoremap <M-h> :bp<CR>
+nnoremap <M-l> :bn<CR>
+nnoremap <M-k> :bd<CR>
+
+" make split navigation easier
+noremap <Leader>j <C-W>j
+noremap <Leader>k <C-W>k
+noremap <Leader>h <C-W>h
+noremap <Leader>l <C-W>l
+
+" tab management
+nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>td :tabclose<CR>
+nnoremap <Leader>tf :tabnext<CR>
+nnoremap <Leader>tb :tabprev<CR>
+
+" misc. Leader bindings
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>x :wqa<CR>
+nnoremap <Leader>q :qa!<CR>
+
+" functions
+function! ToggleText()
+	if mapcheck("j", "gj") != "" && mapcheck("j", "gk") != ""
+		set nolinebreak
+		set nowrap
+		unmap j
+		unmap k
+	else
+		set linebreak
+		set wrap
+		nnoremap j gj
+		nnoremap k gk
+	endif
+endfunction
+
+command! ToggleText call ToggleText()
+
+" popup menu highlighting
 hi Pmenu ctermbg=black guibg=black
 hi PmenuSbar ctermbg=grey guibg=grey
 hi PmenuThumb ctermbg=black guibg=black
