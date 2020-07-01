@@ -97,13 +97,49 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Functions
+function edit-with-fzf() {
+	a=$(find ~/* ! -name '*.out' ! -name '*.o' ! -name '*.pyc' ! -name '*.elc' ! -path "*/.*/*" | fzf)
+	if [[ -n "$a" ]] then
+		nvim "$a"
+	fi
+}
+
+function go-with-fzf() {
+	a=$(find ~/* -type d ! -path "*/.*/*" ! -path "*/node_modules/*" ! -path "*/__pycache__/*" ! -path "*/SomeStupidDotfiles/*" ! -path "*/Modules/*" | fzf)
+	if [[ -n "$a" ]] then
+		cd "$a"
+		echo
+		tree -L 1
+	fi
+	zle accept-line
+}
+
+zle -N edit-with-fzf
+zle -N go-with-fzf 
+
+# Aliases
 alias c='clear'
 alias s='apt-cache search'
-alias p="python3"
+alias p='python3'
 alias vim='nvim'
 alias fcd='. fast-cd'
-export EDITOR="/usr/bin/nvim"
-export VISUAL="/usr/bin/nvim"
+alias ewf='edit-with-fzf'
+
+# Alternative is <M-c>
+alias gwf='go-with-fzf'
+
+# Exports
+export FZF_DEFAULT_OPTS="-m --ansi --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -L 1 -C {}) 2> /dev/null | head -200'"
+export EDITOR='/usr/bin/nvim'
+export VISUAL='/usr/bin/nvim'
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PATH=$PATH:$HOME/Scripts/
+
+# Bindings
+bindkey -e "^[e" "edit-with-fzf"
+bindkey -e "^[g" "go-with-fzf"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
