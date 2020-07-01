@@ -19,7 +19,7 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'easymotion/vim-easymotion'
 
-Plug 'davidhalter/jedi-vim'
+Plug 'ycm-core/YouCompleteMe'
 Plug 'vim-python/python-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'pangloss/vim-javascript'
@@ -40,16 +40,21 @@ let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 
 " nerdtree
-map <C-f> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeToggle<CR>
 
 " jedi-vim
-autocmd FileType python setlocal completeopt-=preview
-let g:jedi#auto_initialization = 1
-let g:jedi#popup_on_dot = 1
+" autocmd FileType python setlocal completeopt-=preview
+" let g:jedi#auto_initialization = 1
+" let g:jedi#popup_on_dot = 1
 
 " auto pairs
 let g:AutoPairsShortcutJump='<M-j>'
 let g:AutoPairsShortcutToggle=''
+
+" Ycm
+let g:ycm_autoclose_preview_window_after_insertion = 0
+let g:ycm_autoclose_preview_window_after_completion = 0
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 
 " python syntax
 let g:python_highlight_all = 1
@@ -98,6 +103,14 @@ set nohlsearch
 " changles style of splits
 set splitright
 
+" turns off signcolumn
+set signcolumn=no
+
+" sets conceal characters
+set conceallevel=1
+" syntax match CheckboxDone /^\[x\]/ conceal cchar=☑
+" syntax match CheckboxTodo /^\[\ \]/ conceal cchar=☐
+
 " makes width of line numbers 4
 set nuw=4
 
@@ -119,8 +132,8 @@ nnoremap <Tab> za
 noremap <M-Space> :on<CR>
 
 " buffer movement
-nnoremap <M-h> :bp<CR>
-nnoremap <M-l> :bn<CR>
+nnoremap <M-h> :bp!<CR>
+nnoremap <M-l> :bn!<CR>
 nnoremap <M-k> :bd<CR>
 
 " make split navigation easier
