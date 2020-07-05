@@ -52,7 +52,7 @@ let g:AutoPairsShortcutJump='<M-j>'
 let g:AutoPairsShortcutToggle=''
 
 " Ycm
-let g:ycm_autoclose_preview_window_after_insertion = 0
+let g:ycm_autoclose_preview_window_after_insertion  = 1
 let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 
@@ -120,6 +120,9 @@ set background=dark
 " bind H and L to begin and end (ignoring whitespace)
 nnoremap H ^
 nnoremap L g_
+
+" bind Y to yank till end of line
+nnoremap Y y$
 
 " escape insert/visual mode by typing fd
 inoremap fd <Esc>
