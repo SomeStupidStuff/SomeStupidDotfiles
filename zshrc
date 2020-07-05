@@ -110,7 +110,7 @@ function go-with-fzf() {
 	a=$(find ~/* -type d ! -path "*/.*/*" ! -path "*/node_modules/*" ! -path "*/__pycache__/*" ! -path "*/SomeStupidDotfiles/*" ! -path "*/Modules/*" | fzf)
 	if [[ -n "$a" ]] then
 		cd "$a"
-		echo
+		clear
 		tree -L 1
 	fi
 	zle accept-line
