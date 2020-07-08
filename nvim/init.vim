@@ -17,6 +17,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'jiangmiao/auto-pairs'
 
+Plug 'chrisbra/Colorizer'
+
 Plug 'easymotion/vim-easymotion'
 
 Plug 'ycm-core/YouCompleteMe'
@@ -51,10 +53,14 @@ nnoremap <C-f> :NERDTreeToggle<CR>
 let g:AutoPairsShortcutJump='<M-j>'
 let g:AutoPairsShortcutToggle=''
 
+nnoremap <Leader>cc :ColorToggle<CR>
+
 " Ycm
 let g:ycm_autoclose_preview_window_after_insertion  = 1
 let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+nnoremap <silent> gd :YcmCompleter GoTo<CR>
+nnoremap <silent> gr :YcmCompleter GoToReferences<CR>
 
 " python syntax
 let g:python_highlight_all = 1
@@ -67,6 +73,7 @@ let g:cpp_class_decl_highlight = 1
 " fzf config
 nnoremap <Leader>fe :FZF<CR>
 nnoremap <Leader>fr :FZF ~<CR>
+nnoremap <Leader>bb :Buffers<CR>
 
 let g:fzf_preview_window = ''
 let g:fzf_layout = { 'left': '~100%' }
