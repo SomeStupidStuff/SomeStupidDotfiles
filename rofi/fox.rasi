@@ -13,7 +13,7 @@ configuration {
   bg-alt: #000;
   fg: #D8DEE9;
   fg-alt: #FFF;
-  background-color: #142D4Cff;
+  background-color: #142D4C55;
   border: 0;
   padding: 0;
   margin: 0;
@@ -23,9 +23,9 @@ configuration {
 window {
   height: 601px;
   width: 400px;
-  location: southwest;
-  anchor: southwest;
-  y-offset: -28;
+  location: northwest;
+  anchor: northwest;
+  y-offset: 50;
   transparency: "real";
 }
 
