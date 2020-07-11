@@ -1,10 +1,6 @@
-" allows me to escape insert mode by typing fd quickly 
-imap fd <Esc>
-vmap fd <Esc>
-
-" sets relative line number
-set relativenumber
-set number
+" allows me to escape insert/visual mode by typing fd quickly
+inoremap fd <Esc>
+vnoremap fd <Esc>
 
 " make split navigation easier
 map <C-j> <C-W>j
@@ -19,24 +15,21 @@ set noexpandtab
 set tabstop=4
 set shiftwidth=4
 
-" makes width of line numbers smaller
-set nuw=2
+" Misc
+set noshowmode
+set noshowcmd
+set splitright
 
-" Colorscheme
-colorscheme peaksea
+" color
+set background=dark
+colorscheme simple-dark-transparent
+syntax off
+
+set laststatus=0
+set statusline=
+hi StatusLine cterm=NONE ctermfg=NONE ctermbg=NONE
+hi StatusLineNC cterm=NONE ctermfg=NONE ctermbg=NONE
+hi Normal cterm=NONE ctermfg=white ctermbg=NONE
 
 " Airline theme
-let g:airline_theme='owo'
-
-" set background
-set background=dark
-
-" removes tildas
-if !has("gui_running")
-	hi EndOfBuffer ctermbg=bg ctermfg=bg
-endif
-
-" Popup menu highlighting
-hi Pmenu ctermbg=black guibg=black
-hi PmenuSbar ctermbg=grey guibg=grey
-hi PmenuThumb ctermbg=black guibg=black
+" let g:airline_theme='owo'
