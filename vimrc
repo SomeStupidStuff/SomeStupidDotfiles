@@ -2,13 +2,26 @@
 inoremap fd <Esc>
 vnoremap fd <Esc>
 
-" make split navigation easier
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+" leader
+let mapleader=" "
 
-" indenting config
+" make split navigation easier
+nnoremap <Leader>j <C-W>j
+nnoremap <Leader>k <C-W>k
+nnoremap <Leader>h <C-W>h
+nnoremap <Leader>l <C-W>l
+
+" bindings
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>q :qa!<CR>
+nnoremap <Leader>x :wq!<CR>
+
+nnoremap <Leader>m :vertical terminal make 
+nnoremap <Leader>a i#ifndef <Esc>:let @m=expand("%")<CR>"mphr_bgU$y$o#define <Esc>po#endif // <Esc>pO<CR><CR><Esc>ki
+
+cnoremap <C-g> <Esc><CR>:<BS>
+
+" indenting
 set autoindent
 set cindent
 set noexpandtab
@@ -16,11 +29,15 @@ set tabstop=4
 set shiftwidth=4
 
 " Misc
+set ignorecase
+set smartcase
+set nohlsearch
 set noshowmode
 set noshowcmd
 set splitright
+set scrolloff=8
+set mouse=a
 
-" color
 set background=dark
 colorscheme simple-dark-transparent
 syntax off
@@ -30,6 +47,3 @@ set statusline=
 hi StatusLine cterm=NONE ctermfg=NONE ctermbg=NONE
 hi StatusLineNC cterm=NONE ctermfg=NONE ctermbg=NONE
 hi Normal cterm=NONE ctermfg=white ctermbg=NONE
-
-" Airline theme
-" let g:airline_theme='owo'
