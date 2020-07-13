@@ -42,7 +42,7 @@ let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 
 " nerdtree
-nnoremap <C-f> :NERDTreeToggle<CR>
+nnoremap <silent> <C-f> :NERDTreeToggle<CR>
 
 " jedi-vim
 " autocmd FileType python setlocal completeopt-=preview
@@ -61,6 +61,7 @@ let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 nnoremap <silent> gd :YcmCompleter GoTo<CR>
 nnoremap <silent> gr :YcmCompleter GoToReferences<CR>
+nnoremap <silent> <Leader>tt :YcmCompleter GetType<CR>
 
 " python syntax
 let g:python_highlight_all = 1
@@ -69,11 +70,15 @@ autocmd Filetype python setlocal tabstop=4 noexpandtab
 
 " c/c++ syntax
 let g:cpp_class_decl_highlight = 1
+augroup cgroup
+	autocmd!
+	autocmd BufEnter *.h set ft=c
+augroup end
 
 " fzf config
-nnoremap <Leader>fe :FZF<CR>
-nnoremap <Leader>fr :FZF ~<CR>
-nnoremap <Leader>bb :Buffers<CR>
+nnoremap <silent> <Leader>fe :FZF<CR>
+nnoremap <silent> <Leader>fr :FZF ~<CR>
+nnoremap <silent> <Leader>bb :Buffers<CR>
 
 let g:fzf_preview_window = ''
 let g:fzf_layout = { 'left': '~100%' }
@@ -139,12 +144,12 @@ vnoremap fd <Esc>
 nnoremap <Tab> za
 
 " mapping for focusing current buffer
-noremap <M-Space> :on<CR>
+noremap <silent> <M-Space> :on<CR>
 
 " buffer movement
-nnoremap <M-h> :bp!<CR>
-nnoremap <M-l> :bn!<CR>
-nnoremap <M-k> :bd<CR>
+nnoremap <silent> <M-h> :bp!<CR>
+nnoremap <silent> <M-l> :bn!<CR>
+nnoremap <silent> <M-k> :bd<CR>
 
 " make split navigation easier
 noremap <Leader>j <C-W>j
@@ -153,15 +158,15 @@ noremap <Leader>h <C-W>h
 noremap <Leader>l <C-W>l
 
 " tab management
-nnoremap <Leader>tn :tabnew<CR>
-nnoremap <Leader>td :tabclose<CR>
-nnoremap <Leader>tf :tabnext<CR>
-nnoremap <Leader>tb :tabprev<CR>
+nnoremap <silent> <Leader>tn :tabnew<CR>
+nnoremap <silent> <Leader>td :tabclose<CR>
+nnoremap <silent> <Leader>tf :tabnext<CR>
+nnoremap <silent> <Leader>tb :tabprev<CR>
 
 " misc. Leader bindings
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>x :wqa<CR>
-nnoremap <Leader>q :qa!<CR>
+nnoremap <silent> <Leader>w :w<CR>
+nnoremap <silent> <Leader>x :wqa<CR>
+nnoremap <silent> <Leader>q :qa!<CR>
 
 " functions
 function! ToggleText()
@@ -173,6 +178,7 @@ function! ToggleText()
 	else
 		set linebreak
 		set wrap
+		set spell
 		nnoremap j gj
 		nnoremap k gk
 	endif
