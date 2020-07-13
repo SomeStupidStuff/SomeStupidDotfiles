@@ -125,6 +125,7 @@ alias s='apt-cache search'
 alias p='python3'
 alias vim='nvim'
 alias fcd='. fast-cd'
+alias con='. con'
 alias ewf='edit-with-fzf'
 
 # Alternative is <M-c>
