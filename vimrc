@@ -16,7 +16,12 @@ nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :qa!<CR>
 nnoremap <Leader>x :wq!<CR>
 
-nnoremap <Leader>m :vertical terminal make 
+nnoremap <Leader>f :bn!<CR>
+nnoremap <Leader>b :bp!<CR>
+
+nnoremap <silent> <Tab>   :cnext<CR>
+nnoremap <silent> <S-Tab> :cprev<CR>
+
 nnoremap <Leader>a i#ifndef <Esc>:let @m=expand("%")<CR>"mphr_bgU$y$o#define <Esc>po#endif // <Esc>pO<CR><CR><Esc>ki
 
 cnoremap <C-g> <Esc><CR>:<BS>
