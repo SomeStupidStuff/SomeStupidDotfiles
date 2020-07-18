@@ -44,7 +44,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start Rofi instead of Dmenu
-bindsym $mod+d exec ~/Scripts/rofi-app
+bindsym $mod+d exec rofi -modi drun -show drun -theme ~/.config/rofi/fox.rasi
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -172,11 +172,10 @@ bindsym $mod+r mode "resize"
 
 # Custom bindings
 bindsym $mod+Shift+b exec --no-startup-id ~/.config/yabar/launch.sh
-bindsym $mod+o exec --no-startup-id ~/Scripts/rofi-switch
 bindsym $mod+Shift+o exec --no-startup-id "i3lock-fancy -g -f Ubuntu-Mono -- scrot -z"
 
 # Run yabar script
-exec_always --no-startup-id ~/.config/yabar/launch.sh
+# exec_always --no-startup-id ~/.config/yabar/launch.sh
 
 # hides border around windows
 new_window normal 0 px
@@ -192,9 +191,10 @@ client.unfocused        #3f3f3f #282828 #afafaf #292d2e   #3f3f3f
 exec --no-startup-id nitrogen --restore
 
 # compton
-# exec --no-startup-id compton
+exec --no-startup-id compton
 
-# exec emacs26
+# bar
+exec --no-startup-id tint2
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% # increase sound volume
