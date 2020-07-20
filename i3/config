@@ -82,7 +82,8 @@ bindsym $mod+b split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f exec "i3-msg fullscreen toggle && i3-msg exec ~/.config/yabar/launch.sh"
+bindsym $mod+f fullscreen toggle
+# "i3-msg fullscreen toggle && i3-msg exec ~/.config/yabar/launch.sh"
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -171,7 +172,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Custom bindings
-bindsym $mod+Shift+b exec --no-startup-id ~/.config/yabar/launch.sh
+# bindsym $mod+Shift+b exec --no-startup-id ~/.config/yabar/launch.sh
 bindsym $mod+Shift+o exec --no-startup-id "i3lock-fancy -g -f Ubuntu-Mono -- scrot -z"
 
 # Run yabar script
