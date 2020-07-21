@@ -19,8 +19,6 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'chrisbra/Colorizer'
 
-Plug 'easymotion/vim-easymotion'
-
 Plug 'ycm-core/YouCompleteMe'
 Plug 'vim-python/python-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -59,6 +57,8 @@ nnoremap <Leader>cc :ColorToggle<CR>
 let g:ycm_autoclose_preview_window_after_insertion  = 1
 let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+let g:ycm_clangd_args=['--header-insertion=never']
+let g:ycm_confirm_extra_conf = 0
 nnoremap <silent> gd :YcmCompleter GoTo<CR>
 nnoremap <silent> gr :YcmCompleter GoToReferences<CR>
 nnoremap <silent> <Leader>tt :YcmCompleter GetType<CR>
