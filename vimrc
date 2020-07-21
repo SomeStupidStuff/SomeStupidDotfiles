@@ -26,9 +26,15 @@ nnoremap <Leader>a i#ifndef <Esc>:let @m=expand("%")<CR>"mphr_bgU$y$o#define <Es
 
 cnoremap <C-g> <Esc><CR>:<BS>
 
+" save created folds
+augroup Save_Folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
+
 " indenting
 set autoindent
-set cindent
 set noexpandtab
 set tabstop=4
 set shiftwidth=4
