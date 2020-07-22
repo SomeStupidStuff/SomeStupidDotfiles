@@ -27,11 +27,13 @@ nnoremap <Leader>a i#ifndef <Esc>:let @m=expand("%")<CR>"mphr_bgU$y$o#define <Es
 cnoremap <C-g> <Esc><CR>:<BS>
 
 " save created folds
-augroup Save_Folds
-  autocmd!
-  autocmd BufWinLeave * mkview
-  autocmd BufWinEnter * silent! loadview
-augroup END
+" augroup Save_Folds
+"   autocmd!
+"   autocmd BufWinLeave * mkview
+"   autocmd BufWinEnter * silent! loadview
+" augroup END
+nnoremap <Leader>vs :mkview
+nnoremap <Leader>vo :silent! loadview
 
 " indenting
 set autoindent
