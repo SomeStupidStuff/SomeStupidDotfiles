@@ -32,8 +32,8 @@ cnoremap <C-g> <Esc><CR>:<BS>
 "   autocmd BufWinLeave * mkview
 "   autocmd BufWinEnter * silent! loadview
 " augroup END
-nnoremap <Leader>vs :mkview
-nnoremap <Leader>vo :silent! loadview
+nnoremap <Leader>vs :mkview<CR>
+nnoremap <Leader>vo :silent! loadview<CR>
 
 " indenting
 set autoindent
