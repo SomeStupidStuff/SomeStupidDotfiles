@@ -10,6 +10,6 @@ Terminal is [alacritty](https://github.com/alacritty/alacritty)
 Alacritty config is based on gruvbox but is tweaked for more vibrant colors
 
 i3 window manager
-Config has some keybindings for applications (ex. rofi) and uses tint2 an an i3bar -yabar as an i3bar-
+Config has some keybindings for applications (ex. rofi) and uses tint2 an an i3bar ~~yabar as an i3bar~~
 
 Zshrc just has some quality of life aliases
