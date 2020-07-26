@@ -99,6 +99,9 @@ set scrolloff=5
 set relativenumber
 set number
 
+" True Color
+set termguicolors
+
 " tab config
 set autoindent
 set cindent
@@ -119,9 +122,8 @@ set splitright
 set signcolumn=no
 
 " sets conceal characters
-set conceallevel=1
-" syntax match CheckboxDone /^\[x\]/ conceal cchar=☑
-" syntax match CheckboxTodo /^\[\ \]/ conceal cchar=☐
+set conceallevel=2
+" set concealcursor=ni
 
 " makes width of line numbers 4
 set nuw=4
@@ -168,11 +170,14 @@ nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>x :wqa<CR>
 nnoremap <silent> <Leader>q :qa!<CR>
 
+nnoremap <Leader>a i#ifndef <Esc>:let @m=expand("%")<CR>"mphr_bgU$y$o#define <Esc>po#endif // <Esc>pO<CR><CR><Esc>ki
+
 " functions
 function! ToggleText()
 	if mapcheck("j", "gj") != "" && mapcheck("j", "gk") != ""
 		set nolinebreak
 		set nowrap
+		set nospell
 		unmap j
 		unmap k
 	else
@@ -187,9 +192,7 @@ endfunction
 command! ToggleText call ToggleText()
 
 " popup menu highlighting
-hi Pmenu ctermbg=black guibg=black
-hi PmenuSbar ctermbg=grey guibg=grey
-hi PmenuThumb ctermbg=black guibg=black
+hi Pmenu ctermbg=black guibg=#212c28
 
 " get rid of tildas
-hi EndOfBuffer ctermfg=bg ctermbg=bg
+hi EndOfBuffer guifg=bg guibg=bg ctermfg=bg ctermbg=bg
