@@ -5,6 +5,8 @@ Emacs.d is my main editor config for emacs
 
 Vimrc is kind of dirty but is readable
 Nvim looks beautiful but you may need to reinstall vim-plug to port to other systems
+Nvim alt is a custom neovim config, no plugins, no dependencies. The color scheme _darkret_ is based off of
+Atom's one-half dark theme.
 
 Terminal is [alacritty](https://github.com/alacritty/alacritty)
 Alacritty config is based on gruvbox but is tweaked for more vibrant colors
