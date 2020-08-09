@@ -40,7 +40,7 @@ let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 
 " nerdtree
-nnoremap <silent> <C-f> :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>e :NERDTreeToggle<CR>
 
 " jedi-vim
 " autocmd FileType python setlocal completeopt-=preview
@@ -51,7 +51,7 @@ nnoremap <silent> <C-f> :NERDTreeToggle<CR>
 let g:AutoPairsShortcutJump='<M-j>'
 let g:AutoPairsShortcutToggle=''
 
-nnoremap <Leader>cc :ColorToggle<CR>
+nnoremap <Leader>c :ColorToggle<CR>
 
 " Ycm
 let g:ycm_autoclose_preview_window_after_insertion  = 1
@@ -61,7 +61,7 @@ let g:ycm_clangd_args=['--header-insertion=never']
 let g:ycm_confirm_extra_conf = 0
 nnoremap <silent> gd :YcmCompleter GoTo<CR>
 nnoremap <silent> gr :YcmCompleter GoToReferences<CR>
-nnoremap <silent> <Leader>tt :YcmCompleter GetType<CR>
+nnoremap <silent> <Leader>t :YcmCompleter GetType<CR>
 
 " python syntax
 let g:python_highlight_all = 1
@@ -76,18 +76,32 @@ augroup cgroup
 augroup end
 
 " fzf config
-nnoremap <silent> <Leader>fe :FZF<CR>
-nnoremap <silent> <Leader>fr :FZF ~<CR>
-nnoremap <silent> <Leader>bb :Buffers<CR>
+" nnoremap <silent> <Leader>fe :FZF<CR>
+" nnoremap <silent> <Leader>fr :FZF ~<CR>
+" nnoremap <silent> <Leader>bb :Buffers<CR>
 
-let g:fzf_preview_window = ''
-let g:fzf_layout = { 'left': '~100%' }
+let g:fzf_layout = { 'down': '~45%' }
+
+let g:fzf_colors =
+			\ { 'fg'    : ['fg',  'Normal'],
+			\ 'bg'      : ['bg',  'Normal'],
+			\ 'hl'      : ['fg',  'Comment'],
+			\ 'fg+'     : ['fg+', 'CursorLine', 'CursorColumn', 'Normal'],
+			\ 'bg+'     : ['bg+', 'CursorLine', 'CursorColumn'],
+			\ 'border'  : ['fg',  'Ignore'],
+			\ 'prompt'  : ['fg',  'Conditional'],
+			\ 'pointer' : ['fg',  'Exception'],
+			\ 'marker'  : ['fg',  'Keyword'],
+			\ }
 
 augroup fzfstatus
 	autocmd!
 	autocmd FileType fzf set laststatus=0 noshowmode noruler
 	\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup end
+
+" Adds .vim/after to path
+set runtimepath+=~/.vim/after
 
 " Highlight line under cursor
 set cursorline
@@ -160,10 +174,10 @@ noremap <Leader>h <C-W>h
 noremap <Leader>l <C-W>l
 
 " tab management
-nnoremap <silent> <Leader>tn :tabnew<CR>
-nnoremap <silent> <Leader>td :tabclose<CR>
-nnoremap <silent> <Leader>tf :tabnext<CR>
-nnoremap <silent> <Leader>tb :tabprev<CR>
+" nnoremap <silent> <Leader>tn :tabnew<CR>
+" nnoremap <silent> <Leader>td :tabclose<CR>
+" nnoremap <silent> <Leader>tf :tabnext<CR>
+" nnoremap <silent> <Leader>tb :tabprev<CR>
 
 " misc. Leader bindings
 nnoremap <silent> <Leader>w :w<CR>
@@ -171,8 +185,9 @@ nnoremap <silent> <Leader>x :wqa<CR>
 nnoremap <silent> <Leader>q :qa!<CR>
 
 nnoremap <Leader>a i#ifndef <Esc>:let @m=expand("%")<CR>"mphr_bgU$y$o#define <Esc>po#endif // <Esc>pO<CR><CR><Esc>ki
+iabb cmain #include <stdio.h><CR><CR>int main(int argc, char *argv[]) {<CR>printf("Hello, World!\n");<CR>return 0;}
 
-" functions
+"functions
 function! ToggleText()
 	if mapcheck("j", "gj") != "" && mapcheck("j", "gk") != ""
 		set nolinebreak
