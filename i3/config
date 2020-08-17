@@ -44,7 +44,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start Rofi instead of Dmenu
-bindsym $mod+d exec rofi -modi drun -show drun -font "Nimbus Mono 10.7" -theme ~/.config/rofi/fox.rasi
+bindsym $mod+d exec "rofi -modi drun,window,run -show drun -theme custom.rasi"
+bindsym $mod+o exec "rofi -modi window -show window -theme custom.rasi"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -133,6 +134,9 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
+# toggle sticky windows
+bindsym $mod+Shift+s sticky toggle
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -182,6 +186,9 @@ bindsym $mod+Shift+o exec --no-startup-id "i3lock-fancy -g -f Ubuntu-Mono -- scr
 # new_window normal 0 px
 hide_edge_borders both
 
+# change windows on click
+focus_follows_mouse no
+
 # change window decoration colors
 # class                 border  backgr. text    indicator child_border
 client.focused          #3f3f3f #1f3f3f #ffffff #2e9ef4   #3f3f3f
@@ -192,7 +199,7 @@ client.unfocused        #3f3f3f #282828 #afafaf #292d2e   #3f3f3f
 exec --no-startup-id nitrogen --restore
 
 # compton
-exec --no-startup-id compton
+exec --no-startup-id compton --backend glx --paint-on-overlay
 
 # bar
 exec --no-startup-id tint2

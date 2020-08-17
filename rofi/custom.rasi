@@ -1,0 +1,60 @@
+configuration {
+	show-icons: false;
+	font: "Ubuntu Mono 13";
+	display-window: " ";
+	display-drun: " ";
+	display-run: " ";
+}
+
+* {
+	fg: #afafaf;
+	fg-alt: #eaeaef;
+	background-color: #1d2021;
+	bg-alt: #2d3031;
+	paddding: 0px;
+	margin:   0px;
+	spacing:  0px;
+}
+
+window {
+	height: 580;
+	width:  400px;
+	location: center;
+	anchor: center;
+	border: 5px;
+	border-color: #3d4041;
+}
+
+element {
+	padding: 10 10 10 8;
+	text-color: @fg;
+}
+
+element selected {
+	text-color: @fg-alt;
+	background-color: @bg-alt;
+}
+
+mainbox {
+	children: [listview, inputbar];
+}
+
+listview {
+	columns: 1;
+	padding: 0 0 0 0;
+}
+
+inputbar {
+	background-color: @background;
+	children: [prompt, entry];
+}
+
+prompt {
+	text-color: @fg;
+	padding: 10 0 10 10;
+}
+
+entry {
+	text-color: @fg;
+	padding: 10 0 10 10;
+}
