@@ -117,7 +117,7 @@ function go-with-fzf() {
 }
 
 zle -N edit-with-fzf
-zle -N go-with-fzf 
+zle -N go-with-fzf
 
 # Aliases
 alias c='clear'
@@ -138,6 +138,13 @@ export VISUAL='/usr/bin/nvim'
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PATH=$PATH:$HOME/Scripts/
+
+if [[ "$TERM" = "rxvt-unicode-256color" ]] then
+	PS1="> "
+	export EDITOR='/usr/bin/vim'
+	export VISUAL='/usr/bin/vim'
+	unalias vim
+fi
 
 # Bindings
 bindkey -e "^[e" "edit-with-fzf"
