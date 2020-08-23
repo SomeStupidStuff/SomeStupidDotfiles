@@ -183,7 +183,6 @@ bindsym $mod+Shift+o exec --no-startup-id "i3lock-fancy -g -f Ubuntu-Mono -- scr
 # exec_always --no-startup-id ~/.config/yabar/launch.sh
 
 # hides border around windows
-# new_window normal 0 px
 hide_edge_borders both
 
 # change windows on click
