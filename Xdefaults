@@ -1,0 +1,42 @@
+URxvt.font: xft:Hack:style=Regular:size=13
+URxvt.scrollBar:   false
+URxvt.saveLines:   200
+URxvt.letterSpace: 0
+URxvt.lineSpace:   0
+URxvt.iconFile:    /usr/share/icons/Paper/32x32/apps/terminal.png
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+URxvt.perl-lib: /home/rushil/.config/urxvt/
+URxvt.perl-ext-common: default,resize-font
+URxvt.keysym.M-j: resize-font:bigger
+URxvt.keysym.M-k: resize-font:smaller
+URxvt.keysym.M-0: resize-font:reset
+
+URxvt.background: #1d2021
+URxvt.foreground: #efefef
+URxvt.cursorColor: #efefef
+
+! Black
+URxvt.color0: #1a1d1e
+
+! White
+URxvt.color7: #efefef
+
+! Blue
+URxvt.color4: #00b2ee
+URxvt.color12: #20b2ee
+
+! Magenta
+URxvt.color5: #da70d6
+
+! Green
+URxvt.color2: #26af1a
+URxvt.color10: #32cd32
+
+! Yellow
+URxvt.color3: #dada00
+
+! Cyan
+URxvt.color6: #008c8f
+URxvt.color14: #48d1cc
