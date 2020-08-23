@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-cd "$(ls | grep -i "^$1" | head -n 1)"

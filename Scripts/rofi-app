@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-rofi -show run -theme Arc-Dark
