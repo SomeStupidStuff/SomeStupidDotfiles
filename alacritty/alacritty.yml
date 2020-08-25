@@ -40,7 +40,4 @@ colors:
     cyan:    '#008c8f'
     white:   '#FFFFFF'
 
-# set amount of spaces a tab uses
-tabspaces: 4
-
 background_opacity: 0.75
