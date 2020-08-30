@@ -74,7 +74,7 @@ set laststatus=0
 set cursorline
 
 set background=dark
-if $TERM ==# "rxvt-unicode-256color"
+if $TERM ==# "rxvt"
 	set t_Co=256
 	colorscheme desert
 	set statusline=\ 

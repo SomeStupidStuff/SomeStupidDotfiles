@@ -139,11 +139,13 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PATH=$PATH:$HOME/Scripts/
 
-if [[ "$TERM" = "rxvt-unicode-256color" ]] then
+if [[ "$TERM" = "rxvt" ]] then
 	PS1="> "
 	export EDITOR='/usr/bin/vim'
 	export VISUAL='/usr/bin/vim'
 	unalias vim
+	echo "( ._.)"
+	echo
 fi
 
 # Bindings
