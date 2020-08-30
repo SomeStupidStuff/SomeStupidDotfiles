@@ -1,4 +1,9 @@
 URxvt.font: xft:Hack:style=Regular:size=13
+Xft.dpi: 96
+Xft.antialias: 1
+Xft.hinting: 1
+Xft.hintstyle: hintmedium
+
 URxvt.scrollBar:   false
 URxvt.saveLines:   200
 URxvt.letterSpace: 0
@@ -8,35 +13,30 @@ URxvt.iso14755: false
 URxvt.iso14755_52: false
 
 URxvt.perl-lib: /home/rushil/.config/urxvt/
-URxvt.perl-ext-common: default,resize-font
-URxvt.keysym.M-j: resize-font:bigger
-URxvt.keysym.M-k: resize-font:smaller
-URxvt.keysym.M-0: resize-font:reset
+URxvt.perl-ext-common: default,resize-font,matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+URxvt.keysym.C-equal: resize-font:bigger
+URxvt.keysym.C-minus: resize-font:smaller
+URxvt.keysym.C-0: resize-font:reset
 
 URxvt.background: #1d2021
-URxvt.foreground: #efefef
-URxvt.cursorColor: #efefef
+URxvt.foreground: #e4e4ef
+URxvt.cursorColor: #e4e4ef
 
-! Black
-URxvt.color0: #1a1d1e
-
-! White
-URxvt.color7: #efefef
-
-! Blue
-URxvt.color4: #00b2ee
-URxvt.color12: #20b2ee
-
-! Magenta
-URxvt.color5: #da70d6
-
-! Green
-URxvt.color2: #26af1a
-URxvt.color10: #32cd32
-
-! Yellow
-URxvt.color3: #dada00
-
-! Cyan
-URxvt.color6: #008c8f
-URxvt.color14: #48d1cc
+*color0:  #1a1d1e
+*color1:  #a40000
+*color2:  #4e9a06
+*color3:  #c4a000
+*color4:  #3465a4
+*color5:  #75507b
+*color6:  #008c8f
+*color7:  #efefef
+*color8:  #555753
+*color9:  #ef2929
+*color10: #8ae234
+*color11: #fce94f
+*color12: #729fcf
+*color13: #ad7fa8
+*color14: #48d1cc
+*color15: #eeeeec
