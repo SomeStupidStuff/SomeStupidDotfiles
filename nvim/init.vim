@@ -4,7 +4,7 @@ if has("syntax")
 endif
 
 filetype indent plugin on
-"
+
 " define leader as space
 let mapleader = ' '
 
@@ -12,6 +12,7 @@ let mapleader = ' '
 call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -31,19 +32,24 @@ Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " gruvbox
-let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
+let g:airline_theme = 'gruvbox'
+hi Pmenu ctermbg=black guibg=#212c28
+
+" one-dark
+" colorscheme onedark
+" let g:airline_theme = 'onedark'
+" let g:onedark_hide_endofbuffer = 1
 
 " airline
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 
 " nerdtree
 nnoremap <silent> <Leader>e :NERDTreeToggle<CR>
 
 " jedi-vim
-" autocmd FileType python setlocal completeopt-=preview
 " let g:jedi#auto_initialization = 1
 " let g:jedi#popup_on_dot = 1
 
@@ -54,8 +60,9 @@ let g:AutoPairsShortcutToggle=''
 nnoremap <Leader>c :ColorToggle<CR>
 
 " Ycm
-let g:ycm_autoclose_preview_window_after_insertion  = 1
+let g:ycm_autoclose_preview_window_after_insertion  = 0
 let g:ycm_autoclose_preview_window_after_completion = 0
+nnoremap <silent> <Leader>p :pc<CR>
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 let g:ycm_clangd_args=['--header-insertion=never']
 let g:ycm_confirm_extra_conf = 0
@@ -76,11 +83,12 @@ augroup cgroup
 augroup end
 
 " fzf config
-" nnoremap <silent> <Leader>fe :FZF<CR>
-" nnoremap <silent> <Leader>fr :FZF ~<CR>
-" nnoremap <silent> <Leader>bb :Buffers<CR>
+nnoremap <silent> <Leader>r :FZF<CR>
+nnoremap <silent> <Leader>b :Buffers<CR>
 
-let g:fzf_layout = { 'down': '~45%' }
+let g:fzf_preview_window = ''
+
+let g:fzf_layout = { 'down': '~25%' }
 
 let g:fzf_colors =
 			\ { 'fg'    : ['fg',  'Normal'],
@@ -113,9 +121,6 @@ set scrolloff=5
 set relativenumber
 set number
 
-" True Color
-set termguicolors
-
 " tab config
 set autoindent
 set cindent
@@ -135,6 +140,9 @@ set splitright
 " turns off signcolumn
 set signcolumn=no
 
+" better pmenu completion
+set completeopt=menuone,noinsert,preview
+
 " sets conceal characters
 set conceallevel=2
 " set concealcursor=ni
@@ -142,12 +150,11 @@ set conceallevel=2
 " makes width of line numbers 4
 set nuw=4
 
+" True color
+set termguicolors
+
 " set background
 set background=dark
-
-" bind H and L to begin and end (ignoring whitespace)
-nnoremap H ^
-nnoremap L g_
 
 " bind Y to yank till end of line
 nnoremap Y y$
@@ -156,11 +163,8 @@ nnoremap Y y$
 inoremap fd <Esc>
 vnoremap fd <Esc>
 
-" maps tab to toggle folds
-nnoremap <Tab> za
-
 " mapping for focusing current buffer
-noremap <silent> <M-Space> :on<CR>
+nnoremap <silent> <M-Space> :on<CR>
 
 " buffer movement
 nnoremap <silent> <M-h> :bp!<CR>
@@ -168,10 +172,10 @@ nnoremap <silent> <M-l> :bn!<CR>
 nnoremap <silent> <M-k> :bd<CR>
 
 " make split navigation easier
-noremap <Leader>j <C-W>j
-noremap <Leader>k <C-W>k
-noremap <Leader>h <C-W>h
-noremap <Leader>l <C-W>l
+nnoremap <Leader>j <C-W>j
+nnoremap <Leader>k <C-W>k
+nnoremap <Leader>h <C-W>h
+nnoremap <Leader>l <C-W>l
 
 " tab management
 " nnoremap <silent> <Leader>tn :tabnew<CR>
@@ -183,11 +187,13 @@ noremap <Leader>l <C-W>l
 nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>x :wqa<CR>
 nnoremap <silent> <Leader>q :qa!<CR>
+nnoremap <silent> <Leader>o o<Esc>
+nnoremap <silent> <Leader>O O<Esc>
 
 nnoremap <Leader>a i#ifndef <Esc>:let @m=expand("%")<CR>"mphr_bgU$y$o#define <Esc>po#endif // <Esc>pO<CR><CR><Esc>ki
 iabb cmain #include <stdio.h><CR><CR>int main(int argc, char *argv[]) {<CR>printf("Hello, World!\n");<CR>return 0;}
 
-"functions
+" functions
 function! ToggleText()
 	if mapcheck("j", "gj") != "" && mapcheck("j", "gk") != ""
 		set nolinebreak
@@ -205,9 +211,7 @@ function! ToggleText()
 endfunction
 
 command! ToggleText call ToggleText()
-
-" popup menu highlighting
-hi Pmenu ctermbg=black guibg=#212c28
+command! So w | so %
 
 " get rid of tildas
 hi EndOfBuffer guifg=bg guibg=bg ctermfg=bg ctermbg=bg
