@@ -140,7 +140,7 @@ export LANG=en_US.UTF-8
 export PATH=$PATH:$HOME/Scripts/
 
 if [[ "$TERM" = "rxvt" ]] then
-	PS1="> "
+	PS1='%(?.%F{cyan}.%F{red})>%f '
 	export EDITOR='/usr/bin/vim'
 	export VISUAL='/usr/bin/vim'
 	unalias vim
