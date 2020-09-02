@@ -79,6 +79,8 @@ if $TERM ==# "rxvt"
 	set statusline=\ 
 	augroup CustomColors
 		au!
+		au ColorScheme * hi clear NonText
+		au ColorScheme * hi NonText ctermfg=0
 		au ColorScheme * hi StatusLine ctermfg=darkgray
 		au ColorScheme * hi StatusLineNC ctermfg=darkgray
 		au ColorScheme * hi VertSplit ctermfg=darkgray
