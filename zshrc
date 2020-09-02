@@ -99,13 +99,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Functions
-function edit-with-fzf() {
-	a=$(find ~/* ! -name '*.out' ! -name '*.o' ! -name '*.pyc' ! -name '*.elc' ! -path "*/.*/*" | fzf)
-	if [[ -n "$a" ]] then
-		nvim "$a"
-	fi
-}
-
 function go-with-fzf() {
 	a=$(find ~/* -type d ! -path "*/.*/*" ! -path "*/node_modules/*" ! -path "*/__pycache__/*" ! -path "*/SomeStupidDotfiles/*" ! -path "*/Modules/*" | fzf)
 	if [[ -n "$a" ]] then
@@ -124,9 +117,7 @@ alias c='clear'
 alias s='apt-cache search'
 alias p='python3'
 alias vim='nvim'
-alias fcd='. fast-cd'
 alias con='. con'
-alias ewf='edit-with-fzf'
 
 # Alternative is <M-c>
 alias gwf='go-with-fzf'
