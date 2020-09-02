@@ -151,7 +151,9 @@ set conceallevel=2
 set nuw=4
 
 " True color
-set termguicolors
+if $TERM != "rxvt"
+	set termguicolors
+endif
 
 " set background
 set background=dark
