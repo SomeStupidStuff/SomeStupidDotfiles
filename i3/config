@@ -186,8 +186,9 @@ bindsym $mod+Shift+o exec --no-startup-id "i3lock-fancy -g -f Ubuntu-Mono -- scr
 # hides border around windows
 hide_edge_borders both
 
-# change windows on click
+# focus
 focus_follows_mouse no
+focus_on_window_activation focus
 
 # change window decoration colors
 # class                 border  backgr. text    indicator child_border
@@ -199,7 +200,13 @@ client.unfocused        #3f3f3f #282828 #afafaf #292d2e   #3f3f3f
 exec --no-startup-id nitrogen --restore
 
 # compton
-exec --no-startup-id compton --backend glx --paint-on-overlay
+exec --no-startup-id compton --backend glx --paint-on-overlay -c -f -i 0.6 -e 1.0 --focus-exclude 'class_g = "Rofi"'
+# -f
+# -i 0.8
+# -e 0.9
+
+# Key repeat
+exec --no-startup-id xset r rate 400 25
 
 # bar
 # exec --no-startup-id tint2
