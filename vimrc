@@ -66,45 +66,33 @@ set foldmethod=indent
 set nofoldenable
 set foldlevel=2
 set foldmethod=indent
-set fillchars=fold:\ ,
+set fillchars=fold:\ ,vert:│
 set splitright
 set scrolloff=8
 set mouse=a
 set laststatus=0
 set cursorline
+set number
+set laststatus=2
+set statusline=\ 
+set shortmess+=cF
+
+syntax on
 
 set background=dark
 if $TERM ==# "rxvt"
-	colorscheme desert
-	set statusline=\ 
-	augroup CustomColors
-		au!
-		au ColorScheme * hi clear NonText
-		au ColorScheme * hi NonText ctermfg=0
-		au ColorScheme * hi StatusLine ctermfg=darkgray
-		au ColorScheme * hi StatusLineNC ctermfg=darkgray
-		au ColorScheme * hi VertSplit ctermfg=darkgray
-		au ColorScheme * hi LineNr ctermfg=darkgreen
-		au ColorScheme * hi CursorLineNr cterm=bold ctermfg=yellow
-		au ColorScheme * hi clear CursorLine
-		au ColorScheme * hi Visual ctermfg=lightgray ctermbg=black
-		au ColorScheme * hi Search ctermfg=black ctermbg=white
-		au ColorScheme * hi IncSearch ctermfg=black ctermbg=white
-		au ColorScheme * hi Pmenu ctermfg=darkgray ctermbg=black
-		au ColorScheme * hi PmenuSel ctermfg=lightgray ctermbg=darkgray
-		au ColorScheme * hi PmenuThumb ctermbg=gray
-		au ColorScheme * hi PmenuSbar ctermbg=white
-	augroup END
-	set number
-	syntax on
+	set t_Co=256
+	colorscheme one-dark
 else
-	colorscheme simple-dark-transparent
-	syntax off
-	augroup CustomColors
-		au!
-		au Colorscheme * hi StatusLine cterm=NONE ctermfg=NONE ctermbg=NONE
-		au Colorscheme * hi StatusLineNC cterm=NONE ctermfg=NONE ctermbg=NONE
-		au Colorscheme * hi Normal cterm=NONE ctermfg=white ctermbg=NONE
-		au ColorScheme * hi clear CursorLine
-	augroup END
+	set termguicolors
+	colorscheme one-dark
+	" syntax off
+	" colorscheme simple-dark-transparent
+	" augroup CustomColors
+	" 	au!
+	" 	au Colorscheme * hi StatusLine cterm=NONE ctermfg=NONE ctermbg=NONE
+	" 	au Colorscheme * hi StatusLineNC cterm=NONE ctermfg=NONE ctermbg=NONE
+	" 	au Colorscheme * hi Normal cterm=NONE ctermfg=white ctermbg=NONE
+	" 	au ColorScheme * hi clear CursorLine
+	" augroup END
 endif
