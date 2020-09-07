@@ -24,7 +24,7 @@ colors:
   # Default colors
   primary:
     # hard contrast: background = '#1d2021'
-    background: '#181b1b'
+    background: '#1d2021'
     # soft contrast: background = '#32302f'
     foreground: '#FFFFFF'
 
@@ -40,4 +40,4 @@ colors:
     cyan:    '#008c8f'
     white:   '#FFFFFF'
 
-background_opacity: 0.75
+background_opacity: 0.9
