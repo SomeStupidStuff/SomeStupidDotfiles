@@ -200,7 +200,7 @@ client.unfocused        #3f3f3f #282828 #afafaf #292d2e   #3f3f3f
 exec --no-startup-id nitrogen --restore
 
 # compton
-exec --no-startup-id compton --backend glx --paint-on-overlay -c -f -i 0.6 -e 1.0 --focus-exclude 'class_g = "Rofi"'
+exec --no-startup-id compton --backend glx --paint-on-overlay -C -c -f -i 0.8 -e 1.0 --focus-exclude 'class_g = "Rofi"'
 # -f
 # -i 0.8
 # -e 0.9
@@ -209,6 +209,7 @@ exec --no-startup-id compton --backend glx --paint-on-overlay -c -f -i 0.6 -e 1.
 exec --no-startup-id xset r rate 400 25
 
 # bar
+exec --no-startup-id ~/.config/polybar/launch.sh
 # exec --no-startup-id tint2
 
 # Brightness controls
