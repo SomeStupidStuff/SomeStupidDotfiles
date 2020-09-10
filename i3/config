@@ -192,9 +192,11 @@ focus_on_window_activation focus
 
 # change window decoration colors
 # class                 border  backgr. text    indicator child_border
-client.focused          #3f3f3f #1f3f3f #ffffff #2e9ef4   #3f3f3f
-client.focused_inactive #3f3f3f #404040 #ffffff #484e50   #3f3f3f
-client.unfocused        #3f3f3f #282828 #afafaf #292d2e   #3f3f3f
+client.focused          #3f3f3f #484c54 #ffffff #2e9ef4   #383c44
+client.focused_inactive #3f3f3f #404040 #ffffff #484e50   #383c44
+client.unfocused        #3f3f3f #282828 #afafaf #292d2e   #383c44
+
+# client.focused          #3f3f3f #1f3f3f #ffffff #2e9ef4   #3f3f3f
 
 # sets wallpaper
 exec --no-startup-id nitrogen --restore
