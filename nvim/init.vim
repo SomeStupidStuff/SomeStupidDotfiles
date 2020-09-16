@@ -32,7 +32,7 @@ Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " gruvbox
-let g:gruvbox_contrast_dark = 'soft'
+let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 let g:airline_theme = 'gruvbox'
 hi Pmenu ctermbg=black guibg=#212c28
@@ -134,8 +134,8 @@ set ignorecase
 set smartcase
 set nohlsearch
 
-" changles style of splits
-set splitright
+" splits
+set fillchars=fold:\ ,vert:│
 
 " turns off signcolumn
 set signcolumn=no
@@ -157,6 +157,10 @@ endif
 
 " set background
 set background=dark
+
+" better command navigation
+cnoremap <C-n> <Down>
+cnoremap <C-p> <Up>
 
 " bind Y to yank till end of line
 nnoremap Y y$
