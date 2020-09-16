@@ -26,7 +26,7 @@ colors:
     # hard contrast: background = '#1d2021'
     background: '#1d2021'
     # soft contrast: background = '#32302f'
-    foreground: '#FFFFFF'
+    foreground: '#cfcfcf'
 
   # Normal colors
   normal:
@@ -35,9 +35,7 @@ colors:
     orange:  '#FF4200'
     green:   '#26af1a'
     yellow:  '#dada00'
-    blue:    '#00b2ee'
+    blue:    '#00b2de'
     magenta: '#ff00e9'
     cyan:    '#008c8f'
-    white:   '#FFFFFF'
-
-background_opacity: 0.9
+    white:   '#cfcfcf'
