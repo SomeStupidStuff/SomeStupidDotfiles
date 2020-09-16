@@ -26,3 +26,4 @@ syntax match cSecondMacro /\v(^\s*#(define|if(n?def)?)\s+[a-zA-Z_][a-zA-Z0-9_]*\
 syntax match cSwitchMacro /\v(case\s+)@<=[A-Z_]+/
 hi link cSecondMacro cMacro
 hi link cMacroFunction cMacro
+hi def link cMacro Macro
