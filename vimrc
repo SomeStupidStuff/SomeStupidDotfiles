@@ -20,10 +20,10 @@ nnoremap <Leader>x :wq!<CR>
 nnoremap <silent> <Leader>o o<Esc>
 nnoremap <silent> <Leader>O O<Esc>
 
-nnoremap <Leader>f :bn!<CR>
-nnoremap <Leader>b :bp!<CR>
-
 nnoremap <Leader>a i#ifndef <Esc>:let @m=expand("%")<CR>"mphr_bgU$y$o#define <Esc>po#endif // <Esc>pO<CR><CR><Esc>ki
+
+" mainly used for math and stuff
+nnoremap <silent> <Leader>= :call append(".", [printf("%s", eval(getline(".")))])<CR>
 
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
@@ -76,6 +76,7 @@ set number
 set laststatus=2
 set statusline=\ 
 set shortmess+=cF
+set showcmd
 
 syntax on
 
@@ -96,3 +97,8 @@ else
 	" 	au ColorScheme * hi clear CursorLine
 	" augroup END
 endif
+
+augroup Text
+	au!
+	au Filetype txt setlocal wrap linebreak
+augroup END
