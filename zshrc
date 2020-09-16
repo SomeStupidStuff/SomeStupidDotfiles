@@ -109,14 +109,12 @@ function go-with-fzf() {
 	zle accept-line
 }
 
-zle -N edit-with-fzf
-zle -N go-with-fzf
+zle -N "go-with-fzf"
 
 # Aliases
 alias c='clear'
 alias s='apt-cache search'
 alias p='python3'
-alias vim='nvim'
 alias con='. con'
 
 export LESS_TERMCAP_md=$'\e[1;34m'
@@ -126,28 +124,20 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_me=$'\e[0m'
 export LESS_TERMCAP_ue=$'\e[0m'
 
-# Alternative is <M-c>
-alias gwf='go-with-fzf'
-
 # Exports
 export FZF_DEFAULT_OPTS="-m --ansi --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -L 1 -C {}) 2> /dev/null | head -200'"
-export EDITOR='/usr/bin/nvim'
-export VISUAL='/usr/bin/nvim'
+export EDITOR='/usr/bin/vim'
+export VISUAL='/usr/bin/vim'
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PATH=$PATH:$HOME/Scripts/
+PS1='%(?.%F{cyan}.%F{red})>%f '
 
 if [[ "$TERM" = "rxvt" ]] then
-	PS1='%(?.%F{cyan}.%F{red})>%f '
-	export EDITOR='/usr/bin/vim'
-	export VISUAL='/usr/bin/vim'
-	unalias vim
 	echo "( ._.)"
 	echo
 fi
 
-# Bindings
-bindkey -e "^[e" "edit-with-fzf"
 bindkey -e "^[g" "go-with-fzf"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
