@@ -15,13 +15,15 @@ let s:purple         = {"gui": "#C678DD", "cterm": "170"}
 let s:cyan           = {"gui": "#56B6C2", "cterm": "37" }
 let s:white          = {"gui": "#ABB2BF", "cterm": "145"}
 let s:black          = {"gui": "#282C34", "cterm": "235"}
-let s:comment_grey   = {"gui": "#5C6370", "cterm": "59" }
+let s:comment_grey   = {"gui": "#5f6673", "cterm": "59" }
 let s:gutter_fg_grey = {"gui": "#4B5263", "cterm": "240"}
 let s:cursor_grey    = {"gui": "#2C323C", "cterm": "236"}
 let s:visual_grey    = {"gui": "#3E4452", "cterm": "237"}
 let s:menu_grey      = {"gui": "#3E4452", "cterm": "238"}
 let s:special_grey   = {"gui": "#3B4048", "cterm": "237"}
 let s:vertsplit      = {"gui": "#181A1F", "cterm": "59" }
+
+let s:blank          = {"gui": "NONE", "cterm": "NONE"}
 
 let s:gui = &termguicolors || has("gui_running")
 
@@ -51,7 +53,9 @@ call s:h("EndOfBuffer", s:black, s:black)
 call s:h("NonText", s:black, s:black)
 call s:h("Error", s:red, s:black, "bold")
 call s:h("ErrorMsg", s:red, s:black, "bold")
+call s:h("WarningMsg", s:red, s:black, "bold")
 call s:h("Question", s:purple, s:black, "bold")
+call s:h("Cursor", s:blank, s:blank, "reverse")
 call s:h("LineNr", s:gutter_fg_grey, s:black)
 call s:h("CursorLineNr", s:white, s:black, "bold")
 
@@ -62,6 +66,10 @@ call s:h("CursorLine", "", s:cursor_grey, "NONE")
 call s:h("VertSplit", s:black, s:vertsplit)
 call s:h("StatusLineNC", s:special_grey, s:white)
 call s:h("StatusLine", s:menu_grey, s:white)
+
+call s:h("TabLineFill", s:cursor_grey, s:cursor_grey)
+call s:h("TabLine", s:white, s:menu_grey, "bold")
+call s:h("TabLineSel", s:white, s:black, "bold")
 
 call s:h("Pmenu", s:white, s:cursor_grey)
 call s:h("PmenuSel", s:white, s:menu_grey, "bold")
@@ -74,11 +82,13 @@ else
 endif
 
 call s:h("Comment", s:comment_grey, "", "NONE")
+call s:h("Title", s:blue, "", "bold")
+call s:h("Todo", s:blue, "", "bold")
 call s:h("Identifier", s:red, "", "NONE")
 call s:h("String", s:green)
 call s:h("PreProc", s:purple)
 call s:h("Type", s:purple, "", "NONE")
-call s:h("Statement", s:purple)
+call s:h("Statement", s:purple, "", "NONE")
 call s:h("Number", s:dark_yellow)
 call s:h("Special", s:cyan)
 call s:h("Function", s:blue)
@@ -113,3 +123,17 @@ call s:h("htmlTag", s:blue)
 call s:h("htmlEndTag", s:blue)
 call s:h("htmlEvent", s:red)
 call s:h("htmlArg", s:red)
+
+call s:h("vimCommentTitle", s:blue, "", "bold")
+call s:h("vimNotation", s:blue)
+call s:h("vimFunction", s:blue)
+call s:h("vimUserFunc", s:purple)
+
+call s:h("swkHeader", s:yellow, "", "bold")
+call s:h("swkBulletPoint", s:cyan)
+call s:h("swkBulletSubject", s:blue, "", "bold")
+call s:h("swkBulletSubjectSep", s:blue)
+call s:h("swkBulletContent", s:purple)
+call s:h("swkString", s:blue)
+call s:h("swkMathOperator", s:cyan)
+call s:h("swkMathVariable", s:red)
