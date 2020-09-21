@@ -1,7 +1,6 @@
 URxvt.font: xft:Hack:style=Regular:size=13
-URxvt.italicfont: xft:Hack:style=Italic:size=13
-Xft.dpi: 100
-Xft.antialias: 1
+Xft.dpi: 96
+Xft.antialias: true
 Xft.hinting: 1
 Xft.hintstyle: hintfull
 
@@ -44,22 +43,22 @@ URxvt.keysym.C-0: resize-font:reset
 ! URxvt*color15: #eeeeec
 
 !! One-dark colorscheme
-*background:  #21252a
+*background:  #282c34
 *foreground:  #abb2bf
 *cursorColor: #abb2bf
-*color0: #21252a
+*color0: #282c34
 *color1: #c04c55
 *color2: #88bc69
 *color3: #d19a66
-*color4: #418fcf
+*color4: #519fef
 *color5: #b668cd
 *color6: #208d8f
 *color7: #abb2bf
-*color8: #21252a
+*color8: #282c34
 *color9: #c04c55
 *color10: #88bc69
 *color11: #e5c07b
-*color12: #418fcf
+*color12: #519fef
 *color13: #b668cd
 *color14: #208d8f
 *color15: #abb2bf
