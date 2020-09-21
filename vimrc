@@ -20,10 +20,9 @@ nnoremap <Leader>x :wq!<CR>
 nnoremap <silent> <Leader>o o<Esc>
 nnoremap <silent> <Leader>O O<Esc>
 
-nnoremap <Leader>a i#ifndef <Esc>:let @m=expand("%")<CR>"mphr_bgU$y$o#define <Esc>po#endif // <Esc>pO<CR><CR><Esc>ki
-
 " mainly used for math and stuff
-nnoremap <silent> <Leader>= :call append(".", [printf("%s", eval(getline(".")))])<CR>
+nnoremap <silent> <Leader>= :MathEval<CR>
+vnoremap <silent> <Leader>= :MathEval<CR>
 
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
@@ -77,12 +76,13 @@ set laststatus=2
 set statusline=\ 
 set shortmess+=cF
 set showcmd
+set hidden
 
 syntax on
 
 set background=dark
 if $TERM ==# "rxvt"
-	set t_Co=256
+	set t_Co=16
 	colorscheme one-dark
 else
 	set termguicolors
@@ -98,7 +98,37 @@ else
 	" augroup END
 endif
 
-augroup Text
-	au!
-	au Filetype txt setlocal wrap linebreak
-augroup END
+nnoremap <silent> <Leader>i :echo synIDattr(synID(line('.'), col('.'), 1), "name")<CR>
+
+function! MathEvalLines(...)
+	if a:1 == a:2
+		" Single Line
+		call append(".", [printf("%s", eval(getline(".")))])
+	else
+		" Multiple Lines
+		let line1 = a:1
+		let line2 = a:2
+		let appended = 0
+		let vars = {}
+		for i in range(line1, line2)
+			let line = getline(i)
+			" Evaluate expression with variables
+			for name in keys(vars)
+				let line = substitute(line, '\v<' . name . '>(\s*\=)@!', vars[name], 'g')
+			endfor
+			if line =~ '\v^\s*\w+\s*\=.*$'
+				" Parse Variables
+				" Todo: Fix regex group matching
+				let name = substitute(line, '\v\=.*$|\s', '', 'g')
+				let value = printf("%s", eval(substitute(line, '\v^.*\=\s*', '', 'g')))
+				let vars[name] = value
+			else
+				call append(line2 + appended, printf("%s", eval(line)))
+				let appended += 1
+				call cursor(line2 + appended, col("."))
+			endif
+		endfor
+	end
+endfunction!
+
+command! -range MathEval call MathEvalLines(<line1>, <line2>)
