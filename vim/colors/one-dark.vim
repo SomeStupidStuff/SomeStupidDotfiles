@@ -83,7 +83,7 @@ endif
 
 call s:h("Comment", s:comment_grey, "", "NONE")
 call s:h("Title", s:blue, "", "bold")
-call s:h("Todo", s:blue, "", "bold")
+call s:h("Todo", s:blue, s:black, "bold")
 call s:h("Identifier", s:red, "", "NONE")
 call s:h("String", s:green)
 call s:h("PreProc", s:purple)
@@ -91,6 +91,7 @@ call s:h("Type", s:purple, "", "NONE")
 call s:h("Statement", s:purple, "", "NONE")
 call s:h("Number", s:dark_yellow)
 call s:h("Special", s:cyan)
+call s:h("SpecialKey", s:purple)
 call s:h("Function", s:blue)
 call s:h("Constant", s:blue)
 
