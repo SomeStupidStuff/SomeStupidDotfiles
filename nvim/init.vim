@@ -170,7 +170,7 @@ inoremap fd <Esc>
 vnoremap fd <Esc>
 
 " mapping for focusing current buffer
-nnoremap <silent> <M-Space> :on<CR>
+nnoremap <silent> <M-Space> :Lines<CR>
 
 " buffer movement
 nnoremap <silent> <M-h> :bp!<CR>
