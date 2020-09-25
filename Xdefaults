@@ -1,8 +1,10 @@
 URxvt.font: xft:Hack:style=Regular:size=13
+URxvt.boldFont: xft:Hack:style=Bold:size=13
+URxvt.italicFont: xft:Hack:style=Italic:size=13
 Xft.dpi: 96
 Xft.antialias: true
-Xft.hinting: 1
-Xft.hintstyle: hintfull
+Xft.hinting: 0
+! Xft.hintstyle: hintfull
 
 URxvt.termName:    rxvt
 URxvt.scrollBar:   false
@@ -54,7 +56,7 @@ URxvt.keysym.C-0: resize-font:reset
 *color5: #b668cd
 *color6: #208d8f
 *color7: #abb2bf
-*color8: #282c34
+*color8: #2c3038
 *color9: #c04c55
 *color10: #88bc69
 *color11: #e5c07b
