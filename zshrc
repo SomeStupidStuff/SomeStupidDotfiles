@@ -100,7 +100,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Functions
 function go-with-fzf() {
-	a=$(find ~/* -type d ! -path "*/.*/*" ! -path "*/node_modules/*" ! -path "*/__pycache__/*" ! -path "*/SomeStupidDotfiles/*" ! -path "*/Modules/*" | fzf)
+	a=$(find ~/* -type d ! -path "*/.*/*" ! -path "*/node_modules/*" ! -path "*/cache/*" ! -path "*/cache" ! -path "*/__pycache__/*" ! -path "*/__pycache__" ! -path "*/SomeStupidDotfiles/*" ! -path "*/Modules/*" | fzf)
 	if [[ -n "$a" ]] then
 		cd "$a"
 		clear
@@ -131,12 +131,13 @@ export VISUAL='/usr/bin/vim'
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PATH=$PATH:$HOME/Scripts/
-PS1='%(?.%F{cyan}.%F{red})>%f '
+PS1='%(?.%F{blue}.%F{red})->%f %F{magenta}'
+preexec () { echo -ne "\e[0m" }
 
 if [[ "$TERM" = "rxvt" ]] then
-	echo "( ._.)"
-	echo
+	echo '( . \e[4m   \e[24m.)'
 fi
+echo
 
 bindkey -e "^[g" "go-with-fzf"
 
