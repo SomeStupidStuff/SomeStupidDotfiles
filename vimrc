@@ -1,4 +1,4 @@
-filetype indent on
+filetype indent plugin on
 
 " allows me to escape insert/visual mode by typing fd quickly
 inoremap fd <Esc>
@@ -26,15 +26,6 @@ vnoremap <silent> <Leader>= :MathEval<CR>
 
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
-
-" save created folds
-" augroup Save_Folds
-"   autocmd!
-"   autocmd BufWinLeave * mkview
-"   autocmd BufWinEnter * silent! loadview
-" augroup END
-nnoremap <Leader>vs :mkview<CR>
-nnoremap <Leader>vo :silent! loadview<CR>
 
 " change cursor shape
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
