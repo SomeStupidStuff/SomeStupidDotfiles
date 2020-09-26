@@ -68,7 +68,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git colorize)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -117,13 +117,6 @@ alias s='apt-cache search'
 alias p='python3'
 alias con='. con'
 
-export LESS_TERMCAP_md=$'\e[1;34m'
-export LESS_TERMCAP_us=$'\e[1;4;36m'
-export LESS_TERMCAP_so=$'\e[01;32m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_ue=$'\e[0m'
-
 # Exports
 export FZF_DEFAULT_OPTS="-m --ansi --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -L 1 -C {}) 2> /dev/null | head -200'"
 export EDITOR='/usr/bin/vim'
@@ -140,5 +133,10 @@ fi
 echo
 
 bindkey -e "^[g" "go-with-fzf"
+
+# Plugin stuff
+ZSH_COLORIZE_STYLE="colorful"
+alias cat='ccat'
+alias less='cless'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
