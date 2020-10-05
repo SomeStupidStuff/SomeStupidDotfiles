@@ -40,6 +40,7 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return       exec alacritty
 bindsym $mod+Shift+Return exec rxvt-unicode
 
 # kill focused window
@@ -214,7 +215,7 @@ exec --no-startup-id compton --config ~/.config/compton/compton.conf
 # -e 0.9
 
 # Key repeat
-exec --no-startup-id xset r rate 400 15
+exec --no-startup-id xset r rate 400 20
 
 # bar
 exec --no-startup-id ~/.config/polybar/launch.sh
