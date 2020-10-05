@@ -2,40 +2,36 @@
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Ubuntu Mono
+    family: Hack
     # Style can be specified to pick a specific face.
     style: Regular
 
   # The bold font face
   bold:
-    family: Ubuntu Mono
+    family: Hack
     # Style can be specified to pick a specific face.
     # style: Bold
 
   # The italic font face
   italic:
-    family: Ubuntu Mono
+    family: Hack
     # Style can be specified to pick a specific face.
     # style: Italic
 
-  size: 10
+  size: 8
 
 colors:
-  # Default colors
-  primary:
-    # hard contrast: background = '#1d2021'
-    background: '#1d2021'
-    # soft contrast: background = '#32302f'
-    foreground: '#cfcfcf'
+    primary:
+        background: '#282c34'
+        foreground: '#abb2bf'
 
-  # Normal colors
-  normal:
-    black:   '#212c28'
-    red:     '#d90000'
-    orange:  '#FF4200'
-    green:   '#26af1a'
-    yellow:  '#dada00'
-    blue:    '#00b2de'
-    magenta: '#ff00e9'
-    cyan:    '#008c8f'
-    white:   '#cfcfcf'
+    normal:
+        black:   '#282c34'
+        red:     '#c04c55'
+        orange:  '#d19a66'
+        green:   '#88bc69'
+        yellow:  '#35c07b'
+        blue:    '#519fef'
+        magenta: '#b668cd'
+        cyan:    '#008c8f'
+        white:   '#abb2bf'
