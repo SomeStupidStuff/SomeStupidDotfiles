@@ -22,7 +22,7 @@ window {
 	width:  450px;
 	location: center;
 	anchor: center;
-	border: 5px;
+	border: 6px;
 	border-color: #3d4041;
 }
 
