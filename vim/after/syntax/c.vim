@@ -14,16 +14,18 @@ hi def link cTypedefType cTypeDecl
 hi def link cTypedefTypeL cTypeDecl
 hi def link cTypeDecl Type
 
-syntax match cVariable /\v([^a-zA-Z0-9_ ]\s*)@<=[a-zA-Z_][a-zA-Z0-9_]*(\s*[^a-zA-Z0-9_ ])@=/ contains=cFunction,cTypeDecl,cPredictType,cCapitalCast,cCharacter,cSpecialCharacter,cTypedefType,cTypedefTypeL
-syntax match cVariableDecl /\v([a-zA-Z_][a-zA-Z0-9_]*\s+)@<=[a-zA-Z_][a-zA-Z0-9_]*([[\]0-9A-Z_ ]*[;=(),])@=/ contains=cFunction,cTypedefType,cTypedefTypeL
-hi link cAfterBracesList cVariable
+if !get(g:, "c_minimal_highlight", 1)
+	syntax match cVariable /\v([^a-zA-Z0-9_ ]\s*)@<=[a-zA-Z_][a-zA-Z0-9_]*(\s*[^a-zA-Z0-9_ ])@=/ contains=cFunction,cTypeDecl,cPredictType,cCapitalCast,cCharacter,cSpecialCharacter,cTypedefType,cTypedefTypeL
+	syntax match cVariableDecl /\v([a-zA-Z_][a-zA-Z0-9_]*\s+)@<=[a-zA-Z_][a-zA-Z0-9_]*([[\]0-9A-Z_ ]*[;=(),])@=/ contains=cFunction,cTypedefType,cTypedefTypeL
+	hi link cAfterBracesList cVariable
+
+	syntax match cMacro /\v<[A-Z_][A-Z0-9_]*>(\s*$)@!|(^\s*#(define|if(n?def)?)\s+)@<=[a-zA-Z_][a-zA-Z0-9_]*/ containedin=cDefine,cPreCondit
+	syntax match cMacroFunction /\v[A-Z_][A-Z0-9_]*\(@=/ containedin=cMacro contained
+	syntax match cSecondMacro /\v(^\s*#(define|if(n?def)?)\s+[a-zA-Z_][a-zA-Z0-9_]*\s+)@<=[a-zA-Z_][a-zA-Z0-9_]*/ containedin=cDefine
+	syntax match cSwitchMacro /\v(case\s+)@<=[A-Z_]+/
+	hi link cSecondMacro cMacro
+	hi link cMacroFunction cMacro
+	hi def link cMacro Macro
+endif
 
 syntax match cSymbolOp /\v[=+\-*/%!^&<>?~]|(\?.*)@=:/ contains=cComment,cCommentL
-
-syntax match cMacro /\v<[A-Z_][A-Z0-9_]*>(\s*$)@!|(^\s*#(define|if(n?def)?)\s+)@<=[a-zA-Z_][a-zA-Z0-9_]*/ containedin=cDefine,cPreCondit
-syntax match cMacroFunction /\v[A-Z_][A-Z0-9_]*\(@=/ containedin=cMacro contained
-syntax match cSecondMacro /\v(^\s*#(define|if(n?def)?)\s+[a-zA-Z_][a-zA-Z0-9_]*\s+)@<=[a-zA-Z_][a-zA-Z0-9_]*/ containedin=cDefine
-syntax match cSwitchMacro /\v(case\s+)@<=[A-Z_]+/
-hi link cSecondMacro cMacro
-hi link cMacroFunction cMacro
-hi def link cMacro Macro
