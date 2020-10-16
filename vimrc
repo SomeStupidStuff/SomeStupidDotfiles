@@ -4,6 +4,9 @@ filetype indent plugin on
 inoremap fd <Esc>
 vnoremap fd <Esc>
 
+" disable wait for <Esc> in insert mode
+inoremap <Esc> <Esc>
+
 " leader
 let mapleader=" "
 
@@ -28,9 +31,9 @@ cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
 
 " change cursor shape
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[2 q"
+let &t_EI = "\<Esc>[2 q"
 
 " Auto complete behavior
 inoremap <expr> <Enter> pumvisible() ? "\<C-y>" : "\<Enter>"
@@ -60,7 +63,6 @@ set fillchars=fold:\ ,vert:│
 set splitright
 set scrolloff=8
 set mouse=a
-set laststatus=0
 set cursorline
 set number
 set laststatus=2
@@ -68,33 +70,30 @@ set statusline=\
 set shortmess+=cF
 set showcmd
 set hidden
+set conceallevel=2
+set concealcursor=nvci
 
 syntax on
 
+let g:c_minimal_highlight = 1
+
 set background=dark
 if $TERM ==# "rxvt"
-	set t_Co=16
-	colorscheme one-dark
+	set t_Co=256
 else
 	set termguicolors
-	colorscheme one-dark
-	" syntax off
-	" colorscheme simple-dark-transparent
-	" augroup CustomColors
-	" 	au!
-	" 	au Colorscheme * hi StatusLine cterm=NONE ctermfg=NONE ctermbg=NONE
-	" 	au Colorscheme * hi StatusLineNC cterm=NONE ctermfg=NONE ctermbg=NONE
-	" 	au Colorscheme * hi Normal cterm=NONE ctermfg=white ctermbg=NONE
-	" 	au ColorScheme * hi clear CursorLine
-	" augroup END
 endif
+colorscheme one-dark
 
 nnoremap <silent> <Leader>i :echo synIDattr(synID(line('.'), col('.'), 1), "name")<CR>
 
 function! MathEvalLines(...)
 	if a:1 == a:2
-		" Single Line
-		call append(".", [printf("%s", eval(getline(".")))])
+		let line = getline(".")
+		" Substitute random numbers
+		let line = substitute(line, "rand()", '\=system("echo $RANDOM")[:-2]', 'g')
+		" Output result
+		call append(".", [printf("%s", eval(line))])
 	else
 		" Multiple Lines
 		let line1 = a:1
@@ -103,13 +102,14 @@ function! MathEvalLines(...)
 		let vars = {}
 		for i in range(line1, line2)
 			let line = getline(i)
-			" Evaluate expression with variables
+			" Substitute random numbers
+			let line = substitute(line, 'rand()', '\=system("echo $RANDOM")[:-2]', 'g')
 			for name in keys(vars)
+				" Evaluate expression with variables
 				let line = substitute(line, '\v<' . name . '>(\s*\=)@!', vars[name], 'g')
 			endfor
 			if line =~ '\v^\s*\w+\s*\=.*$'
 				" Parse Variables
-				" Todo: Fix regex group matching
 				let name = substitute(line, '\v\=.*$|\s', '', 'g')
 				let value = printf("%s", eval(substitute(line, '\v^.*\=\s*', '', 'g')))
 				let vars[name] = value
