@@ -99,7 +99,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Functions
-function go-with-fzf() {
+function fzf-cd() {
 	a=$(find ~/* -type d ! -path "*/.*/*" ! -path "*/node_modules/*" ! -path "*/cache/*" ! -path "*/cache" ! -path "*/__pycache__/*" ! -path "*/__pycache__" ! -path "*/SomeStupidDotfiles/*" ! -path "*/Modules/*" | fzf)
 	if [[ -n "$a" ]] then
 		cd "$a"
@@ -109,7 +109,18 @@ function go-with-fzf() {
 	zle accept-line
 }
 
-zle -N "go-with-fzf"
+function fzf-config-cd() {
+	a=$(find ~/.config/ -mindepth 1 -maxdepth 1 -type d | fzf)
+	if [[ -n "$a" ]] then
+		cd "$a"
+		clear
+		tree -L 1
+	fi
+	zle accept-line
+}
+
+zle -N "fzf-cd"
+zle -N "fzf-config-cd"
 
 # Aliases
 alias c='clear'
@@ -125,14 +136,16 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PATH=$PATH:$HOME/Scripts/
 PS1='%(?.%F{blue}.%F{red})->%f %F{magenta}'
-preexec () { echo -ne "\e[0m" }
+preexec () {
+	echo -ne '\e[0m'
+	echo -ne '\e[2 q'
+}
 
-if [[ "$TERM" = "rxvt" ]] then
-	echo '( . \e[4m   \e[24m.)'
-fi
+echo '( . \e[4m   \e[24m.)'
 echo
 
-bindkey -e "^[g" "go-with-fzf"
+bindkey -e "^[g" "fzf-cd"
+bindkey -e "^[e" "fzf-config-cd"
 
 # Plugin stuff
 ZSH_COLORIZE_STYLE="colorful"
