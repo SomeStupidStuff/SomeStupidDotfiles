@@ -130,6 +130,8 @@ set tabstop=4
 set shiftwidth=4
 
 " changes style of searches
+set incsearch
+set inccommand=nosplit
 set ignorecase
 set smartcase
 set nohlsearch
