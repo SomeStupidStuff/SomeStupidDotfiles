@@ -18,6 +18,7 @@
   (package-refresh-contents))
 (require 'use-package)
 (setq use-package-always-ensure t)
+(setq custom-file "~/.emacs.d/custom.el")
 
 ;; Indenting
 (setq-default tab-width 4)
@@ -98,10 +99,12 @@
 (setq python-shell-interpreter "python3")
 
 (use-package org-bullets)
+(add-hook 'org-mode-hook (lambda ()
+						   (setq indent-tabs-mode nil)))
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'org-bullets-mode)
 
-;; Custom bindings
+;; Misc stuff
 (defun edit-init-file ()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
@@ -109,3 +112,5 @@
 (bind-key "C-x k" 'kill-current-buffer)
 (bind-key "C-x C-k" 'kill-buffer)
 (bind-key "C-c e" 'edit-init-file)
+
+(add-hook 'prog-mode-hook 'electric-pair-mode)
