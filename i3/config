@@ -15,7 +15,8 @@ set $alt Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Hack 8.8
+font pango:Fira Code 8.9
+# font pango:Hack Nerd Font 8.8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -184,6 +185,9 @@ bindsym $mod+r mode "Resize"
 # bindsym $mod+Shift+b exec --no-startup-id ~/.config/yabar/launch.sh
 bindsym $mod+Shift+o exec --no-startup-id "i3lock-fancy -g -f Ubuntu-Mono -- scrot -z"
 
+# Turn screen off until input is given
+bindsym $mod+Shift+i --release exec --no-startup-id "xset dpms force off"
+
 # Run custom script to switch from internation keyboard to default
 # Useful for spanish class
 bindsym $mod+Shift+a exec ~/Scripts/keybtoggle
@@ -200,20 +204,15 @@ focus_on_window_activation focus
 
 # change window decoration colors
 # class                 border  backgr. text    indicator child_border
-client.focused          #3f3f3f #484c54 #ffffff #2e9ef4   #383c44
-client.focused_inactive #3f3f3f #404040 #ffffff #484e50   #383c44
-client.unfocused        #3f3f3f #282828 #afafaf #292d2e   #383c44
-
-# client.focused          #3f3f3f #1f3f3f #ffffff #2e9ef4   #3f3f3f
+client.focused          #484a56 #3e404c #fafcfe #2e9ef4   #383c44
+client.focused_inactive #585a66 #484a56 #fafcfe #484e50   #383c44
+client.unfocused        #3e404c #2b2d39 #cbd2df #292d2e   #383c44
 
 # sets wallpaper
 exec --no-startup-id nitrogen --restore
 
 # compton
 exec --no-startup-id compton --config ~/.config/compton/compton.conf
-# -f
-# -i 0.8
-# -e 0.9
 
 # key repeat rate
 exec --no-startup-id xset r rate 340 20
@@ -225,8 +224,23 @@ exec --no-startup-id setxkbmap -option caps:swapescape
 exec --no-startup-id ~/.config/polybar/launch.sh
 # exec --no-startup-id tint2
 
+# screensaver
+exec --no-startup-id xset dpms 90
+
 # window specific settings
 for_window [class="Gvim"] $floating
+
+# Some cool title stuff (requires nerd icon support in title font)
+for_window [class=".*"] title_format " <span color='#71bfff'></span>  %title"
+for_window [class="^Alacritty$"] title_format " <span color='#71bfff'></span>  %title"
+for_window [class="^URxvt$"] title_format " <span color='#71bfff'></span>  %title"
+for_window [class="^Chromium-browser$"] title_format " <span color='#71bfff'></span>  Chromium"
+for_window [class="^Firefox$"] title_format " <span color='#71bfff'></span>  Firefox"
+for_window [class="^Code$"] title_format " <span color='#71bfff'></span>  Visual Studio Code"
+for_window [class="^Emacs$"] title_format " <span color='#71bfff'></span>  Emacs"
+for_window [class="^Gvim$"] title_format " <span color='#71bfff'></span>  Gvim"
+for_window [class="^Nautilus$"] title_format " <span color='#71bfff'></span>  Nautilus"
+for_window [class="^Pcmanfm$"] title_format " <span color='#71bfff'></span>  PCManFM"
 
 # Brightness controls
 bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
@@ -236,3 +250,7 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% # increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% # decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# Screenshot
+bindsym Print --release exec --no-startup-id scrot -e 'mv $f ~/Pictures'
+bindsym $mod+Print --release exec --no-startup-id scrot -s -e 'mv $f ~/Pictures'
