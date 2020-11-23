@@ -2,11 +2,9 @@
 
 setxkbmap -query | grep "variant" > /dev/null
 if [ $? -gt 0 ]; then
-	echo "Setting to international keybaord"
 	notify-send "<span color='#e698fd' font='15px'>Keyboard Variant Change</span>" "<span color='#81cfff' font='13px'>Changed to international layout</span>" -t 1000
 	setxkbmap us -variant intl
 else
-	echo "Setting to default keyboard"
 	notify-send "<span color='#e698fd' font='15px'>Keyboard Variant Change</span>" "<span color='#81cfff' font='13px'>Changed to standard layout</span>" -t 1000
 	setxkbmap us
 fi
