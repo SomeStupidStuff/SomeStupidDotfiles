@@ -15,3 +15,8 @@ inoremap <C-Backspace> <C-w>
 cnoremap <C-Backspace> <C-w>
 
 inoremap <M-Space> <Esc>mzb~`za
+
+augroup Homework
+	au!
+	au VimEnter * ++nested if bufname(bufnr("%")) == '' | e ~/School/homework.txt | endif
+augroup END
