@@ -8,7 +8,7 @@ export ZSH="/home/rushil/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+# ZSH_THEME="agnoster"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -68,7 +68,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colorize)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,7 +100,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Functions
 function fzf-cd() {
-	a=$(find ~/* -type d ! -path "*/.*/*" ! -path "*/node_modules/*" ! -path "*/cache/*" ! -path "*/cache" ! -path "*/__pycache__/*" ! -path "*/__pycache__" ! -path "*/SomeStupidDotfiles/*" ! -path "*/Modules/*" | fzf)
+	a=$(find ~/Coding ~/Projects -type d ! -path "*/.git/*" ! -path "*/.git" ! -path "*/node_modules/*" ! -path "*/node_modules" ! -path "*/*cache*/*" ! -path "*/*cache*" | fzf)
 	if [[ -n "$a" ]] then
 		cd "$a"
 		clear
@@ -125,16 +125,19 @@ zle -N "fzf-config-cd"
 # Aliases
 alias c='clear'
 alias s='apt-cache search'
-alias p='python3'
+alias p='python3 -B'
 alias con='. con'
 
 # Exports
 export FZF_DEFAULT_OPTS="-m --ansi --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -L 1 -C {}) 2> /dev/null | head -200'"
-export EDITOR='/usr/bin/vim'
+export PYTHONSTARTUP="$HOME/.pythonrc"
+
 export VISUAL='/usr/bin/vim'
+export EDITOR=$VISUAL
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PATH=$PATH:$HOME/Scripts/
+
 PS1='%(?.%F{blue}.%F{red})->%f %F{magenta}'
 preexec () {
 	echo -ne '\e[0m'
@@ -148,8 +151,5 @@ bindkey -e "^[g" "fzf-cd"
 bindkey -e "^[e" "fzf-config-cd"
 
 # Plugin stuff
-ZSH_COLORIZE_STYLE="colorful"
-alias cat='ccat'
-alias less='cless'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
