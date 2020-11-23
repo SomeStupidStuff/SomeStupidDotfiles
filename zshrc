@@ -144,7 +144,7 @@ preexec () {
 	echo -ne '\e[2 q'
 }
 
-echo '( . \e[4m   \e[24m.)'
+echo '( . \e[4m     \e[24m.)'
 echo
 
 bindkey -e "^[g" "fzf-cd"
