@@ -15,6 +15,7 @@ let s:purple         = {"gui": "#C678DD", "cterm": "170"}
 let s:cyan           = {"gui": "#56B6C2", "cterm": "37" }
 let s:white          = {"gui": "#ABB2BF", "cterm": "145"}
 let s:black          = {"gui": "#282C34", "cterm": "235"}
+let s:light_grey     = {"gui": "#7f8693", "cterm": "243"}
 let s:comment_grey   = {"gui": "#5f6673", "cterm": "59" }
 let s:gutter_fg_grey = {"gui": "#4B5263", "cterm": "240"}
 let s:cursor_grey    = {"gui": "#2C323C", "cterm": "236"}
@@ -85,6 +86,7 @@ else
 endif
 
 call s:h("Comment", s:comment_grey, "", "NONE")
+call s:h("Folded", s:comment_grey, s:black, "NONE")
 call s:h("Conceal", s:blue, s:black)
 call s:h("Directory", s:purple)
 call s:h("Title", s:blue, "", "bold")
@@ -115,9 +117,9 @@ call s:h("cMacro", s:blue)
 call s:h("cSecondMacro", s:cyan)
 call s:h("cSwitchMacro", s:cyan)
 
-call s:h("pythonSelf", s:yellow)
-call s:h("pythonNone", s:dark_yellow)
-call s:h("pythonBoolean", s:dark_yellow)
+call s:h("pythonSelf", s:purple)
+call s:h("pythonNone", s:purple)
+call s:h("pythonBoolean", s:purple)
 call s:h("pythonMagicMethods", s:cyan)
 call s:h("pythonClass", s:yellow)
 call s:h("pythonFuncVar", s:dark_yellow)
@@ -126,6 +128,8 @@ call s:h("pythonFunctionCall", s:blue)
 call s:h("pythonBuiltinType", s:cyan)
 call s:h("pythonBuiltinFunction", s:cyan)
 call s:h("pythonConstant", s:dark_yellow)
+call s:h("pythonSymbolOperator", s:purple)
+call s:h("pythonNonOperator", s:light_grey)
 
 call s:h("javaScriptFunction", s:purple)
 call s:h("javaScriptMemberFunction", s:cyan)
@@ -147,10 +151,21 @@ call s:h("vimNotation", s:blue)
 call s:h("vimFunction", s:blue)
 call s:h("vimUserFunc", s:purple)
 
-call s:h("orgDone", s:green, "", "bold")
-call s:h("orgCheckmark", s:white, "", "bold")
+call s:h("orgDone", s:green, s:visual_grey, "bold")
+call s:h("orgTodo", s:red, s:visual_grey, "bold")
+call s:h("orgDate", s:cyan)
+call s:h("orgCounter", s:green)
+call s:h("orgCheckmark", s:dark_yellow, "", "bold")
+call s:h("orgCheckbox", s:dark_yellow, "", "bold")
 call s:h("orgClosed", s:yellow, "", "bold")
 call s:h("orgClosedColon", s:yellow, "", "bold")
+
+call s:h("orgBold", "", "", "bold")
+call s:h("orgItalic", "", "", "italic")
+call s:h("orgUnderline", "", "", "underline")
+call s:h("orgVerbatim", s:purple, "", "italic")
+call s:h("orgStrike", s:blue, "", "underline")
+call s:h("orgCode", s:green, "", "italic")
 
 call s:h("swkHeader", s:yellow, "", "bold")
 call s:h("swkBulletPoint", s:cyan)

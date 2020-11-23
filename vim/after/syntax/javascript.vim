@@ -16,6 +16,6 @@ hi link javaScriptConstVar Identifier
 hi link javaScriptVar Identifier
 hi link javaScriptOperatorVar Identifier
 
-syntax match javaScriptOperator /[+\-*/=<>!&|^$]/ contains=javaScriptComment,javaScriptLineComment,jsComment
+syntax match javaScriptOperator /[+\-*/%=<>!&|^$]/ contains=javaScriptComment,javaScriptLineComment,jsComment
 syntax match javaScriptTernaryOperator /\v\?|(\?.*)@<=:/
 hi def link javaScriptTernaryOperator javaScriptOperator

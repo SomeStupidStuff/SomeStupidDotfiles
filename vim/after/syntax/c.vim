@@ -1,5 +1,5 @@
 syntax match cFunction /\v\w+\s*\(@=/
-hi link cFunction Function
+hi def link cFunction Function
 
 syntax match cTypeDecl /\v(^\s*([a-zA-Z_][a-zA-Z0-9_]*\s*)*([ &*]+[a-zA-Z_][a-zA-Z0-9_]*\s*\(.*)?)@<=(typedef\s*)@<![a-zA-Z_][a-zA-Z0-9_]*([ *&]+[a-zA-Z_][a-zA-Z0-9_]*[[\]0-9A-Z_ ]*[;=(),])@=/
 syntax match cPredictType /\v(^\s*|[(,]\s*)@<=[a-zA-Z_][a-zA-Z0-9_]*(\s*[&*])@=/ contains=cTypeDecl,cPointerCast
@@ -9,6 +9,7 @@ syntax match cPointerCast /\v([^a-zA-Z0-9_]\(\s*)@<=[a-zA-Z_][a-zA-Z0-9_]*(\s*\*
 syntax match cTypedefType /\v(^}\s+)@<=[a-zA-Z_][a-zA-Z0-9_]*;@=/
 syntax match cTypedefTypeL /\v(^typedef.*\s+)@<=[a-zA-Z_][a-zA-Z0-9_]*(;|\s+[a-zA-Z_][a-zA-Z0-9_]*;)@=/
 hi def link cPrefixType cTypeDecl
+hi def link cCapitalCast cTypeDecl
 hi def link cPointerCast cCapitalCast
 hi def link cTypedefType cTypeDecl
 hi def link cTypedefTypeL cTypeDecl
@@ -21,8 +22,8 @@ if !get(g:, "c_minimal_highlight", 1)
 
 	syntax match cMacro /\v<[A-Z_][A-Z0-9_]*>(\s*$)@!|(^\s*#(define|if(n?def)?)\s+)@<=[a-zA-Z_][a-zA-Z0-9_]*/ containedin=cDefine,cPreCondit
 	syntax match cMacroFunction /\v[A-Z_][A-Z0-9_]*\(@=/ containedin=cMacro contained
-	syntax match cSecondMacro /\v(^\s*#(define|if(n?def)?)\s+[a-zA-Z_][a-zA-Z0-9_]*\s+)@<=[a-zA-Z_][a-zA-Z0-9_]*/ containedin=cDefine
-	syntax match cSwitchMacro /\v(case\s+)@<=[A-Z_]+/
+	syntax match cMacro /\v(^\s*#(define|if(n?def)?)\s+[a-zA-Z_][a-zA-Z0-9_]*\s+)@<=[a-zA-Z_][a-zA-Z0-9_]*/ containedin=cDefine
+	syntax match cMacro /\v(case\s+)@<=[A-Z_]+/
 	hi link cSecondMacro cMacro
 	hi link cMacroFunction cMacro
 	hi def link cMacro Macro
