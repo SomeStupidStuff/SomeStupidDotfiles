@@ -31,22 +31,22 @@ URxvt*keysym.C-0: resize-font:reset
 *background:  #282c34
 *foreground:  #abb2bf
 *cursorColor: #abb2bf
-*color0: #282c34
-*color1: #c04c55
-*color2: #88bc69
-*color3: #d19a66
-*color4: #519fef
-*color5: #b668cd
-*color6: #56b6c2
-*color7: #abb2bf
-*color8: #2c3038
-*color9: #c04c55
-*color10: #88bc69
-*color11: #e5c07b
-*color12: #519fef
-*color13: #b668cd
-*color14: #56b6c2
-*color15: #abb2bf
+*color0:      #282c34
+*color1:      #c04c55
+*color2:      #88bc69
+*color3:      #d19a66
+*color4:      #519fef
+*color5:      #b668cd
+*color6:      #56b6c2
+*color7:      #abb2bf
+*color8:      #2c3038
+*color9:      #c04c55
+*color10:     #88bc69
+*color11:     #e5c07b
+*color12:     #519fef
+*color13:     #b668cd
+*color14:     #56b6c2
+*color15:     #abb2bf
 
 !! Normal colorscheme
 ! *background:  #1d2021
