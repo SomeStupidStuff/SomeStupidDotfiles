@@ -4,7 +4,7 @@ filetype indent plugin on
 inoremap fd <Esc>
 vnoremap fd <Esc>
 
-" disable wait for <Esc> in insert mode
+" disable wait for <Esc> in insert and operator mode
 inoremap <Esc> <Esc>
 onoremap <Esc> <Esc>
 
@@ -25,6 +25,7 @@ nnoremap <Leader>q :qa!<CR>
 nnoremap <Leader>x :wq!<CR>
 nnoremap <silent> <Leader>o o<Esc>
 nnoremap <silent> <Leader>O O<Esc>
+nnoremap <silent> <Leader>d :dj <C-r>=expand('<cword>')<CR><CR>
 nnoremap \ za
 
 " mainly used for math and stuff
@@ -41,6 +42,9 @@ cnoremap <C-p> <Up>
 inoremap <expr> <Enter> pumvisible() ? "\<C-y>" : "\<Enter>"
 inoremap <expr> <C-n> pumvisible() ? "\<Down>" : "\<C-n><C-p><C-n>"
 inoremap <expr> <C-p> pumvisible() ? "\<Up>" : "\<C-p><C-n><C-p>"
+
+" Terminal mode binding
+tnoremap <Esc><Esc> <C-\><C-n>
 
 " If running in a terminal, use <C-BS> to kill word
 if !has("gui_running")
@@ -90,8 +94,6 @@ set concealcursor=nvci
 syntax on
 
 " Plugin/syntax configuration
-let g:c_minimal_highlight = 0
-
 let g:org_bullet_icons = 1
 
 let g:treeview_view_line = 0
@@ -173,6 +175,9 @@ function! DefineJump()
 	echohl Question
 	let name = input("Find in project: ")
 	echohl
+	if !len(name)
+		return
+	endif
 	try
 		execute "dj " . name
 	catch
@@ -207,9 +212,16 @@ vnoremap <silent> s :<C-u>call SurroundText()<CR>
 " A better commandline interface
 function! SilentShell(...)
 	let cmd = a:1
+	if cmd =~ '\v^\s*make\s*$' && !(filereadable("makefile") || filereadable("Makefile"))
+		let cmd = &l:makeprg
+	endif
 	let cmd = substitute(cmd, '\v(^|\s)@<=\%(\s|$)@=', expand('%:p'), 'g')
 	let cmd = substitute(cmd, '\v(^|\s)@<=#(\s|$)@=', expand('#:p'), 'g')
-	let write = writefile(['Command: ' . cmd] + systemlist(cmd), "/tmp/output.txt")
+	let output = systemlist(cmd)
+	for i in range(len(output))
+		let output[i] = substitute(output[i], '\v.{-}m', '', 'g')
+	endfor
+	let write = writefile(['Command: ' . cmd] + output, "/tmp/output.txt")
 	if write == -1
 		return
 	endif
@@ -229,9 +241,6 @@ command! -nargs=+ -complete=shellcmd Shell call SilentShell(<q-args>)
 nnoremap <silent> <Leader>p :pclose<CR>
 cnoreabbrev sh <C-r>=getcmdtype() == ":" ? "Shell" : "sh"<CR>
 cnoreabbrev make <C-r>=getcmdtype() == ":" ? "Shell make" : "make"<CR>
-
-" Terminal mode binding
-tnoremap <Esc><Esc> <C-\><C-n>
 
 " My current terminal colors
 let g:terminal_ansi_colors = ["#282c34",
