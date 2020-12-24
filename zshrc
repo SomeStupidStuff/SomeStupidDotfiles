@@ -119,8 +119,19 @@ function fzf-config-cd() {
 	zle accept-line
 }
 
+function fzf-vim-edit() {
+	a=$(find ~/.vim -type f ! -path "*/plugged/*" ! -path "*/view/*" ! -path "*/spell/*" | fzf)
+	if [[ -n "$a" ]] then
+		cd ~/.vim
+		clear
+		echo $a | xargs -o vim
+	fi
+	zle accept-line
+}
+
 zle -N "fzf-cd"
 zle -N "fzf-config-cd"
+zle -N "fzf-vim-edit"
 
 # Aliases
 alias c='clear'
@@ -149,6 +160,7 @@ echo
 
 bindkey -e "^[g" "fzf-cd"
 bindkey -e "^[e" "fzf-config-cd"
+bindkey -e "^[v" "fzf-vim-edit"
 
 # Plugin stuff
 
