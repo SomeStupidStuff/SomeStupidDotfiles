@@ -1,0 +1,274 @@
+from types import BuiltinFunctionType, FunctionType, MethodType, ModuleType
+from code import InteractiveConsole
+from platform import python_version
+import subprocess
+import rlcompleter
+import readline
+import sys
+
+# TODO:
+#   - Add support for command history
+
+def split_by_sep(s, sep):
+    index = s.find(sep)
+    if index == -1:
+        return (s, "")
+    return (s[:index], s[index:].strip())
+
+def simplify_float(f):
+    if f // 1 == f:
+        return int(f)
+    return f
+
+RED = "\x01\033[31m\x02"
+GREEN = "\x01\033[32m\x02"
+BLUE = "\x01\033[34m\x02"
+PURPLE = "\x01\033[35m\x02"
+CYAN = "\x01\033[36m\x02"
+RESET = "\x01\033[0m\x02"
+
+INDENT = " " * 2
+
+def color_format(color, s):
+    return f"{color}{s}{RESET}"
+
+def pretty_display(console, value, _indent=""):
+    console.locals['_'] = value
+    expand = len(str(value)) > 80
+    spacing = "\n" if expand else " "
+    indent = (INDENT if expand else "") + (_indent if expand else "")
+    if value is None:
+        return color_format(PURPLE, "None")
+    elif isinstance(value, bool):
+        return color_format(PURPLE, value)
+    elif type(value).__repr__ == object.__repr__:
+        return repr(value)
+    elif isinstance(value, int):
+        return color_format(GREEN, value)
+    elif isinstance(value, float):
+        return color_format(GREEN, value)
+    elif isinstance(value, complex):
+        real = simplify_float(value.real)
+        imag = simplify_float(value.imag)
+        if real == 0:
+            return color_format(GREEN, imag) + color_format(BLUE, "i")
+        else:
+            return (color_format(CYAN, "(") +
+                    color_format(GREEN, real) +
+                    " " +
+                    color_format(PURPLE, "+") +
+                    " " +
+                    color_format(GREEN, imag) +
+                    color_format(BLUE, "i") +
+                    color_format(CYAN, ")"))
+    elif isinstance(value, str):
+        return color_format(GREEN, repr(value))
+    elif isinstance(value, list) or isinstance(value, tuple):
+        obracket = "[" if isinstance(value, list) else "("
+        cbracket = "]" if isinstance(value, list) else ")"
+        if len(value) == 0:
+            return obracket + cbracket
+        output = obracket
+        for i, c in enumerate(value):
+            output += spacing
+            output += indent
+            output += pretty_display(console, c, indent)
+            if i != len(value) - 1:
+                output += ","
+        output += spacing
+        output += (_indent if expand else "")
+        output += cbracket
+        return output
+    elif isinstance(value, dict):
+        if len(value) == 0:
+            return "{}"
+        output = "{"
+        for i, c in enumerate(value):
+            output += spacing
+            output += indent
+            output += pretty_display(console, c, indent)
+            output += " : "
+            output += pretty_display(console, value[c], indent)
+            if i != len(value) - 1:
+                output += ","
+        output += spacing
+        output += (_indent if expand else "")
+        output += "}"
+        return output
+    elif isinstance(value, type):
+        return color_format(PURPLE, "type ") + color_format(GREEN, value.__name__)
+    elif isinstance(value, FunctionType):
+        return color_format(PURPLE, "function ") + color_format(GREEN, value.__name__)
+    elif isinstance(value, BuiltinFunctionType):
+        return color_format(PURPLE, "built-in function ") + color_format(GREEN, value.__name__)
+    elif isinstance(value, MethodType):
+        return color_format(PURPLE, "method ") + color_format(GREEN, value.__name__)
+    elif isinstance(value, ModuleType):
+        return color_format(PURPLE, "module ") + color_format(GREEN, value.__name__)
+    if hasattr(value, "__name__"):
+        return (color_format(PURPLE, "var ") +
+                color_format(GREEN, value.__name__) +
+                color_format(PURPLE, " of type ") +
+                color_format(GREEN, type(value).__name__))
+    return (color_format(PURPLE, "object of type ") +
+            color_format(GREEN, type(value).__name__))
+
+class CustomConsole(InteractiveConsole, rlcompleter.Completer):
+    def __init__(self, commands):
+        super(CustomConsole, self).__init__()
+        self.commands = commands
+        self.pretty_print = True
+        self.init_prompt()
+        self.init_display()
+        self.init_readline()
+
+    def init_prompt(self):
+        sys.ps1 = color_format(BLUE, "> ")
+        sys.ps2 = color_format(GREEN, ". ")
+
+    def init_display(self):
+        if not self.pretty_print:
+            sys.displayhook = print
+            return
+        sys.displayhook = lambda value : print(pretty_display(self, value))
+
+    def init_readline(self):
+        readline.parse_and_bind("tab: complete")
+        readline.read_init_file()
+
+    def showtraceback(self, *args):
+        self.write(RED)
+        result = super(CustomConsole, self).showtraceback(*args)
+        self.write(RESET)
+        return result
+
+    def showsyntaxerror(self, filename=None):
+        self.write(RED)
+        result = super(CustomConsole, self).showsyntaxerror(filename)
+        self.write(RESET)
+        return result
+
+    def raw_input(self, prompt=''):
+        line = super(CustomConsole, self).raw_input(prompt)
+        return self.handle(line)
+
+    def handle(self, line):
+        if len(line) and line[0] == "%":
+            command, inp = split_by_sep(line, " ")
+            command = command[1:]
+            if command in self.commands:
+                func = self.commands[command]
+                func(self, inp)
+                return ''
+            self.write(color_format(RED, "Command '%s' does not exist\n" % command))
+            return ''
+        elif len(line.strip()) and line.strip()[-1] == "?":
+            inp = line.strip()[:-1]
+            try:
+                value = eval(inp, {}, self.locals)
+            except:
+                self.write(color_format(RED, "Could not display docstring of value '%s'\n" % inp))
+                return ''
+            if value.__doc__ is not None:
+                self.write(value.__doc__ + "\n")
+            else:
+                help(value)
+                # self.write(color_format(RED, "Value does not have a doc string\n"))
+            return ''
+        elif len(line) and line[0] == "!":
+            command = line[1:]
+            command = command.format(**self.locals)
+            status, output = subprocess.getstatusoutput(command)
+            if status:
+                self.write(color_format(RED, output + "\n"))
+            else:
+                self.write(output + "\n")
+            return ''
+        return line
+
+    def interact(self):
+        banner = f"Interactive repl using Python {python_version()}\nType '%help' for more information."
+        super(CustomConsole, self).interact(banner=banner, exitmsg="")
+        sys.exit()
+
+def show_help(console, _):
+    """Displays this help page."""
+    output = color_format(BLUE, "Commands and usage:\n")
+    for command in console.commands:
+        output += (color_format(PURPLE, command) +
+            " : " +
+            color_format(GREEN, console.commands[command].__doc__) +
+            "\n")
+    console.write(output)
+
+def ptoggle(console, _):
+    """Toggles pretty print functionality."""
+    console.pretty_print = not console.pretty_print
+    console.init_display()
+
+def inspect(console, inp):
+    """Print information about a value."""
+    try:
+        value = eval(inp, {}, console.locals)
+    except:
+        console.write(color_format(RED, "Could not inspect value '%s'\n" % inp))
+        return
+    pretty_print_types = [bool, int, str, list, tuple, dict, type, FunctionType, BuiltinFunctionType, MethodType, ModuleType]
+    function_types = [FunctionType, BuiltinFunctionType, MethodType]
+    if value is None or type(value) in pretty_print_types:
+        console.write(pretty_display(console, value) + "\n")
+        return
+    _type = type(value).__name__
+    attributes = [a for a in dir(value) if a[0] != "_" and type(getattr(value, a)) not in function_types]
+    attributes.reverse()
+    if len(attributes) == 0:
+        console.write(color_format(GREEN, _type) + " {}\n")
+        return
+    output = color_format(GREEN, _type) + " {\n"
+    for i, a in enumerate(attributes):
+        output += INDENT
+        output += color_format(BLUE, a)
+        output += ": "
+        output += pretty_display(console, getattr(value, a), INDENT)
+        if i != len(attributes) - 1:
+            output += ","
+        output += "\n"
+    output += "}\n"
+    console.write(output)
+
+def methods(console, inp):
+    """Displays all methods in an object."""
+    try:
+        value = eval(inp, {}, console.locals)
+    except:
+        console.write(color_format(RED, "Invalid input '%s'\n" % inp))
+        return
+    function_types = [FunctionType, BuiltinFunctionType, MethodType]
+    _type = type(value).__name__
+    attributes = [a for a in dir(value) if a[0] != "_" and type(getattr(value, a)) in function_types]
+    attributes.reverse()
+    if len(attributes) == 0:
+        console.write(color_format(GREEN, _type) + " {}\n")
+        return
+    output = color_format(GREEN, _type) + " {\n"
+    for i, a in enumerate(attributes):
+        output += INDENT
+        output += color_format(BLUE, a)
+        output += ": "
+        output += pretty_display(console, getattr(value, a), INDENT)
+        if i != len(attributes) - 1:
+            output += ","
+        output += "\n"
+    output += "}\n"
+    console.write(output)
+
+commands = {
+    "help" : show_help,
+    "ptoggle" : ptoggle,
+    "inspect" : inspect,
+    "methods" : methods,
+}
+
+console = CustomConsole(commands)
+console.locals["__console__"] = console
+console.interact()
