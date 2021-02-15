@@ -1,73 +1,110 @@
-function! treeview#WatchFile()
-	if !len(get(g:treeview_ft_pat, &ft, ""))
+function! treeview#ViewTree()
+	" Send error if filetype does not have a regex
+	if len(get(g:treeview_ft_pat, &ft, "")) == 0
 		echohl Error
 		echom "No matching regular expression for filetype '" . &ft . "'"
 		echohl
 		return
 	endif
-	let b:treeview_watch = 1
-	let bfnr = bufnr()
-	let ft=&ft
-	vsplit TreeView
-	setlocal nowrap
+	" Store filetype and buffer number of source file to be used later
+	let ft = &ft
+	let buffer = bufnr("%")
+	" Open tree view in preview window
+	vert pedit TreeView
+	" Disable wrap and line numbers
+	setlocal nowrap nonumber norelativenumber buftype=nofile
+	" Set width of treeview window according to g:treeview_width
 	execute g:treeview_width . "wincmd |"
+	" Mappings for treeview buffer
 	nnoremap <buffer><silent> <CR> :call treeview#JumpToLine(line("."))<CR>
+	execute printf("nnoremap <buffer><silent> R :call treeview#Reload(%d)", buffer)
+	" Set filetype of tree view buffer
 	let &ft=ft
-	let b:source_buffer = bfnr
-	call setbufvar(bfnr, "treeview_watch_buffer", bufnr())
-	execute bufwinnr(b:source_buffer) . "wincmd w"
-	let err = treeview#Update()
-	if err
+	" Get matches and update tree view buffer
+	let matches = treeview#Update(buffer)
+	" If matches is empty, show message and exit function
+	if len(matches) == 0
 		echohl Error
 		echom "No matches for treeview to show"
 		echohl
 		return
 	endif
-	execute bufwinnr(b:treeview_watch_buffer) . "wincmd w"
-	call treeview#RedrawHighlight(line("."))
-	au CursorMoved <buffer> call treeview#RedrawHighlight(line("."))
-	au WinLeave <buffer> call treeview#ClearHighlight()
-	au WinEnter <buffer> call treeview#RedrawHighlight(line('.'))
+	" Selection highlight drawings
+	call treeview#DrawSelection(matches, line("."))
+	let autocommands = ""
+	let autocommands .= "augroup TreeviewSelectionHighlight"
+	let autocommands .= "	au!"
+	let autocommands .= "	au CursorMoved <buffer> call treeview#DrawSelection(%s, line(\".\"))"
+	let autocommands .= "	au WinLeave <buffer> call treeview#ClearSelection(%d)"
+	let autocommands .= "	au WinEnter <buffer> call treeview#DrawSelection(%s, line(\".\"))"
+	let autocommands .= "augroup END"
+	execute printf(autocommands, matches, buffer, matches)
 endfunction!
 
-function! treeview#Update()
-	if !bufloaded(b:treeview_watch_buffer)
-		let b:treeview_watch = 0
+function! treeview#Reload(buffer)
+	" Get new matches from update function
+	let matches = treeview#Update(a:buffer)
+	" If matches is empty, show message and exit function
+	if len(matches) == 0
+		echohl Error
+		echom "No matches for treeview to show"
+		echohl
 		return
 	endif
+	" Re-define TreeviewSelectionHighlight augroup
+	call treeview#DrawSelection(matches, line("."))
+	let autocommands = ""
+	let autocommands .= "augroup TreeviewSelectionHighlight"
+	let autocommands .= "	au!"
+	let autocommands .= "	au CursorMoved <buffer> call treeview#DrawSelection(%s, line(\".\"))"
+	let autocommands .= "	au WinLeave <buffer> call treeview#ClearSelection(%d)"
+	let autocommands .= "	au WinEnter <buffer> call treeview#DrawSelection(%s, line(\".\"))"
+	let autocommands .= "augroup END"
+	execute printf(autocommands, matches, buffer, matches)
+endfunction!
+
+function! treeview#Update(buffer)
+	" Clear the tree view buffer
 	call s:ClearBuffer()
-	let re = get(g:treeview_ft_pat, &ft, -1)
+	" Get the filetype pattern
+	let pattern = get(g:treeview_ft_pat, &ft, -1)
+	" Store current buffer number
+	let tree_buffer = bufnr("%")
+	" Move into source buffer to get matches
+	execute "noautocmd keepalt b " . a:buffer
+	" Get matches while in source buffer
 	let matches = []
 	for i in range(1, line("$"))
-		if getline(i) =~ re
-			call add(matches, [matchlist(getline(i), re)[1], i, len(getline(i))])
+		let contents = getline(i)
+		if contents =~ pattern
+			call add(matches, [matchlist(contents, pattern)[1], i, len(contents)])
 		endif
 	endfor
-	if !len(matches)
-		execute "bd! " . b:treeview_watch_buffer
-		return 1
-	endif
-	call setbufvar(b:treeview_watch_buffer, "treeview_matches", matches)
-	call s:DisplayMatches()
-	return 0
+	" Move back to tree view buffer
+	execute "noautocmd keepalt b " . tree_buffer
+	" Display matches
+	call s:DisplayMatches(matches)
+	" Return matches
+	return matches
 endfunction!
 
-function! s:DisplayMatches()
-	let matches = getbufvar(b:treeview_watch_buffer, "treeview_matches")
-	for i in range(len(matches))
-		call setbufline(b:treeview_watch_buffer, i + 1, matches[i][0])
+function! s:DisplayMatches(matches)
+	for i in range(len(a:matches))
+		call setline(i + 1, matches[i][0])
 	endfor
-	call setbufvar(b:treeview_watch_buffer, "&modified", 0)
 endfunction!
 
-function! treeview#RedrawHighlight(line)
-	if len(get(b:, "treeview_matches", [])) == 0
+function! treeview#DrawSelection(matches, line)
+	" Don't do anything if matches is empty
+	if len(a:matches) == 0
 		return
 	endif
-	call treeview#ClearHighlight()
-	let match = b:treeview_matches[a:line-1]
-	let line = match[1]
-	let length = match[2]
+	" Clear selection highlight
+	# TODO: Finish this function
+	call treeview#ClearSelection()
+	let m = a:matches[a:line-1]
+	let line = m[1]
+	let length = m[2]
 	call s:HighlightLine(line, length)
 endfunction!
 
@@ -89,16 +126,12 @@ function! s:HighlightLine(line, length)
 	execute win_save . "wincmd w"
 endfunction!
 
-function! treeview#ClearHighlight()
-	" Called from the treeview buffer
-	let win_save = bufwinnr(bufnr())
-	execute bufwinnr(b:source_buffer) . "wincmd w"
-	call prop_remove({'type' : 'TreeviewSel'})
-	execute win_save . "wincmd w"
+function! treeview#ClearSelection(buffer)
+	" Clear all text props with type TreeviewSel in buffer a:buffer
+	call prop_remove({'type' : 'TreeviewSel', 'bufnr' : a:buffer})
 endfunction!
 
 function! treeview#JumpToLine(line)
-	" Called from the treeview buffer
 	let line = b:treeview_matches[a:line-1][1]
 	let win = bufwinnr(b:source_buffer)
 	if win == -1
@@ -111,8 +144,5 @@ function! treeview#JumpToLine(line)
 endfunction!
 
 function! s:ClearBuffer()
-	let win_save = bufwinnr(bufnr())
-	execute bufwinnr(b:treeview_watch_buffer) . "wincmd w"
 	1,$d
-	execute win_save . "wincmd w"
 endfunction!

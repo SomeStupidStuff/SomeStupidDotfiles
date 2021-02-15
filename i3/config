@@ -186,11 +186,13 @@ bindsym $mod+r mode "Resize"
 bindsym $mod+Shift+o exec --no-startup-id "i3lock-fancy -g -f Ubuntu-Mono -- scrot -z"
 
 # Turn screen off until input is given
-bindsym $mod+Shift+i --release exec --no-startup-id "xset dpms force off"
+bindsym $mod+i --release exec --no-startup-id "sleep 1 && xset dpms force off"
 
 # Run custom script to switch from internation keyboard to default
 # Useful for spanish class
 bindsym $mod+Shift+a exec ~/Scripts/keybtoggle
+
+bindsym $mod+c move position center
 
 # Run yabar script
 # exec_always --no-startup-id ~/.config/yabar/launch.sh
@@ -212,16 +214,16 @@ client.unfocused        #3e404c #2b2d39 #cbd2df #292d2e   #383c44
 exec --no-startup-id nitrogen --restore
 
 # compton
-exec --no-startup-id compton --config ~/.config/compton/compton.conf
+exec_always --no-startup-id compton --config ~/.config/compton/compton.conf
 
 # key repeat rate
-exec --no-startup-id xset r rate 340 20
+exec_always --no-startup-id xset r rate 340 20
 
 # swap control with caps
 exec --no-startup-id setxkbmap -option caps:swapescape
 
 # bar
-exec --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 # exec --no-startup-id tint2
 
 # screensaver

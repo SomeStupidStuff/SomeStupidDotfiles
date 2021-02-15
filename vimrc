@@ -26,11 +26,14 @@ nnoremap <Leader>x :wq!<CR>
 nnoremap <silent> <Leader>o o<Esc>
 nnoremap <silent> <Leader>O O<Esc>
 nnoremap <silent> <Leader>d :dj <C-r>=expand('<cword>')<CR><CR>
+nnoremap <silent> <Leader>x D"_dd
+nnoremap <silent> <Leader>p :pclose<CR>
+nnoremap <silent> <Leader>c :botr term<CR><C-\><C-n>10<C-w>-i
 nnoremap \ za
 
-" mainly used for math and stuff
-nnoremap <silent> <Leader>= :MathEval<CR>
-vnoremap <silent> <Leader>= :MathEval<CR>
+" Prints the current syntax under cursor
+nnoremap <silent> <Leader>i :echo synIDattr(synID(line('.'), col('.'), 1), "name")<CR>
+nnoremap <Leader>I :hi <C-r>=synIDattr(synID(line('.'), col('.'), 1), "name")<CR>
 
 " Just a little nitpick
 vnoremap J j
@@ -73,6 +76,7 @@ set noruler
 set completeopt=menuone,noinsert
 set complete-=i
 set foldmethod=indent
+set directory=~/.vim/swaps
 set nofoldenable
 set foldlevel=99
 set foldmethod=indent
@@ -107,10 +111,6 @@ else
 	set termguicolors
 	colorscheme one-dark
 endif
-
-" Prints the current syntax under cursor
-nnoremap <silent> <Leader>i :echo synIDattr(synID(line('.'), col('.'), 1), "name")<CR>
-nnoremap <Leader>I :hi <C-r>=synIDattr(synID(line('.'), col('.'), 1), "name")<CR>
 
 " A very cool math function that works regardless of filetype
 function! MathEvalLines(...)
@@ -149,6 +149,8 @@ function! MathEvalLines(...)
 endfunction!
 
 command! -range MathEval call MathEvalLines(<line1>, <line2>)
+nnoremap <silent> <Leader>= :MathEval<CR>
+vnoremap <silent> <Leader>= :MathEval<CR>
 
 " Custom foldtext
 function! FoldText()
@@ -209,36 +211,64 @@ endfunction!
 
 vnoremap <silent> s :<C-u>call SurroundText()<CR>
 
+" A function that controls what abbreviations output (found in ftplugin files)
+function! TabSnippet(text, output)
+	echo
+	let char = nr2char(getchar())
+	if char == "\<Tab>"
+		return a:output
+	else
+		return a:text . char
+	endif
+endfunction!
+
+" Snippets (sort of) to expand c-style brackets
+function! BracketsSnippet(obracket, cbracket)
+	echo
+	let char = nr2char(getchar())
+	if char == "\<Tab>"
+		return a:obracket . "\<CR>" . a:cbracket . "\<C-o>O"
+	elseif char == " "
+		return a:obracket . a:cbracket . "\<Left>"
+	endif
+	return a:obracket . char
+endfunction!
+
+iabbrev <expr> ( BracketsSnippet("(", ")")
+iabbrev <expr> [ BracketsSnippet("[", "]")
+iabbrev <expr> { BracketsSnippet("{", "}")
+
 " A better commandline interface
 function! SilentShell(...)
 	let cmd = a:1
+	let errorformat = &errorformat
 	if cmd =~ '\v^\s*make\s*$' && !(filereadable("makefile") || filereadable("Makefile"))
 		let cmd = &l:makeprg
 	endif
 	let cmd = substitute(cmd, '\v(^|\s)@<=\%(\s|$)@=', expand('%:p'), 'g')
 	let cmd = substitute(cmd, '\v(^|\s)@<=#(\s|$)@=', expand('#:p'), 'g')
 	let output = systemlist(cmd)
+	let code = v:shell_error
 	for i in range(len(output))
 		let output[i] = substitute(output[i], '\v.{-}m', '', 'g')
 	endfor
-	let write = writefile(['Command: ' . cmd] + output, "/tmp/output.txt")
-	if write == -1
-		return
-	endif
-	botr pedit /tmp/output.txt
+	let output = ['Command: ' . cmd] + output + ['', '[Process exited with a status code of ' . code . ']']
+	execute 'botr pedit SilentShell'
 	wincmd j
 	12wincmd _
-	let b = bufnr()
-	if index(g:silent_shell_qf_commands, matchlist(getline(1),  '\v^(Command:\s*)(\S*)')[2]) >= 0
+	let &errorformat = errorformat
+	setlocal ft=cmdlog
+	put!=output
+	norm gg
+	if index(g:silent_shell_qf_commands, matchlist(cmd,  '\v^\s*(\S*)')[1]) >= 0
 		cexpr getline(2, "$")
-		execute "b " . b
+		b SilentShell
 	endif
 endfunction!
 
 let g:silent_shell_qf_commands = ['make', 'mypy', 'grep']
 
 command! -nargs=+ -complete=shellcmd Shell call SilentShell(<q-args>)
-nnoremap <silent> <Leader>p :pclose<CR>
 cnoreabbrev sh <C-r>=getcmdtype() == ":" ? "Shell" : "sh"<CR>
 cnoreabbrev make <C-r>=getcmdtype() == ":" ? "Shell make" : "make"<CR>
 

@@ -1,94 +1,66 @@
-" Setup
+" Setup {{{1
 if has("syntax")
 	syntax on
 endif
 
 filetype indent plugin on
 
-" define leader as space
 let mapleader = ' '
-
-" plugged extension
+"1}}}
+" Plugin stuff {{{1
+" Plugged {{{2
 call plug#begin('~/.vim/plugged')
 
-Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
-Plug 'jiangmiao/auto-pairs'
-
-Plug 'chrisbra/Colorizer'
-
-Plug 'ycm-core/YouCompleteMe'
-Plug 'vim-python/python-syntax'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'pangloss/vim-javascript'
 
 Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
+" 2}}}
+" Colorscheme stuff {{{2
+colorscheme onedark
+let g:airline_theme = 'onedark'
+let g:onedark_hide_endofbuffer = 1
 
-" gruvbox
-let g:gruvbox_contrast_dark = 'hard'
-colorscheme gruvbox
-let g:airline_theme = 'gruvbox'
-hi Pmenu ctermbg=black guibg=#212c28
-
-" one-dark
-" colorscheme onedark
-" let g:airline_theme = 'onedark'
-" let g:onedark_hide_endofbuffer = 1
-
-" airline
+augroup ColorschemeOverride
+	au!
+	au Colorscheme * hi EndOfBuffer guifg=bg guibg=bg ctermfg=bg ctermbg=bg
+	au Colorscheme * hi MatchParen gui=bold
+	au Colorscheme * hi def link vimMapMod vimMapModKey
+	au Colorscheme * hi def link vimBracket vimMapModKey
+	au Colorscheme onedark hi pythonDecorator guifg=#98c379
+	au Colorscheme onedark hi pythonDecoratorName guifg=#98c379
+	au Colorscheme onedark hi javaScriptMember guifg=#e5c07b
+	au Colorscheme onedark hi cType guifg=#c768dd
+	au Colorscheme onedark hi cStorageClass guifg=#c768dd
+	au Colorscheme onedark hi cStructure guifg=#c768dd
+	au Colorscheme onedark hi cInclude guifg=#c768dd
+	au Colorscheme onedark hi cPreProc guifg=#c768dd
+	au Colorscheme onedark hi cPreCondit guifg=#c768dd
+	au Colorscheme onedark hi Conceal guifg=#61afef
+augroup END
+"2}}}
+" Airline {{{2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-
-" nerdtree
+"2}}}
+" NerdTree {{{2
 nnoremap <silent> <Leader>e :NERDTreeToggle<CR>
-
-" jedi-vim
-" let g:jedi#auto_initialization = 1
-" let g:jedi#popup_on_dot = 1
-
-" auto pairs
-let g:AutoPairsShortcutJump='<M-j>'
-let g:AutoPairsShortcutToggle=''
-
-nnoremap <Leader>c :ColorToggle<CR>
-
-" Ycm
-let g:ycm_autoclose_preview_window_after_insertion  = 0
-let g:ycm_autoclose_preview_window_after_completion = 0
-nnoremap <silent> <Leader>p :pc<CR>
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-let g:ycm_clangd_args=['--header-insertion=never']
-let g:ycm_confirm_extra_conf = 0
-nnoremap <silent> gd :YcmCompleter GoTo<CR>
-nnoremap <silent> gr :YcmCompleter GoToReferences<CR>
-nnoremap <silent> <Leader>t :YcmCompleter GetType<CR>
-
-" python syntax
-let g:python_highlight_all = 1
-let g:python_highlight_space_errors	= 0
-autocmd Filetype python setlocal tabstop=4 noexpandtab
-
-" c/c++ syntax
-let g:cpp_class_decl_highlight = 1
-augroup cgroup
-	autocmd!
-	autocmd BufEnter *.h set ft=c
-augroup end
-
-" fzf config
-nnoremap <silent> <Leader>r :FZF<CR>
+"2}}}
+" Fzf {{{2
+nnoremap <silent> <Leader>f :FZF<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
+nnoremap <silent> <M-Space> :Lines<CR>
+
+let $FZF_DEFAULT_OPTS = ''
 
 let g:fzf_preview_window = ''
 
-let g:fzf_layout = { 'down': '~25%' }
+let g:fzf_layout = { 'down': '~15%' }
 
 let g:fzf_colors =
 			\ { 'fg'    : ['fg',  'Normal'],
@@ -101,56 +73,34 @@ let g:fzf_colors =
 			\ 'pointer' : ['fg',  'Exception'],
 			\ 'marker'  : ['fg',  'Keyword'],
 			\ }
-
-augroup fzfstatus
-	autocmd!
-	autocmd FileType fzf set laststatus=0 noshowmode noruler
-	\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-augroup end
-
-" Adds .vim/after to path
-set runtimepath+=~/.vim/after
-
-" Highlight line under cursor
+" 2}}}
+" General Config {{{1
+set runtimepath+=~/.vim/
 set cursorline
-
-" changes scroll
 set scrolloff=5
-
-" relative line numbers
-set relativenumber
 set number
-
-" tab config
 set autoindent
 set cindent
 set noexpandtab
 set softtabstop=0
 set tabstop=4
 set shiftwidth=4
-
-" changes style of searches
 set incsearch
 set inccommand=nosplit
 set ignorecase
 set smartcase
-set nohlsearch
-
-" splits
+set hlsearch
+set noshowmode
+set noruler
 set fillchars=fold:\ ,vert:│
-
-" turns off signcolumn
+set foldlevel=99
 set signcolumn=no
-
-" better pmenu completion
 set completeopt=menuone,noinsert,preview
-
-" sets conceal characters
 set conceallevel=2
-" set concealcursor=ni
-
-" makes width of line numbers 4
-set nuw=4
+set numberwidth=4
+set conceallevel=2
+set concealcursor=nvci
+set mouse=a
 
 " True color
 if $TERM != "rxvt"
@@ -160,9 +110,23 @@ endif
 " set background
 set background=dark
 
+" Syntax cnofig
+let g:org_bullet_icons = 1
+
+function! FoldText()
+	let text = getline(v:foldstart)
+	let text = substitute(text, "	", repeat(' ', &shiftwidth), 'g')
+	return text . "…"
+endfunction!
+set foldtext=FoldText()
+"1}}}
+" Bindings {{{1
 " better command navigation
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
+
+" Nohl when pressing backsapce
+nnoremap <silent><expr> <BS> bufname("%") == "[Command Line]" ? "<CR>" : &ft == "qf" ? "<CR>" : ":nohl<CR>"
 
 " bind Y to yank till end of line
 nnoremap Y y$
@@ -171,55 +135,33 @@ nnoremap Y y$
 inoremap fd <Esc>
 vnoremap fd <Esc>
 
-" mapping for focusing current buffer
-nnoremap <silent> <M-Space> :Lines<CR>
+" Just a nitpick
+vnoremap J j
+
+" Word deletion
+inoremap <C-h> <C-w>
+cnoremap <C-h> <C-w>
+
+" Fold toggle
+nnoremap \ za
 
 " buffer movement
 nnoremap <silent> <M-h> :bp!<CR>
 nnoremap <silent> <M-l> :bn!<CR>
 nnoremap <silent> <M-k> :bd<CR>
 
-" make split navigation easier
-nnoremap <Leader>j <C-W>j
-nnoremap <Leader>k <C-W>k
-nnoremap <Leader>h <C-W>h
-nnoremap <Leader>l <C-W>l
+" Show highlight group under cursor
+nnoremap <Leader>i :echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 
-" tab management
-" nnoremap <silent> <Leader>tn :tabnew<CR>
-" nnoremap <silent> <Leader>td :tabclose<CR>
-" nnoremap <silent> <Leader>tf :tabnext<CR>
-" nnoremap <silent> <Leader>tb :tabprev<CR>
+" make split navigation easier
+nnoremap <Leader>j <C-w>j
+nnoremap <Leader>k <C-w>k
+nnoremap <Leader>h <C-w>h
+nnoremap <Leader>l <C-w>l
 
 " misc. Leader bindings
 nnoremap <silent> <Leader>w :w<CR>
-nnoremap <silent> <Leader>x :wqa<CR>
 nnoremap <silent> <Leader>q :qa!<CR>
 nnoremap <silent> <Leader>o o<Esc>
 nnoremap <silent> <Leader>O O<Esc>
-
-nnoremap <Leader>a i#ifndef <Esc>:let @m=expand("%")<CR>"mphr_bgU$y$o#define <Esc>po#endif // <Esc>pO<CR><CR><Esc>ki
-iabb cmain #include <stdio.h><CR><CR>int main(int argc, char *argv[]) {<CR>printf("Hello, World!\n");<CR>return 0;}
-
-" functions
-function! ToggleText()
-	if mapcheck("j", "gj") != "" && mapcheck("j", "gk") != ""
-		set nolinebreak
-		set nowrap
-		set nospell
-		unmap j
-		unmap k
-	else
-		set linebreak
-		set wrap
-		set spell
-		nnoremap j gj
-		nnoremap k gk
-	endif
-endfunction
-
-command! ToggleText call ToggleText()
-command! So w | so %
-
-" get rid of tildas
-hi EndOfBuffer guifg=bg guibg=bg ctermfg=bg ctermbg=bg
+"1}}}

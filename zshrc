@@ -136,10 +136,10 @@ zle -N "fzf-vim-edit"
 # Aliases
 alias c='clear'
 alias s='apt-cache search'
-alias p='python3 -B'
+alias p='python3.8 -B -q'
 alias con='. con'
 
-# Exports
+# Settings
 export FZF_DEFAULT_OPTS="-m --ansi --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -L 1 -C {}) 2> /dev/null | head -200'"
 export PYTHONSTARTUP="$HOME/.pythonrc"
 
@@ -163,5 +163,4 @@ bindkey -e "^[e" "fzf-config-cd"
 bindkey -e "^[v" "fzf-vim-edit"
 
 # Plugin stuff
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

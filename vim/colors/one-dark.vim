@@ -16,7 +16,7 @@ let s:cyan           = {"gui": "#56B6C2", "cterm": "37" }
 let s:white          = {"gui": "#ABB2BF", "cterm": "145"}
 let s:black          = {"gui": "#282C34", "cterm": "235"}
 let s:light_grey     = {"gui": "#7f8693", "cterm": "243"}
-let s:comment_grey   = {"gui": "#5f6673", "cterm": "59" }
+let s:comment_grey   = {"gui": "#6f7683", "cterm": "59" }
 let s:gutter_fg_grey = {"gui": "#4B5263", "cterm": "240"}
 let s:cursor_grey    = {"gui": "#2C323C", "cterm": "236"}
 let s:visual_grey    = {"gui": "#3E4452", "cterm": "237"}
@@ -117,6 +117,8 @@ call s:h("cMacro", s:blue)
 call s:h("cSecondMacro", s:cyan)
 call s:h("cSwitchMacro", s:cyan)
 
+call s:h("rustIdentifier", s:yellow)
+
 call s:h("pythonSelf", s:purple)
 call s:h("pythonNone", s:purple)
 call s:h("pythonBoolean", s:purple)
@@ -126,6 +128,7 @@ call s:h("pythonFuncVar", s:dark_yellow)
 call s:h("pythonDefineFunction", s:cyan)
 call s:h("pythonFunctionCall", s:blue)
 call s:h("pythonBuiltinType", s:cyan)
+call s:h("pythonTypingType", s:cyan)
 call s:h("pythonBuiltinFunction", s:cyan)
 call s:h("pythonConstant", s:dark_yellow)
 call s:h("pythonSymbolOperator", s:purple)
@@ -147,6 +150,8 @@ call s:h("htmlEvent", s:red)
 call s:h("htmlArg", s:red)
 
 call s:h("vimCommentTitle", s:blue, "", "bold")
+call s:h("vimBracket", s:blue)
+call s:h("vimMapMod", s:cyan)
 call s:h("vimNotation", s:blue)
 call s:h("vimFunction", s:blue)
 call s:h("vimUserFunc", s:purple)
@@ -159,6 +164,9 @@ call s:h("orgCheckmark", s:dark_yellow, "", "bold")
 call s:h("orgCheckbox", s:dark_yellow, "", "bold")
 call s:h("orgClosed", s:yellow, "", "bold")
 call s:h("orgClosedColon", s:yellow, "", "bold")
+call s:h("orgLink", s:comment_grey)
+call s:h("orgLinkSource", s:blue, "", "underline")
+call s:h("orgLinkDescription", s:purple, "", "bold")
 
 call s:h("orgBold", "", "", "bold")
 call s:h("orgItalic", "", "", "italic")
@@ -175,5 +183,8 @@ call s:h("swkBulletContent", s:purple)
 call s:h("swkString", s:blue)
 call s:h("swkMathOperator", s:cyan)
 call s:h("swkMathVariable", s:red)
+
+call s:h("cmdlogSuccess", s:green)
+call s:h("cmdlogFailure", s:red)
 
 call s:h("qfLineNr", s:blue)

@@ -1,6 +1,8 @@
 from types import BuiltinFunctionType, FunctionType, MethodType, ModuleType
 from code import InteractiveConsole
 from platform import python_version
+from math import sqrt, sin, cos, tan, factorial, gcd
+from random import randint
 import subprocess
 import rlcompleter
 import readline
@@ -41,8 +43,8 @@ def pretty_display(console, value, _indent=""):
         return color_format(PURPLE, "None")
     elif isinstance(value, bool):
         return color_format(PURPLE, value)
-    elif type(value).__repr__ == object.__repr__:
-        return repr(value)
+    # elif type(value).__repr__ == object.__repr__:
+    #     return repr(value)
     elif isinstance(value, int):
         return color_format(GREEN, value)
     elif isinstance(value, float):
@@ -51,15 +53,16 @@ def pretty_display(console, value, _indent=""):
         real = simplify_float(value.real)
         imag = simplify_float(value.imag)
         if real == 0:
-            return color_format(GREEN, imag) + color_format(BLUE, "i")
+            return color_format(BLUE, str(imag) + "i")
+        elif imag == 0:
+            return color_format(GREEN, str(real))
         else:
             return (color_format(CYAN, "(") +
                     color_format(GREEN, real) +
                     " " +
                     color_format(PURPLE, "+") +
                     " " +
-                    color_format(GREEN, imag) +
-                    color_format(BLUE, "i") +
+                    color_format(BLUE, str(imag) + "i") +
                     color_format(CYAN, ")"))
     elif isinstance(value, str):
         return color_format(GREEN, repr(value))
@@ -105,7 +108,7 @@ def pretty_display(console, value, _indent=""):
         return color_format(PURPLE, "method ") + color_format(GREEN, value.__name__)
     elif isinstance(value, ModuleType):
         return color_format(PURPLE, "module ") + color_format(GREEN, value.__name__)
-    if hasattr(value, "__name__"):
+    elif hasattr(value, "__name__"):
         return (color_format(PURPLE, "var ") +
                 color_format(GREEN, value.__name__) +
                 color_format(PURPLE, " of type ") +
@@ -187,7 +190,7 @@ class CustomConsole(InteractiveConsole, rlcompleter.Completer):
         return line
 
     def interact(self):
-        banner = f"Interactive repl using Python {python_version()}\nType '%help' for more information."
+        banner = f"Interactive repl using Python {python_version()}\nType '%help' for command usage."
         super(CustomConsole, self).interact(banner=banner, exitmsg="")
         sys.exit()
 
@@ -271,4 +274,12 @@ commands = {
 
 console = CustomConsole(commands)
 console.locals["__console__"] = console
+# For convenience sake
+console.locals["sqrt"] = sqrt
+console.locals["sin"] = sin
+console.locals["cos"] = cos
+console.locals["tan"] = tan
+console.locals["fact"] = factorial
+console.locals["gcd"] = gcd
+console.locals["randint"] = randint
 console.interact()
