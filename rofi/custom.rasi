@@ -18,7 +18,7 @@ configuration {
 }
 
 window {
-	height: 580px;
+	height: 590px;
 	width:  450px;
 	location: center;
 	anchor: center;
