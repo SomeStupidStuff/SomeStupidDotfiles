@@ -267,17 +267,17 @@ def methods(console, inp):
 
 def create_type(console, inp):
     """Creates a simple struct type using named arguments (syntax: %type TypeName param1 param2 param3 ...)"""
-    words = inp.split(' ')
+    words = inp.strip().split(' ')
     if len(words) <= 1:
-        console.write(color_format(RED, "Not enough arguments"))
+        console.write(color_format(RED, "Not enough arguments\n"))
         return
     type_name, *parameters = words
     if not type_name.isidentifier():
-        console.write(color_format(RED, "Invalid type name"))
+        console.write(color_format(RED, "Invalid type name\n"))
         return
     for p in parameters:
         if not p.isidentifier():
-            console.write(color_format(RED, f"Invalid parameter name '{p}'"))
+            console.write(color_format(RED, f"Invalid parameter name '{p}'\n"))
             return
     class InnerType:
         def __init__(self, *args):
@@ -288,12 +288,61 @@ def create_type(console, inp):
     InnerType.__name__ = type_name
     console.locals[type_name] = InnerType
 
+def create_method(console, inp):
+    """Creates a method for a struct type (syntax: %method TypeName method_name ,param1 ,param2 ... return_value)"""
+    words = inp.strip().split(' ', 2)
+    if len(words) <= 2:
+        console.write(color_format(RED, "Invalid amount of arguments\n"))
+        return
+    type_name, method_name, rest = words
+    if not type_name.isidentifier() or type_name not in console.locals:
+        console.write(color_format(RED, "Invalid type name\n"))
+        return
+    elif not method_name.isidentifier():
+        console.write(color_format(RED, "Invalid method name\n"))
+        return
+    parameters = []
+    while True:
+        ident, _rest = split_by_sep(rest, ' ')
+        if not ident or ident[0] != ',' or not ident[1:].isidentifier():
+            break
+        rest = _rest
+        parameters.append(ident[1:])
+    if len(parameters) == 0:
+        console.write(color_format(RED, "Invalid amount of parameters\n"))
+        return
+    def inner(*args):
+        if len(args) != len(parameters):
+            raise TypeError(f"Invalid amount of arguments passed to struct method {method_name}")
+        env = {}
+        for i, name in enumerate(parameters):
+            env[name] = args[i]
+        env = {**console.locals, **env}
+        return eval(rest, {}, env)
+    inner.__name__ = method_name
+    setattr(console.locals[type_name], method_name, inner)
+
+def load_file(console, inp):
+    """Runs file in the context of the interpreter. Commands such as these work as well."""
+    # TODO: Stop execution on command failure
+    try:
+        f = open(inp.strip())
+        lines = f.readlines()
+        f.close()
+    except:
+        console.write(color_format(RED, f"Invalid filename '{inp}'\n"))
+        return
+    for l in lines:
+        console.push(console.handle(l.strip()))
+
 commands = {
     "help" : show_help,
     "ptoggle" : ptoggle,
     "inspect" : inspect,
     "methods" : methods,
     "type" : create_type,
+    "method" : create_method,
+    "load" : load_file,
 }
 
 console = CustomConsole(commands)
