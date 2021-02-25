@@ -163,14 +163,14 @@ class CustomConsole(InteractiveConsole, rlcompleter.Completer):
                 func = self.commands[command]
                 func(self, inp)
                 return ''
-            self.write(color_format(RED, "Command '%s' does not exist\n" % command))
+            self.write(color_format(RED, f"Command '{command}' does not exist\n"))
             return ''
         elif len(line.strip()) and line.strip()[-1] == "?":
             inp = line.strip()[:-1]
             try:
                 value = eval(inp, {}, self.locals)
             except:
-                self.write(color_format(RED, "Could not display docstring of value '%s'\n" % inp))
+                self.write(color_format(RED, f"Could not display docstring of value '{inp}'\n"))
                 return ''
             if value.__doc__ is not None:
                 self.write(value.__doc__ + "\n")
@@ -214,7 +214,7 @@ def inspect(console, inp):
     try:
         value = eval(inp, {}, console.locals)
     except:
-        console.write(color_format(RED, "Could not inspect value '%s'\n" % inp))
+        console.write(color_format(RED, f"Could not inspect value '{inp}'\n"))
         return
     pretty_print_types = [bool, int, str, list, tuple, dict, type, FunctionType, BuiltinFunctionType, MethodType, ModuleType]
     function_types = [FunctionType, BuiltinFunctionType, MethodType]
@@ -244,7 +244,7 @@ def methods(console, inp):
     try:
         value = eval(inp, {}, console.locals)
     except:
-        console.write(color_format(RED, "Invalid input '%s'\n" % inp))
+        console.write(color_format(RED, f"Invalid input '{inp}'\n"))
         return
     function_types = [FunctionType, BuiltinFunctionType, MethodType]
     _type = type(value).__name__
@@ -265,11 +265,35 @@ def methods(console, inp):
     output += "}\n"
     console.write(output)
 
+def create_type(console, inp):
+    """Creates a simple struct type using named arguments (syntax: %type TypeName param1 param2 param3 ...)"""
+    words = inp.split(' ')
+    if len(words) <= 1:
+        console.write(color_format(RED, "Not enough arguments"))
+        return
+    type_name, *parameters = words
+    if not type_name.isidentifier():
+        console.write(color_format(RED, "Invalid type name"))
+        return
+    for p in parameters:
+        if not p.isidentifier():
+            console.write(color_format(RED, f"Invalid parameter name '{p}'"))
+            return
+    class InnerType:
+        def __init__(self, *args):
+            if len(args) != len(parameters):
+                raise TypeError(f"Invalid amount of arguments passed to struct '{type_name}'")
+            for i, name in enumerate(parameters):
+                setattr(self, name, args[i])
+    InnerType.__name__ = type_name
+    console.locals[type_name] = InnerType
+
 commands = {
     "help" : show_help,
     "ptoggle" : ptoggle,
     "inspect" : inspect,
     "methods" : methods,
+    "type" : create_type,
 }
 
 console = CustomConsole(commands)
