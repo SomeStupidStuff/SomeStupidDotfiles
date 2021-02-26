@@ -35,6 +35,8 @@ def color_format(color, s):
     return f"{color}{s}{RESET}"
 
 def pretty_display(console, value, _indent=""):
+    if console.file_line != -1:
+        return ""
     console.locals['_'] = value
     expand = len(str(value)) > 80
     spacing = "\n" if expand else " "
@@ -121,6 +123,9 @@ class CustomConsole(InteractiveConsole, rlcompleter.Completer):
         super(CustomConsole, self).__init__()
         self.commands = commands
         self.pretty_print = True
+        self.file_line = -1
+        self.file_name = ""
+        self.error_flag = False
         self.init_prompt()
         self.init_display()
         self.init_readline()
@@ -133,7 +138,11 @@ class CustomConsole(InteractiveConsole, rlcompleter.Completer):
         if not self.pretty_print:
             sys.displayhook = print
             return
-        sys.displayhook = lambda value : print(pretty_display(self, value))
+        def displayhook(value):
+            prettied = pretty_display(self, value)
+            if prettied:
+                print(prettied)
+        sys.displayhook = displayhook
 
     def init_readline(self):
         readline.parse_and_bind("tab: complete")
@@ -151,6 +160,11 @@ class CustomConsole(InteractiveConsole, rlcompleter.Completer):
         self.write(RESET)
         return result
 
+    def error(self, message):
+        self.error_flag = True
+        prefix = f"Error at line {self.file_line} when loading file '{self.file_name}': " if self.file_line != -1 else ""
+        self.write(color_format(RED, prefix + message) + "\n")
+
     def raw_input(self, prompt=''):
         line = super(CustomConsole, self).raw_input(prompt)
         return self.handle(line)
@@ -163,14 +177,14 @@ class CustomConsole(InteractiveConsole, rlcompleter.Completer):
                 func = self.commands[command]
                 func(self, inp)
                 return ''
-            self.write(color_format(RED, f"Command '{command}' does not exist\n"))
+            self.error(f"Command '{command}' does not exist")
             return ''
         elif len(line.strip()) and line.strip()[-1] == "?":
             inp = line.strip()[:-1]
             try:
                 value = eval(inp, {}, self.locals)
             except:
-                self.write(color_format(RED, f"Could not display docstring of value '{inp}'\n"))
+                self.error(f"Could not display docstring of value '{inp}'\n")
                 return ''
             if value.__doc__ is not None:
                 self.write(value.__doc__ + "\n")
@@ -183,7 +197,7 @@ class CustomConsole(InteractiveConsole, rlcompleter.Completer):
             command = command.format(**self.locals)
             status, output = subprocess.getstatusoutput(command)
             if status:
-                self.write(color_format(RED, output + "\n"))
+                self.error(output)
             else:
                 self.write(output + "\n")
             return ''
@@ -214,7 +228,7 @@ def inspect(console, inp):
     try:
         value = eval(inp, {}, console.locals)
     except:
-        console.write(color_format(RED, f"Could not inspect value '{inp}'\n"))
+        console.error(f"Could not inspect value '{inp}'")
         return
     pretty_print_types = [bool, int, str, list, tuple, dict, type, FunctionType, BuiltinFunctionType, MethodType, ModuleType]
     function_types = [FunctionType, BuiltinFunctionType, MethodType]
@@ -244,7 +258,7 @@ def methods(console, inp):
     try:
         value = eval(inp, {}, console.locals)
     except:
-        console.write(color_format(RED, f"Invalid input '{inp}'\n"))
+        console.error(f"Invalid input '{inp}'")
         return
     function_types = [FunctionType, BuiltinFunctionType, MethodType]
     _type = type(value).__name__
@@ -269,15 +283,15 @@ def create_type(console, inp):
     """Creates a simple struct type using named arguments (syntax: %type TypeName param1 param2 param3 ...)"""
     words = inp.strip().split(' ')
     if len(words) <= 1:
-        console.write(color_format(RED, "Not enough arguments\n"))
+        console.error("Not enough arguments")
         return
     type_name, *parameters = words
     if not type_name.isidentifier():
-        console.write(color_format(RED, "Invalid type name\n"))
+        console.error("Invalid type name")
         return
     for p in parameters:
         if not p.isidentifier():
-            console.write(color_format(RED, f"Invalid parameter name '{p}'\n"))
+            console.error(f"Invalid parameter name '{p}'")
             return
     class InnerType:
         def __init__(self, *args):
@@ -292,14 +306,14 @@ def create_method(console, inp):
     """Creates a method for a struct type (syntax: %method TypeName method_name ,param1 ,param2 ... return_value)"""
     words = inp.strip().split(' ', 2)
     if len(words) <= 2:
-        console.write(color_format(RED, "Invalid amount of arguments\n"))
+        console.error("Invalid amount of arguments")
         return
     type_name, method_name, rest = words
     if not type_name.isidentifier() or type_name not in console.locals:
-        console.write(color_format(RED, "Invalid type name\n"))
+        console.error("Invalid type name")
         return
     elif not method_name.isidentifier():
-        console.write(color_format(RED, "Invalid method name\n"))
+        console.error("Invalid method name")
         return
     parameters = []
     while True:
@@ -309,7 +323,7 @@ def create_method(console, inp):
         rest = _rest
         parameters.append(ident[1:])
     if len(parameters) == 0:
-        console.write(color_format(RED, "Invalid amount of parameters\n"))
+        console.error("Invalid amount of parameters")
         return
     def inner(*args):
         if len(args) != len(parameters):
@@ -324,16 +338,25 @@ def create_method(console, inp):
 
 def load_file(console, inp):
     """Runs file in the context of the interpreter. Commands such as these work as well."""
-    # TODO: Stop execution on command failure
+    file_name = inp.strip()
     try:
-        f = open(inp.strip())
+        f = open(file_name)
         lines = f.readlines()
         f.close()
     except:
-        console.write(color_format(RED, f"Invalid filename '{inp}'\n"))
+        console.error(f"Invalid filename '{inp}'")
         return
-    for l in lines:
+    console.file_name = file_name
+    for n, l in enumerate(lines):
+        console.file_line = n + 1
         console.push(console.handle(l.strip()))
+        if console.error_flag:
+            console.error_flag = False
+            console.file_line = -1
+            console.file_name = ""
+            return
+    console.file_line = -1
+    console.file_name = ""
 
 commands = {
     "help" : show_help,
