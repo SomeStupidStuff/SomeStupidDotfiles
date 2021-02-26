@@ -38,3 +38,9 @@ if get(g:, "python_regex_highlight")
 	syntax match pythonRegexLookAround /\v\(@<=\?(\<)?[!=]/ containedin=pythonRawString contained
 	syntax region pythonRegexSet start="\[" end="\]" skip="\\\]" containedin=pythonRawString contained
 endif
+
+syntax match pythonExtensionCommand /\v^\s*\%\w+/ nextgroup=pythonExtensionCommandArgs skipwhite
+syntax match pythonExtensionCommandArgs /.*/ contained
+
+hi def link pythonExtensionCommand pythonDecorator
+hi def link pythonExtensionCommandArgs pythonString
