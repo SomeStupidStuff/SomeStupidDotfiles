@@ -1,0 +1,1 @@
+iabbrev <buffer><expr> makec TabSnippet("makec", "CC = gcc\<CR>CFLAGS = \<CR>\<CR>OUTPUT = ./bin/main\<CR>\<CR>main:\<CR>$(CC) $(CFLAGS) src/main.c -o $(OUTPUT)\<CR>\<CR>run: main\<CR>$(OUTPUT)\<CR>\<CR>clean:\<CR>rm $(OUTPUT)\<CR>\<CR>.PHONY: main run clean<C-o>2G<C-o>$")

@@ -136,10 +136,11 @@ call s:h("pythonNonOperator", s:light_grey)
 
 call s:h("javaScriptFunction", s:purple)
 call s:h("javaScriptMemberFunction", s:cyan)
-call s:h("javaScriptConstVar", s:yellow)
-call s:h("javaScriptOperator", s:cyan)
+call s:h("javaScriptOperator", s:purple)
 call s:h("javaScriptTernaryOperator", s:purple)
+call s:h("javaScriptType", s:yellow)
 call s:h("javaScriptIdentifier", s:purple)
+call s:h("javaScriptVar", s:white)
 call s:h("javaScriptKeyword", s:yellow)
 call s:h("javaScriptBraces", s:white)
 

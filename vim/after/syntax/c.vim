@@ -28,3 +28,5 @@ if !get(g:, "c_minimal_highlight", 0)
 	syntax match cTypeDecl /\v(^typedef.*\s+)@5<=[a-zA-Z_][a-zA-Z0-9_]*(;|\s+[a-zA-Z_][a-zA-Z0-9_]*;)@5=/
 	hi def link cTypeDecl Type
 endif
+
+syntax keyword cType u8 s8 u16 s16 u32 s32 u64 s64

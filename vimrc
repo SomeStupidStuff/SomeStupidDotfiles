@@ -102,6 +102,11 @@ let g:org_bullet_icons = 1
 
 let g:treeview_view_line = 0
 
+let g:c_minimal_highlight = 1
+let g:c_syntax_for_h = 1
+
+let loaded_netrwPlugin = 1
+
 " Sets 256 color for urxvt
 set background=dark
 if $TERM ==# "rxvt"
@@ -238,6 +243,19 @@ iabbrev <expr> ( BracketsSnippet("(", ")")
 iabbrev <expr> [ BracketsSnippet("[", "]")
 iabbrev <expr> { BracketsSnippet("{", "}")
 
+" Capitalizes the previous word
+function! CapitalMacro()
+	let c = col(".")
+	echom c
+	if getline(".")[c - 1] !~ "[A-Za-z_0-9]"
+		norm h
+	endif
+	norm gUiw
+	call cursor(line("."), c)
+endfunction!
+
+inoremap <Esc><Space> <C-o>:call CapitalMacro()<CR>
+
 " A better commandline interface
 function! SilentShell(...)
 	let cmd = a:1
@@ -261,7 +279,7 @@ function! SilentShell(...)
 	put!=output
 	norm gg
 	if index(g:silent_shell_qf_commands, matchlist(cmd,  '\v^\s*(\S*)')[1]) >= 0
-		cexpr getline(2, "$")
+		silent cexpr getline(2, "$")
 		b SilentShell
 	endif
 endfunction!

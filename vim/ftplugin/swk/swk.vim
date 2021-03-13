@@ -26,7 +26,7 @@ ia <buffer><expr> sat TabSnippet("sat", "Saturday")
 ia <buffer><expr> ednu TabSnippet("ednu", "Edgenuity")
 ia <buffer><expr> edpu TabSnippet("edpu", "Edpuzzle")
 ia <buffer><expr> ss TabSnippet("ss", "Study Sync")
-
+"
 " Common Words
 ia <buffer><expr> asm TabSnippet("asm", "assignment")
 ia <buffer><expr> com TabSnippet("com", "Complete")
