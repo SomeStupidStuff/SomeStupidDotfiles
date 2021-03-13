@@ -79,11 +79,20 @@
   (kill-line nil))
 
 (use-package evil
+  :init
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-u") 'kill-line-contents)
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-page-up)
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
 ;; Key-chord for evil
 (use-package key-chord
@@ -94,15 +103,27 @@
 
 (key-chord-define evil-insert-state-map "fd" 'evil-normal-state)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(global-set-key (kbd "C-u") 'kill-whole-line)
 
 ;; Filetype specific
 (setq python-shell-interpreter "python3")
+
+(setq c-basic-offset 4)
+
+(add-hook 'c-mode-hook (lambda ()
+						 (setq indent-tabs-mode t)))
+
+(use-package rust-mode)
+(add-hook 'rust-mode-hook (lambda ()
+							(setq indent-tabs-mode nil)))
 
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda ()
 						   (setq indent-tabs-mode nil)))
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'org-bullets-mode)
+
+(add-hook 'rust-mode-hook (lambda () (color-identifiers-mode nil)))
 
 ;; Misc stuff
 (defun edit-init-file ()
