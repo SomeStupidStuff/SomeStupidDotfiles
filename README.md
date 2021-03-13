@@ -1,5 +1,7 @@
 # Chirpfiles
 
+![](assets/screenshot.png)
+
 Chirprush's dotfiles
 
 ## Editors
