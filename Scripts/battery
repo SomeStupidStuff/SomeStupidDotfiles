@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
- 
-bp=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | sed -n -e "s/percentage:          \([0-9]\+\)./\1/p" | sed -n -e "s/ *\(.*\)/\1%/p")
-
-if [ $bp == "69%" ]; then
-	echo "Nice";
-else
-	echo "$bp";
-fi
