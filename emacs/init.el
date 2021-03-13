@@ -72,6 +72,15 @@
 	 ("C-x b" . counsel-ibuffer)
 	 ("C-x C-f" . counsel-find-file)))
 
+;; Snippets
+(use-package yasnippet
+  :config
+  (setq yas-snippet-dirs
+		'("~/.emacs.d/snippets"))
+  (setq yas-indent-line 'auto)
+  (setq yas-also-auto-indent-first-line t)
+  (yas-global-mode 1))
+
 ;; Evil
 (defun kill-line-contents ()
   (interactive)
