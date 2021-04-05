@@ -15,7 +15,8 @@ set $alt Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Fira Code 8.9
+# font pango:Fira Code 8.9
+font pango:JetBrains Mono 8.9
 # font pango:Hack Nerd Font 8.8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
@@ -229,6 +230,9 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 # screensaver
 exec --no-startup-id xset dpms 90
 
+# mouse sensitivity
+exec --no-startup-id xset m 3 10
+
 # window specific settings
 for_window [class="Gvim"] $floating
 
@@ -256,3 +260,4 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 # Screenshot
 bindsym Print --release exec --no-startup-id scrot -e 'mv $f ~/Pictures'
 bindsym $mod+Print --release exec --no-startup-id scrot -s -e 'mv $f ~/Pictures'
+bindsym $mod+Shift+Print --release exec --no-startup-id scrot -s -e 'xclip -selection clipboard -t image/png -i $f && rm $f'
