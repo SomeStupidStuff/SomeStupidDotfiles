@@ -68,6 +68,7 @@ set tabstop=4
 set shiftwidth=4
 
 " Misc
+set noshowmode
 set ignorecase
 set smartcase
 set hlsearch
@@ -97,16 +98,6 @@ set concealcursor=nvci
 
 syntax on
 
-" Plugin/syntax configuration
-let g:org_bullet_icons = 1
-
-let g:treeview_view_line = 0
-
-let g:c_minimal_highlight = 1
-let g:c_syntax_for_h = 1
-
-let loaded_netrwPlugin = 1
-
 " Sets 256 color for urxvt
 set background=dark
 if $TERM ==# "rxvt"
@@ -116,6 +107,78 @@ else
 	set termguicolors
 	colorscheme one-dark
 endif
+
+" Plugin/syntax configuration
+let g:org_bullet_icons = 1
+
+let g:treeview_view_line = 0
+
+let g:c_minimal_highlight = 1
+let g:c_syntax_for_h = 1
+
+let g:loaded_netrwPlugin = 1
+
+packadd! stackus
+let g:stackus_mode_map = {
+			\ "n" : "NORMAL",
+			\ "v" : "VISUAL",
+			\ "V" : "V-LINE",
+			\ "" : "V-BLOCK",
+			\ "i" : "INSERT",
+			\ "R" : "REPLACE",
+			\ "Rv" : "V-REPLACE",
+			\ "c" : "COMMAND",
+			\ "s" : "SELECT",
+			\ "S" : "S-LINE",
+			\ "" : "S-BLOCK",
+			\ "t" : "TERMINAL",
+			\ }
+
+let g:stackus_components = [
+			\ [
+				\ stackus#Component#new(
+					\ stackus#Text#new(""),
+					\ stackus#Color#new(g:colors.blue, g:colors.black, "NONE")),
+				\ stackus#Component#new(
+					\ stackus#Text#new("  "),
+					\ stackus#Color#new(g:colors.black, g:colors.blue, "NONE")),
+				\ stackus#Component#new(
+					\ stackus#FileIcon#new(" %s"),
+					\ stackus#Color#new(g:colors.green, g:colors.menu_grey, "NONE")),
+				\ stackus#Component#new(
+					\ stackus#Filename#new(" %s ", " "),
+					\ stackus#Color#new("#ffffff", g:colors.menu_grey, "NONE")),
+				\ stackus#Component#new(
+					\ stackus#FileSize#new("%s "),
+					\ stackus#Color#new("#ffffff", g:colors.menu_grey, "NONE")),
+				\ stackus#Component#new(
+					\ stackus#Text#new(""),
+					\ stackus#Color#new(g:colors.menu_grey, g:colors.black, "NONE")),
+				\ stackus#Component#new(
+					\ stackus#Position#new(" %s:%s "),
+					\ stackus#Color#new(g:colors.green, g:colors.black, "NONE")),
+				\ stackus#Component#new(
+					\ stackus#Separator#new(),
+					\ stackus#Color#new(g:colors.black, g:colors.black, "NONE")),
+				\ stackus#Component#new(
+					\ stackus#GitBranch#new(" %s "),
+					\ stackus#Color#new(g:colors.green, g:colors.black, "NONE")),
+				\ stackus#Component#new(
+					\ stackus#Text#new(""),
+					\ stackus#Color#new(g:colors.green, g:colors.black, "NONE")),
+				\ stackus#Component#new(
+					\ stackus#Mode#new(" %%{g:stackus_mode_map['%s']} "),
+					\ stackus#Color#new(g:colors.black, g:colors.green, "bold")),
+				\ stackus#Component#new(
+					\ stackus#Scroll#new(" %s "),
+					\ stackus#Color#new(g:colors.black, "#d8dee9", "bold")),
+				\ stackus#Component#new(
+					\ stackus#Text#new(""),
+					\ stackus#Color#new("#d8dee9", g:colors.black, "NONE")),
+			\ ],
+			\ []]
+
+" let g:stackus_components = [[], []]
 
 " A very cool math function that works regardless of filetype
 function! MathEvalLines(...)

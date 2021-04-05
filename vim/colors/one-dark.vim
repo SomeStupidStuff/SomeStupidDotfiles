@@ -16,17 +16,38 @@ let s:cyan           = {"gui": "#56B6C2", "cterm": "37" }
 let s:white          = {"gui": "#ABB2BF", "cterm": "145"}
 let s:black          = {"gui": "#282C34", "cterm": "235"}
 let s:light_grey     = {"gui": "#7f8693", "cterm": "243"}
-let s:comment_grey   = {"gui": "#6f7683", "cterm": "59" }
+let s:comment_grey   = {"gui": "#5c6370", "cterm": "59" }
 let s:gutter_fg_grey = {"gui": "#4B5263", "cterm": "240"}
 let s:cursor_grey    = {"gui": "#2C323C", "cterm": "236"}
 let s:visual_grey    = {"gui": "#3E4452", "cterm": "237"}
-let s:menu_grey      = {"gui": "#3E4452", "cterm": "238"}
+let s:menu_grey      = {"gui": "#353b45", "cterm": "238"}
 let s:special_grey   = {"gui": "#3B4048", "cterm": "237"}
 let s:vertsplit      = {"gui": "#181A1F", "cterm": "59" }
 
 let s:blank          = {"gui": "NONE", "cterm": "NONE"}
 
 let s:gui = &termguicolors || has("gui_running")
+
+let g:colors = {
+			\ "red" : "#E06C75",
+			\ "dark_red" : "#BE5046",
+			\ "green" : "#98C379",
+			\ "yellow" : "#E5C07B",
+			\ "dark_yellow" : "#D19A66",
+			\ "blue" : "#61AFEF",
+			\ "purple" : "#C678DD",
+			\ "cyan" : "#56B6C2",
+			\ "white" : "#ABB2BF",
+			\ "black" : "#282C34",
+			\ "light_grey" : "#7f8693",
+			\ "comment_grey" : "#5c6370",
+			\ "gutter_fg_grey" : "#4B5263",
+			\ "cursor_grey" : "#2C323C",
+			\ "visual_grey" : "#3E4452",
+			\ "menu_grey" : "#353b45",
+			\ "special_grey" : "#3B4048",
+			\ "vertsplit" : "#181A1F",
+			\ }
 
 function! s:h(name, ...)
 	let l:cmd = "hi " . a:name . " "
@@ -58,16 +79,17 @@ call s:h("WarningMsg", s:red, s:black, "bold")
 call s:h("Question", s:purple, s:black, "bold")
 call s:h("Cursor", s:blank, s:blank, "reverse")
 call s:h("LineNr", s:gutter_fg_grey, s:black)
-call s:h("CursorLineNr", s:white, s:black, "bold")
-call s:h("Search", s:blank, s:visual_grey)
+call s:h("CursorLineNr", s:white, s:black, "NONE")
+call s:h("Search", s:black, s:yellow)
+call s:h("IncSearch", s:yellow, s:comment_grey)
 
 call s:h("Visual", "", s:visual_grey)
 call s:h("MatchParen", "", s:menu_grey, "bold")
 call s:h("CursorLine", "", s:cursor_grey, "NONE")
 " Intended for vert:│ (see :help 'fillchars')
-call s:h("VertSplit", s:black, s:vertsplit)
+call s:h("VertSplit", s:black, s:gutter_fg_grey)
 call s:h("StatusLine", s:menu_grey, s:white)
-call s:h("StatusLineNC", s:special_grey, s:white)
+call s:h("StatusLineNC", s:gutter_fg_grey, s:black, "underline")
 call s:h("StatusLineTerm", s:white, s:gutter_fg_grey)
 call s:h("StatusLineTermNC", s:white, s:special_grey)
 
@@ -75,8 +97,8 @@ call s:h("TabLineFill", s:cursor_grey, s:cursor_grey)
 call s:h("TabLine", s:white, s:menu_grey, "bold")
 call s:h("TabLineSel", s:white, s:black, "bold")
 
-call s:h("Pmenu", s:white, s:cursor_grey)
-call s:h("PmenuSel", s:white, s:menu_grey, "bold")
+call s:h("Pmenu", s:white, s:menu_grey)
+call s:h("PmenuSel", s:menu_grey, s:green)
 if s:gui
 	call s:h("PmenuThumb", "", s:gutter_fg_grey)
 	call s:h("PmenuSbar", "", s:special_grey)
@@ -85,7 +107,7 @@ else
 	call s:h("PmenuSbar", "", s:gutter_fg_grey)
 endif
 
-call s:h("Comment", s:comment_grey, "", "NONE")
+call s:h("Comment", s:comment_grey, "", "")
 call s:h("Folded", s:comment_grey, s:black, "NONE")
 call s:h("Conceal", s:blue, s:black)
 call s:h("Directory", s:purple)

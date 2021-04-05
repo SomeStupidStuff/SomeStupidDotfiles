@@ -21,4 +21,5 @@ nnoremap <silent> <C-c><C-c> :call <SID>OrgToggleCheckbox()<CR>
 
 inoremap <buffer><silent> <C-j> <CR><C-u><C-r>=substitute(getline(line(".")-1),'\v(^\s*\*+\s*)@<=[^* ].*$','','g')<CR>
 inoremap <buffer><silent> <C-l> <C-o>:call setline(line("."), substitute(getline("."), '\v(^\s*)@<=\*\s*', '', ''))<CR>
-inoremap <buffer><expr> * (getline(".")[:col(".")-1] =~ '\v^\s*\*+\s+') ? '<C-o>mz<C-o>F**<C-o>`z<C-o>$' : (getline(".") =~ '\v^\s*$') ? '<C-u>*' : '*'
+inoremap <buffer><expr> * (getline(".")[:col(".")-1] =~ '\v^\*+\s+') ? '<C-o>0*<C-o>$' : (getline(".") =~ '\v^\s*$') ? '<C-o>0<C-o>D* ' : '*'
+
