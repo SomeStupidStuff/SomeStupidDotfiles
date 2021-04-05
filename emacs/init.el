@@ -16,6 +16,7 @@
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
+
 (require 'use-package)
 (setq use-package-always-ensure t)
 (setq custom-file "~/.emacs.d/custom.el")
@@ -62,21 +63,29 @@
 
 ;; Ivy
 (use-package ivy
-  :bind (("M-SPC" . swiper))
+  :bind (("M-SPC" . swiper-all))
   :config
   (ivy-mode 1))
 
 ;; Counsel
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
-	 ("C-x b" . counsel-ibuffer)
-	 ("C-x C-f" . counsel-find-file)))
+		 ("C-x b" . counsel-ibuffer)
+		 ("C-x C-f" . counsel-find-file)))
+
+;; Projectile
+(use-package projectile
+  :config
+  (projectile-mode 1)
+  (add-to-list 'projectile-globally-ignored-directories "*__pycache__")
+  (setq projectile-project-search-path '("~/Projects/")))
 
 ;; Snippets
 (use-package yasnippet
   :config
   (setq yas-snippet-dirs
 		'("~/.emacs.d/snippets"))
+  (setq yas-triggers-in-field t)
   (setq yas-indent-line 'auto)
   (setq yas-also-auto-indent-first-line t)
   (yas-global-mode 1))
@@ -92,6 +101,7 @@
   (setq evil-want-keybinding nil)
   :config
   (evil-mode 1)
+  (define-key evil-normal-state-map (kbd "SPC") 'projectile-command-map)
   (define-key evil-insert-state-map (kbd "C-u") 'kill-line-contents)
   (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-page-up)
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
@@ -121,6 +131,8 @@
 
 (add-hook 'c-mode-hook (lambda ()
 						 (setq indent-tabs-mode t)))
+
+(use-package clojure-mode)
 
 (use-package rust-mode)
 (add-hook 'rust-mode-hook (lambda ()
