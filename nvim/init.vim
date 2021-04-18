@@ -8,6 +8,15 @@ filetype indent plugin on
 let mapleader = ' '
 "1}}}
 " Plugin stuff {{{1
+" Local Plugins {{{2
+let s:plugins_dir = "~/.vim/pack/custom/start/"
+
+function! s:LoadLocal(name) abort
+	let &runtimepath = &runtimepath . "," . s:plugins_dir . a:name
+endfunction
+
+call s:LoadLocal("duozen.vim")
+" 2}}}
 " Plugged {{{2
 call plug#begin('~/.vim/plugged')
 
@@ -15,7 +24,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
@@ -47,9 +55,6 @@ augroup END
 " Airline {{{2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-"2}}}
-" NerdTree {{{2
-nnoremap <silent> <Leader>e :NERDTreeToggle<CR>
 "2}}}
 " Fzf {{{2
 nnoremap <silent> <Leader>f :FZF<CR>
@@ -110,7 +115,7 @@ endif
 " set background
 set background=dark
 
-" Syntax cnofig
+" Syntax config
 let g:org_bullet_icons = 1
 
 function! FoldText()
@@ -118,6 +123,7 @@ function! FoldText()
 	let text = substitute(text, "	", repeat(' ', &shiftwidth), 'g')
 	return text . "…"
 endfunction!
+
 set foldtext=FoldText()
 "1}}}
 " Bindings {{{1
