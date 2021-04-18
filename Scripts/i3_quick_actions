@@ -1,0 +1,44 @@
+#!/bin/bash
+
+if [[ -z "$@" ]]; then
+	options=(
+		lenny
+		bbye
+		reverse
+		"float term"
+		google
+		youtube
+	)
+	formatted=$(printf "%s\n" "${options[@]}")
+	echo "$formatted"
+else
+	case "$@" in
+		"lenny")
+			coproc ( echo -n "( ͡° ͜ʖ ͡°)" | xclip -selection c )
+			exit
+			;;
+		"bbye")
+			coproc ( echo -n ":b:bye, my guy" | xclip -selection c )
+			exit
+			;;
+		"reverse")
+			coproc ( xclip -o | rev | xclip -selection c )
+			exit
+			;;
+		"float term")
+			coproc ( coproc ( alacritty ); sleep 0.15; i3-msg "floating toggle; [floating] border pixel 10; [tiling] border normal 3" )
+			exit
+			;;
+		"google")
+			coproc ( coproc ( firefox -new-tab www.google.com ) )
+			exit
+			;;
+		"youtube")
+			coproc ( coproc ( firefox -new-tab www.youtube.com ) )
+			exit
+			;;
+		*)
+			exit
+			;;
+	esac
+fi

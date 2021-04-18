@@ -138,10 +138,14 @@ alias c='clear'
 alias s='apt-cache search'
 alias p='python3.8 -B -q'
 alias con='. con'
+alias g='quick_grep'
 
 # Settings
 export FZF_DEFAULT_OPTS="-m --ansi --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -L 1 -C {}) 2> /dev/null | head -200'"
 export PYTHONSTARTUP="$HOME/.pythonrc"
+export LUA_INIT="@$HOME/.luarc"
+
+export GREP_COLORS="sl=38;2;92;99;112:mt=01;93:fn=34:ln=32:se=36"
 
 export VISUAL='/usr/bin/vim'
 export EDITOR=$VISUAL
