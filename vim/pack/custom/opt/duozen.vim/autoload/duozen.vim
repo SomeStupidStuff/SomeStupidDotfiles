@@ -1,6 +1,6 @@
 function s:CountParens(open, close) abort
 	if a:open == a:close
-		return len(filter(split(getline(".")), {_, c -> c == a:open})) % 2
+		return len(filter(split(getline("."), '\.*'), {_, c -> c == a:open})) % 2
 	endif
 	let c = 0
 	for i in split(getline("."), '\zs')
@@ -49,7 +49,7 @@ function duozen#CloseParen(open, close) abort
 	let col = col(".") - 1
 	if c > 0
 		return a:close
-	elseif line[col] == ")"
+	elseif line[col] == a:close
 		return "\<Right>"
 	else
 		return a:close

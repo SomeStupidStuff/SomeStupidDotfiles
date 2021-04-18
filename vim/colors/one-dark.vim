@@ -156,6 +156,10 @@ call s:h("pythonConstant", s:dark_yellow)
 call s:h("pythonSymbolOperator", s:purple)
 call s:h("pythonNonOperator", s:light_grey)
 
+call s:h("luaTable", s:white)
+call s:h("luaFunc", s:blue)
+call s:h("luaFunction", s:purple)
+
 call s:h("javaScriptFunction", s:purple)
 call s:h("javaScriptMemberFunction", s:cyan)
 call s:h("javaScriptOperator", s:purple)

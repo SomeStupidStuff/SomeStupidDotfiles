@@ -5,6 +5,7 @@ syntax keyword pythonMagicMethods __abs__ __add__ __and__ __bool__ __ceil__ __cl
 syntax keyword pythonBuiltinType int str list dict set float complex tuple frozenset bytes bytearray
 syntax keyword pythonBuiltinFunction abs delattr hash memoryview all exit help min setattr any dir hex next slice ascii divmod id object sorted bin enumerate input oct staticmethod bool eval open breakpoint exec isinstance ord sum filter issubclass pow super iter print callable format len property type chr range vars classmethod getattr locals repr zip compile globals map reversed __import__ hasattr max round containedin=pythonBuiltin
 syntax keyword pythonTypingType AbstractSet Any AnyStr AsyncContextManager AsyncGenerator AsyncIterable AsyncIterator Awaitable BinaryIO ByteString Callable CallableMeta ChainMap ClassVar Collection Container ContextManager Coroutine Counter DefaultDict Deque Dict FrozenSet Generator Generic GenericMeta Hashable IO ItemsView Iterable Iterator KT KeysView List Mapping MappingView Match MethodDescriptorType MethodWrapperType MutableMapping MutableSequence MutableSet NamedTuple NamedTupleMeta NewType NoReturn Optional Pattern Reversible Sequence Set Sized SupportsAbs SupportsBytes SupportsComplex SupportsFloat SupportsInt SupportsRound T Text TextIO Tuple TupleMeta Type TypeVar TypingMeta Union VT ValuesView WrapperDescriptorType
+hi def link pythonBuiltinFunction pythonFunction
 hi def link pythonTypingType Type
 
 syntax match pythonClass /\v(<class.*(\s+|[(,]))@<=\w+/ containedin=pythonFunction

@@ -1,3 +1,7 @@
+if !exists("g:stackus_components")
+	finish
+endif
+
 set statusline=%!stackus#Active()
 
 augroup Stackus

@@ -1,7 +1,6 @@
 if exists("g:stackus_components")
 	let s:components = g:stackus_components
 else
-	echoerr "Could not load stackus, please ensure that g:stackus_components exists"
 	finish
 endif
 

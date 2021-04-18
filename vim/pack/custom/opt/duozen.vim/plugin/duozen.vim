@@ -7,7 +7,7 @@ let g:duozen_parens = get(g:, "duozen_parens", [
 
 let cr_mapping = maparg("<CR>", "i", v:false, v:true)
 
-if cr_mapping.expr
+if exists("cr_mapping.expr") && cr_mapping.expr
 	let rhs = cr_mapping.rhs
 	execute printf(
 		\ "inoremap <expr> <CR> duozen#SurroundParen() ? '<CR><C-o>O' : (%s)",
