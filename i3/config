@@ -214,7 +214,7 @@ client.unfocused        #3e404c #2b2d39 #cbd2df #292d2e   #383c44
 
 # sets wallpaper
 # exec --no-startup-id nitrogen --restore
-exec --no-startup-id hsetroot -solid "#282c34"
+exec --no-startup-id hsetroot -solid "#181721"
 
 # compton
 exec_always --no-startup-id compton --config ~/.config/compton/compton.conf
