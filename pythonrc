@@ -1,7 +1,7 @@
 from types import BuiltinFunctionType, FunctionType, MethodType, ModuleType
 from code import InteractiveConsole
 from platform import python_version
-from math import sqrt, sin, cos, tan, factorial, gcd
+from math import sqrt, sin, cos, tan, factorial, gcd, log, e, pi
 from random import randint
 import subprocess
 import rlcompleter
@@ -10,6 +10,9 @@ import sys
 
 # TODO:
 #   - Add support for command history
+
+def factors(n):
+    return [(i, n // i) for i in range(1, n+1) if n // i == n / i]
 
 def split_by_sep(s, sep):
     index = s.find(sep)
@@ -45,8 +48,6 @@ def pretty_display(console, value, _indent=""):
         return color_format(PURPLE, "None")
     elif isinstance(value, bool):
         return color_format(PURPLE, value)
-    # elif type(value).__repr__ == object.__repr__:
-    #     return repr(value)
     elif isinstance(value, int):
         return color_format(GREEN, value)
     elif isinstance(value, float):
@@ -110,6 +111,10 @@ def pretty_display(console, value, _indent=""):
         return color_format(PURPLE, "method ") + color_format(GREEN, value.__name__)
     elif isinstance(value, ModuleType):
         return color_format(PURPLE, "module ") + color_format(GREEN, value.__name__)
+    elif type(value).__repr__ != object.__repr__:
+        return repr(value)
+    elif type(value).__str__ != object.__str__:
+        return str(value)
     elif hasattr(value, "__name__"):
         return (color_format(PURPLE, "var ") +
                 color_format(GREEN, value.__name__) +
@@ -375,7 +380,11 @@ console.locals["sqrt"] = sqrt
 console.locals["sin"] = sin
 console.locals["cos"] = cos
 console.locals["tan"] = tan
+console.locals["log"] = log
 console.locals["fact"] = factorial
 console.locals["gcd"] = gcd
 console.locals["randint"] = randint
+console.locals["factors"] = factors
+console.locals["e"] = e
+console.locals["pi"] = pi
 console.interact()

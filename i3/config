@@ -42,8 +42,8 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return       exec alacritty
-bindsym $mod+Shift+Return exec rxvt-unicode
+bindsym $mod+Return       exec kitty
+bindsym $mod+Shift+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -191,7 +191,7 @@ bindsym $mod+Shift+o exec --no-startup-id "i3lock-fancy -g -f Ubuntu-Mono -- scr
 bindsym $mod+i --release exec --no-startup-id "sleep 1 && xset dpms force off"
 
 # Run custom script to switch from internation keyboard to default
-# Useful for spanish class
+# Useful for Spanish class
 bindsym $mod+Shift+a exec ~/Scripts/keybtoggle
 
 bindsym $mod+c move position center
@@ -213,7 +213,8 @@ client.focused_inactive #585a66 #484a56 #fafcfe #484e50   #383c44
 client.unfocused        #3e404c #2b2d39 #cbd2df #292d2e   #383c44
 
 # sets wallpaper
-exec --no-startup-id nitrogen --restore
+# exec --no-startup-id nitrogen --restore
+exec --no-startup-id hsetroot -solid "#282c34"
 
 # compton
 exec_always --no-startup-id compton --config ~/.config/compton/compton.conf
@@ -224,12 +225,15 @@ exec_always --no-startup-id xset r rate 340 20
 # swap control with caps
 exec --no-startup-id setxkbmap -option caps:swapescape
 
+# IME
+exec --no-startup-id fcitx -d
+
 # bar
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 # exec --no-startup-id tint2
 
 # screensaver
-exec --no-startup-id xset dpms 90
+# exec --no-startup-id xset dpms 90
 
 # mouse sensitivity
 exec --no-startup-id xset m 3 10
@@ -237,10 +241,13 @@ exec --no-startup-id xset m 3 10
 # window specific settings
 for_window [class="Gvim"] $floating
 
-# Some cool title stuff (requires nerd icon support in title font)
+# Some cool title ornaments (requires nerd icon support in title font)
 for_window [class=".*"] title_format " <span color='#71bfff'></span>  %title"
+for_window [class="^Aseprite"] title_format " <span color='#71bfff'></span>  Aseprite"
 for_window [class="^Alacritty$"] title_format " <span color='#71bfff'></span>  %title"
+for_window [class="^kitty$"] title_format " <span color='#71bfff'></span>  %title"
 for_window [class="^URxvt$"] title_format " <span color='#71bfff'></span>  %title"
+for_window [class="^Chromium$"] title_format " <span color='#71bfff'></span>  Chromium"
 for_window [class="^Chromium-browser$"] title_format " <span color='#71bfff'></span>  Chromium"
 for_window [class="^Firefox$"] title_format " <span color='#71bfff'></span>  Firefox"
 for_window [class="^Code$"] title_format " <span color='#71bfff'></span>  Visual Studio Code"
@@ -254,9 +261,9 @@ bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% # increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% # decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% # increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% # decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
 
 # Screenshot
 bindsym Print --release exec --no-startup-id scrot -e 'mv $f ~/Pictures'

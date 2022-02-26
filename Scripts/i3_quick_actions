@@ -4,10 +4,15 @@ if [[ -z "$@" ]]; then
 	options=(
 		lenny
 		bbye
+		void
+		pyig
 		reverse
+		small
 		"float term"
 		google
 		youtube
+		lichess
+		weeb
 	)
 	formatted=$(printf "%s\n" "${options[@]}")
 	echo "$formatted"
@@ -21,12 +26,24 @@ else
 			coproc ( echo -n ":b:bye, my guy" | xclip -selection c )
 			exit
 			;;
+		"void")
+			coproc ( ~/Scripts/void.py | xclip -selection c )
+			exit
+			;;
+		"pyig")
+			coproc ( xclip -o | ~/Scripts/pyig_latin.py | xclip -selection c )
+			exit
+			;;
 		"reverse")
 			coproc ( xclip -o | rev | xclip -selection c )
 			exit
 			;;
+		"small")
+			coproc ( xclip -o | ~/Scripts/small_text.py | xclip -selection c )
+			exit
+			;;
 		"float term")
-			coproc ( coproc ( alacritty ); sleep 0.15; i3-msg "floating toggle; [floating] border pixel 10; [tiling] border normal 3" )
+			coproc ( coproc ( alacritty ); sleep 0.25; i3-msg "floating toggle; [floating] border pixel 10; [tiling] border normal 3" )
 			exit
 			;;
 		"google")
@@ -35,6 +52,14 @@ else
 			;;
 		"youtube")
 			coproc ( coproc ( firefox -new-tab www.youtube.com ) )
+			exit
+			;;
+		"lichess")
+			coproc ( coproc ( chromium --app=https://www.lichess.org/ ) )
+			exit
+			;;
+		"weeb")
+			coproc ( xclip -o | ~/Scripts/to_jp.py | xclip -selection c )
 			exit
 			;;
 		*)

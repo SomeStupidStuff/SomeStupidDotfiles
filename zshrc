@@ -120,11 +120,11 @@ function fzf-config-cd() {
 }
 
 function fzf-vim-edit() {
-	a=$(find ~/.vim -type f ! -path "*/plugged/*" ! -path "*/view/*" ! -path "*/spell/*" | fzf)
+	a=$(find ~/.config/nvim/plugins/ -maxdepth 1 -type d | fzf)
 	if [[ -n "$a" ]] then
-		cd ~/.vim
+		cd $a
 		clear
-		echo $a | xargs -o vim
+		tree
 	fi
 	zle accept-line
 }
@@ -133,25 +133,39 @@ zle -N "fzf-cd"
 zle -N "fzf-config-cd"
 zle -N "fzf-vim-edit"
 
+function jd() {
+	dir=$(jdir $1)
+	if [[ $? -eq 0 ]] then
+		cd $dir
+		echo -e "\e[1;93m$dir\e[0m"
+		ls --group-directories-first
+	else
+		return $?
+	fi
+}
+
 # Aliases
 alias c='clear'
 alias s='apt-cache search'
-alias p='python3.8 -B -q'
+alias ls='ls --color=auto --group-directories-first'
+alias p='python3 -B -q'
 alias con='. con'
 alias g='quick_grep'
 
 # Settings
-export FZF_DEFAULT_OPTS="-m --ansi --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -L 1 -C {}) 2> /dev/null | head -200'"
+export FZF_DEFAULT_OPTS="-m --height 20% --min-height 3 --ansi --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -L 1 -C {}) 2> /dev/null | head -200'"
 export PYTHONSTARTUP="$HOME/.pythonrc"
 export LUA_INIT="@$HOME/.luarc"
 
 export GREP_COLORS="sl=38;2;92;99;112:mt=01;93:fn=34:ln=32:se=36"
-
 export VISUAL='/usr/bin/vim'
 export EDITOR=$VISUAL
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PATH=$PATH:$HOME/Scripts/
+
+# Vim takes a long time to start up because of xsmp, this stops that
+export SESSION_MANAGER=
 
 PS1='%(?.%F{blue}.%F{red})->%f %F{magenta}'
 preexec () {
@@ -167,4 +181,6 @@ bindkey -e "^[e" "fzf-config-cd"
 bindkey -e "^[v" "fzf-vim-edit"
 
 # Plugin stuff
+autoload -U compinit
+compinit
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

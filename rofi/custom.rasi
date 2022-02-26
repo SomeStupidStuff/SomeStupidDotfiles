@@ -1,6 +1,6 @@
 configuration {
-	show-icons: false;
-	font: "Ubuntu Mono 13";
+	show-icons: true;
+	font: "JetBrainsMono Nerd Font 13";
 	display-window: " ";
 	display-drun: " ";
 	display-run: " ";
@@ -8,9 +8,10 @@ configuration {
 
 * {
 	fg: #afafaf;
+	blue: #61afef;
+	background-color: #181721;
 	fg-alt: #eaeaef;
-	background-color: #1d2021;
-	bg-alt: #2d3031;
+	bg-alt: #14111b;
 	text-color: @fg;
 	paddding: 0px;
 	margin:   0px;
@@ -18,16 +19,17 @@ configuration {
 }
 
 window {
-	height: 590px;
-	width:  450px;
+	height: 400px;
+	width:  600px;
 	location: center;
 	anchor: center;
 	border: 6px;
-	border-color: #3d4041;
+	border-color: #282c34;
 }
 
 element {
-	padding: 10 10 10 8;
+	// padding: 10 10 10 8;
+	padding: 5 0 5 10;
 	text-color: @fg;
 }
 
@@ -37,12 +39,12 @@ element selected {
 }
 
 mainbox {
-	children: [listview, inputbar];
+	children: [inputbar, listview];
 }
 
 listview {
 	columns: 1;
-	padding: 0 0 0 0;
+	padding: 10 10 10 10;
 }
 
 inputbar {
@@ -51,11 +53,11 @@ inputbar {
 }
 
 prompt {
-	text-color: @fg;
+	text-color: @blue;
 	padding: 10 0 10 10;
 }
 
 entry {
-	text-color: @fg;
+	text-color: #ffffff;
 	padding: 10 0 10 10;
 }

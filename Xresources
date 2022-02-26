@@ -3,9 +3,13 @@ URxvt*font: xft:Hack:style=Regular:size=13
 URxvt*boldFont: xft:Hack:style=Bold:size=13
 URxvt*italicFont: xft:Hack:style=Italic:size=13
 URxvt*depth: 32
-Xft*dpi: 96
-Xft*antialias: true
-Xft*hinting: 0
+Xft.dpi: 101
+Xft.antialias: true
+Xft.autohint: 0
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.rgba: rgb
+Xft.lcdfilter: lcddefault
 ! Xft.hintstyle: hintfull
 
 !! Terminal config

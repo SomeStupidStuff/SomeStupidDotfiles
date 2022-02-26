@@ -6,7 +6,7 @@
 (blink-cursor-mode 0)
 (setq inhibit-startup-message t)
 (setq make-backup-files nil)
-(set-face-attribute 'default nil :font "Inconsolata" :height 155)
+(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 120)
 
 ;; Package manager
 (require 'package)
@@ -53,8 +53,8 @@
   :init (load-theme 'doom-dracula t))
 
 ;; Rainbow Paren
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
+;; (use-package rainbow-delimiters
+;;   :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; Color Identifiers
 (use-package color-identifiers-mode
@@ -63,7 +63,7 @@
 
 ;; Ivy
 (use-package ivy
-  :bind (("M-SPC" . swiper-all))
+  ;; :bind (("M-SPC" . swiper-all))
   :config
   (ivy-mode 1))
 
@@ -104,6 +104,7 @@
   (define-key evil-normal-state-map (kbd "SPC") 'projectile-command-map)
   (define-key evil-insert-state-map (kbd "C-u") 'kill-line-contents)
   (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-page-up)
+  (define-key evil-normal-state-map (kbd "M-.") 'xref-find-definitions)
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line))
 
@@ -128,6 +129,9 @@
 (setq python-shell-interpreter "python3")
 
 (setq c-basic-offset 4)
+(c-set-offset 'brace-list-intro '+)
+(c-set-offset 'arglist-intro '+)
+(c-set-offset 'arglist-close 0)
 
 (add-hook 'c-mode-hook (lambda ()
 						 (setq indent-tabs-mode t)))
@@ -151,8 +155,18 @@
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
+(add-hook 'after-change-major-mode-hook
+		  (lambda ()
+			(modify-syntax-entry ?_ "w")))
+
 (bind-key "C-x k" 'kill-current-buffer)
 (bind-key "C-x C-k" 'kill-buffer)
 (bind-key "C-c e" 'edit-init-file)
 
 (add-hook 'prog-mode-hook 'electric-pair-mode)
+
+(setq redisplay-dont-pause t
+  scroll-margin 1
+  scroll-step 1
+  scroll-conservatively 10000
+  scroll-preserve-screen-position 1)

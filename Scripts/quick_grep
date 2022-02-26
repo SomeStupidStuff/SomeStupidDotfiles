@@ -1,7 +1,7 @@
 #!/bin/bash
 
 inp="$*"
-grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox} -rn "$inp" .
+grep -i --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox} -rn "$inp" .
 
 if [ $? -gt 0 ]; then
 	echo -e "\033[31mNo matches\033[0m"

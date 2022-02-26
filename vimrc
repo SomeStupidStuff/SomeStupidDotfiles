@@ -102,7 +102,7 @@ syntax on
 set background=dark
 if $TERM ==# "rxvt"
 	set t_Co=256
-	color one-dark
+	colorscheme one-dark
 else
 	set termguicolors
 	colorscheme one-dark
@@ -118,7 +118,10 @@ let g:c_syntax_for_h = 1
 
 let g:loaded_netrwPlugin = 1
 
-packadd! stackus
+packadd duozen.vim
+
+if !has("gui_running")
+packadd! stackus.vim
 let g:stackus_mode_map = {
 			\ "n" : "NORMAL",
 			\ "v" : "VISUAL",
@@ -177,8 +180,7 @@ let g:stackus_components = [
 					\ stackus#Color#new("#d8dee9", g:colors.black, "NONE")),
 			\ ],
 			\ []]
-
-" let g:stackus_components = [[], []]
+endif
 
 " A very cool math function that works regardless of filetype
 function! MathEvalLines(...)
@@ -309,7 +311,6 @@ iabbrev <expr> { BracketsSnippet("{", "}")
 " Capitalizes the previous word
 function! CapitalMacro()
 	let c = col(".")
-	echom c
 	if getline(".")[c - 1] !~ "[A-Za-z_0-9]"
 		norm h
 	endif
