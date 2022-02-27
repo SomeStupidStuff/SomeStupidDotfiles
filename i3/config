@@ -98,7 +98,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-set $floating floating toggle; [floating] border pixel 10; [tiling] border normal 3
+set $floating floating toggle; [floating] border pixel 10; [tiling] border normal 3;
 bindsym $mod+Shift+space $floating
 
 # change focus between tiling / floating windows
@@ -208,9 +208,12 @@ focus_on_window_activation focus
 
 # change window decoration colors
 # class                 border  backgr. text    indicator child_border
-client.focused          #484a56 #3e404c #fafcfe #2e9ef4   #383c44
-client.focused_inactive #585a66 #484a56 #fafcfe #484e50   #383c44
-client.unfocused        #3e404c #2b2d39 #cbd2df #292d2e   #383c44
+# client.focused          #484a56 #3e404c #fafcfe #2e9ef4   #383c44
+# client.focused_inactive #585a66 #484a56 #fafcfe #484e50   #383c44
+# client.unfocused        #3e404c #2b2d39 #cbd2df #292d2e   #383c44
+client.focused          #181721 #1a1923 #ffffff #2e9ef4   #383c44
+client.focused_inactive #282731 #282731 #efefef #484e50   #383c44
+client.unfocused        #14111b #14131d #cdd7df #292d2e   #383c44
 
 # sets wallpaper
 # exec --no-startup-id nitrogen --restore
@@ -266,6 +269,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% # 
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
 
 # Screenshot
-bindsym Print --release exec --no-startup-id scrot -e 'mv $f ~/Pictures'
-bindsym $mod+Print --release exec --no-startup-id scrot -s -e 'mv $f ~/Pictures'
+bindsym Print exec --no-startup-id flameshot gui
+bindsym $mod+Print exec --no-startup-id flameshot gui -p ~/Pictures
 bindsym $mod+Shift+Print --release exec --no-startup-id scrot -s -e 'xclip -selection clipboard -t image/png -i $f && rm $f'
+
