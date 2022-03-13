@@ -196,6 +196,10 @@ bindsym $mod+Shift+a exec ~/Scripts/keybtoggle
 
 bindsym $mod+c move position center
 
+# Hide windows with youtube focused. Useful for when people walk in the room
+# and you're a massive weeb
+bindsym $mod+m exec ~/Scripts/scratch_win.py
+
 # Run yabar script
 # exec_always --no-startup-id ~/.config/yabar/launch.sh
 
