@@ -7,6 +7,7 @@
 (setq inhibit-startup-message t)
 (setq make-backup-files nil)
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 120)
+(set-face-attribute 'variable-pitch nil :font "Arial" :height 120)
 
 ;; Package manager
 (require 'package)
@@ -138,9 +139,19 @@
 
 (use-package clojure-mode)
 
+(setq-default markdown-header-scaling t)
 (use-package markdown-mode)
 (add-hook 'markdown-mode-hook (lambda ()
 								(visual-line-mode)))
+
+(use-package mixed-pitch
+  :hook (markdown-mode . mixed-pitch-mode))
+
+(use-package visual-fill-column
+  :hook (markdown-mode . visual-fill-column-mode))
+
+(add-hook 'markdown-mode-hook (lambda ()
+								(setq visual-fill-column-center-text t)))
 
 (use-package lua-mode)
 
