@@ -3,11 +3,13 @@
 if [[ -z "$@" ]]; then
 	options=(
 		lenny
+		boat
 		bbye
 		void
 		pyig
 		reverse
 		small
+		i18n
 		"float term"
 		google
 		youtube
@@ -20,6 +22,10 @@ else
 	case "$@" in
 		"lenny")
 			coproc ( echo -n "( ͡° ͜ʖ ͡°)" | xclip -selection c )
+			exit
+			;;
+		"boat")
+			coproc ( echo -n '( . \_\_\_\_\_.)' | xclip -selection c )
 			exit
 			;;
 		"bbye")
@@ -40,6 +46,10 @@ else
 			;;
 		"small")
 			coproc ( xclip -o | ~/Scripts/small_text.py | xclip -selection c )
+			exit
+			;;
+		"i18n")
+			coproc ( xclip -o | ~/Scripts/i18n.py | xclip -selection c )
 			exit
 			;;
 		"float term")

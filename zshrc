@@ -163,15 +163,17 @@ export EDITOR=$VISUAL
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PATH=$PATH:$HOME/Scripts/
+export PATH=$PATH:$HOME/.cabal/bin/
 
 # Vim takes a long time to start up because of xsmp, this stops that
 export SESSION_MANAGER=
 
-PS1='%(?.%F{blue}.%F{red})->%f %F{magenta}'
-preexec () {
-	echo -ne '\e[0m'
-	echo -ne '\e[2 q'
-}
+# PS1='%(?.%F{blue}.%F{red})->%f %F{magenta}'
+# preexec () {
+# 	echo -ne '\e[0m'
+# 	echo -ne '\e[2 q'
+# }
+PS1='%(?.%F{blue}.%F{red})->%f '
 
 echo '( . \e[4m     \e[24m.)'
 echo

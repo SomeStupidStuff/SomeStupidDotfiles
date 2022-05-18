@@ -198,7 +198,7 @@ bindsym $mod+c move position center
 
 # Hide windows with youtube focused. Useful for when people walk in the room
 # and you're a massive weeb
-bindsym $mod+m exec ~/Scripts/scratch_win.py
+bindsym $mod+g exec ~/Scripts/scratch_win.py
 
 # Run yabar script
 # exec_always --no-startup-id ~/.config/yabar/launch.sh
@@ -218,6 +218,13 @@ focus_on_window_activation focus
 client.focused          #181721 #1a1923 #ffffff #2e9ef4   #383c44
 client.focused_inactive #282731 #282731 #efefef #484e50   #383c44
 client.unfocused        #14111b #14131d #cdd7df #292d2e   #383c44
+
+# monitor layout
+exec ~/.screenlayout/default.sh
+
+# workspaces
+workspace 1 output HDMI-1 eDP-1
+workspace 2 output eDP-1
 
 # sets wallpaper
 # exec --no-startup-id nitrogen --restore
@@ -256,7 +263,8 @@ for_window [class="^kitty$"] title_format " <span color='#71bfff'></span>  %t
 for_window [class="^URxvt$"] title_format " <span color='#71bfff'></span>  %title"
 for_window [class="^Chromium$"] title_format " <span color='#71bfff'></span>  Chromium"
 for_window [class="^Chromium-browser$"] title_format " <span color='#71bfff'></span>  Chromium"
-for_window [class="^Firefox$"] title_format " <span color='#71bfff'></span>  Firefox"
+for_window [class="^Firefox$"] title_format " <span color='#71bfff'></span>  %title"
+for_window [class="^firefox$"] title_format " <span color='#71bfff'></span>  %title"
 for_window [class="^Code$"] title_format " <span color='#71bfff'></span>  Visual Studio Code"
 for_window [class="^Emacs$"] title_format " <span color='#71bfff'></span>  Emacs"
 for_window [class="^Gvim$"] title_format " <span color='#71bfff'></span>  Gvim"

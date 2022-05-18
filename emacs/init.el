@@ -138,17 +138,30 @@
 
 (use-package clojure-mode)
 
+(use-package markdown-mode)
+(add-hook 'markdown-mode-hook (lambda ()
+								(visual-line-mode)))
+
+(use-package lua-mode)
+
 (use-package rust-mode)
 (add-hook 'rust-mode-hook (lambda ()
-							(setq indent-tabs-mode nil)))
+							(setq indent-tabs-mode nil)
+							(color-identifiers-mode nil)))
 
-(use-package org-bullets)
+(use-package hindent)
+(add-hook 'haskell-mode-hook #'hindent-mode)
+
+(use-package org-bullets
+  :hook (org-mode-hook . org-bullets-mode))
+
+(setq org-todo-keywords
+	  '((sequence "TODO" "STARTED" "|" "DONE" "DROPPED")))
+
 (add-hook 'org-mode-hook (lambda ()
-						   (setq indent-tabs-mode nil)))
-(add-hook 'org-mode-hook 'visual-line-mode)
-(add-hook 'org-mode-hook 'org-bullets-mode)
-
-(add-hook 'rust-mode-hook (lambda () (color-identifiers-mode nil)))
+						   (setq indent-tabs-mode nil)
+						   (visual-line-mode)
+						   (org-bullets-mode)))
 
 ;; Misc stuff
 (defun edit-init-file ()
@@ -170,3 +183,6 @@
   scroll-step 1
   scroll-conservatively 10000
   scroll-preserve-screen-position 1)
+
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "firefox")
