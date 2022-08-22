@@ -240,7 +240,7 @@ exec_always --no-startup-id xset r rate 340 20
 exec --no-startup-id setxkbmap -option caps:swapescape
 
 # IME
-exec --no-startup-id fcitx -d
+exec --no-startup-id fcitx5 -d
 
 # bar
 exec_always --no-startup-id ~/.config/polybar/launch.sh
@@ -254,6 +254,9 @@ exec --no-startup-id xset m 3 10
 
 # window specific settings
 for_window [class="Gvim"] $floating
+for_window [title="Scratch Latex"] $floating
+for_window [title="Scratch Latex"] resize set 800 450
+for_window [title="Scratch Latex"] move position center
 
 # Some cool title ornaments (requires nerd icon support in title font)
 for_window [class=".*"] title_format " <span color='#71bfff'></span>  %title"

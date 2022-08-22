@@ -1,0 +1,5 @@
+#!/bin/bash
+
+kitty --title "Scratch Latex" nvim /tmp/scratch.tex
+printf "\\[ %s \\]" "$(cat /tmp/scratch.tex)" | xclip -selection c
+rm /tmp/scratch.tex

@@ -2,9 +2,11 @@
 
 if [[ -z "$@" ]]; then
 	options=(
+        latex
 		lenny
 		boat
 		bbye
+		shrug
 		void
 		pyig
 		reverse
@@ -20,6 +22,10 @@ if [[ -z "$@" ]]; then
 	echo "$formatted"
 else
 	case "$@" in
+        "latex")
+            coproc ( ~/Scripts/scratch_latex )
+            exit
+            ;;
 		"lenny")
 			coproc ( echo -n "( ͡° ͜ʖ ͡°)" | xclip -selection c )
 			exit
@@ -30,6 +36,10 @@ else
 			;;
 		"bbye")
 			coproc ( echo -n ":b:bye, my guy" | xclip -selection c )
+			exit
+			;;
+		"shrug")
+			coproc ( echo -n "¯\_(ツ)_/¯" | xclip -selection c)
 			exit
 			;;
 		"void")
